@@ -4,7 +4,7 @@ public class RecycleItem
 {
 	private String itemName;
 	private String itemType;
-	private double itemWeight;
+	private double itemWeight, itemWeightUnit;
 	private double unitPrice;
 	
 	public String getItemName() {
@@ -24,6 +24,12 @@ public class RecycleItem
 	}
 	public void setItemWeight(double itemWeight) {
 		this.itemWeight = itemWeight;
+	}
+	public double getWeightUnit() {
+		return itemWeightUnit;
+	}
+	public void setWeightUnit(double itemWeightUnit) {
+		this.itemWeightUnit = itemWeightUnit;
 	}
 	public double getUnitPrice() {
 		return unitPrice;
