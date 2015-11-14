@@ -4,8 +4,8 @@ import java.util.List;
 
 public class RMOS 
 {
-	private String userName = "demo";
-	private String passWord = "demo";	
+	private String userName = "admin";
+	private String passWord = "admin123";	
 		
 	private String rmosId;
 	private String radiusIncharge;

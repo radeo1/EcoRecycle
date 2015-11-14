@@ -26,4 +26,36 @@ public class RCMMonitor {
 	{
 		
 	}
+	public void getCurrentWeight() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void getCurrentCash() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void getMonthlyTransactions() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void getLastEmptied() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void getCashDebitedPerMonth() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void getWeightPerMonth() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void getCurrItemsRecycled() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void getItemsRecycledPerMonth() {
+		// TODO Auto-generated method stub
+		
+	}
 }

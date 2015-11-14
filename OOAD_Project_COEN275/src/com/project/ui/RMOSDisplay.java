@@ -1,12 +1,32 @@
 package com.project.ui;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+
+import com.project.BusinessLogic.ActionLogic;
+import com.project.EcoRe.RCMMonitor;
+import com.project.EcoRe.RCMRecycle;
 import com.project.EcoRe.RMOS;
+import com.project.EcoRe.RMOSManager;
+import com.project.dbLogic.DBOperations;
 
 public class RMOSDisplay extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1;
@@ -14,6 +34,9 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 	//private static final int FRAME_WIDTH = 1200;
 	//private static final int FRAME_HEIGHT = 900;
 	private RMOS rmos = new RMOS();
+	private RMOSManager rmosManager = new RMOSManager();
+	private RCMMonitor rcmMonitor = new RCMMonitor();
+	private ActionLogic actinLogic = new  ActionLogic();
 	
 	private Container contentPane;
 	private JPanel panel1,panel2,panel3;
@@ -192,7 +215,7 @@ public class RMOSDisplay extends JFrame implements ActionListener{
     	/****** RCM Monitor Panel ******/
     	controlPanel3 = new JPanel();
 	    controlPanel3.setBackground(Color.ORANGE);
-	    controlPanel3.setPreferredSize( new Dimension(600,345));
+	    controlPanel3.setPreferredSize( new Dimension(600,355));
 	    controlPanel3.setBorder(new TitledBorder(new EtchedBorder(), "RCM Monitor"));
     	
         JLabel labelRcmList = new JLabel("RCM List");
@@ -327,7 +350,7 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 		controlPanel3.add(btnCurrItemsRecycled);	
 
 	// ItemsRecycledByMonth Button
-		btnItemsRecycledByMonth = new JButton("Num of Items Recycled per Mounth");
+		btnItemsRecycledByMonth = new JButton("Num of Items Recycled per Month");
 		btnItemsRecycledByMonth.setForeground(new Color(50, 0, 200));
 		btnItemsRecycledByMonth.setFont(new Font("Arial", Font.BOLD, 14));
 		btnItemsRecycledByMonth.setBounds(300, 240, 280, 30);
@@ -342,7 +365,7 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 	    /****** RMOS Usage Manager Panel******/
     	controlPanel4 = new JPanel();
 	    controlPanel4.setBackground(Color.ORANGE);
-	    controlPanel4.setPreferredSize( new Dimension(600,345));
+	    controlPanel4.setPreferredSize( new Dimension(600,355));
 	    controlPanel4.setBorder(new TitledBorder(new EtchedBorder(), "RMOS Usage Manager"));
     	panel2.add(controlPanel4);
  
@@ -357,13 +380,13 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 	    /*	Output Panel */
 	    panel3 =  new JPanel();
 	    panel3.setBackground(new Color(204,204,0));
-	    panel3.setPreferredSize( new Dimension(1200,250));
+	    panel3.setPreferredSize( new Dimension(1200,200));
 	    panel3.setBorder(new TitledBorder(new EtchedBorder(), "Output Screen"));
 	 	contentPane.add(panel3, BorderLayout.SOUTH);
 		panel3.setLayout(null);
 		
 		textDisplayOutput = new JTextArea();
-	 	textDisplayOutput.setBounds(6, 26, 1188, 244);
+	 	textDisplayOutput.setBounds(6, 26, 1188, 234);
 	 	textDisplayOutput.setEditable(false);
 	 	textDisplayOutput.setBackground(new Color(204,204,0));
 		textDisplayOutput.setForeground(new Color(0, 51, 255));
@@ -379,7 +402,7 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 		setLocation(size.width/2 - getWidth()/2,size.height/2 - getHeight()/2);
 		setSize(size.width, size.height);
 	 	setVisible(true);
-		//System.out.println("Width "+size.width +" Height "+ size.height);
+		System.out.println("Width "+size.width +" Height "+ size.height);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	   }
 	
@@ -412,11 +435,12 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 	@Override
 	
 	public void actionPerformed(ActionEvent e) 
-	{
+	{	
+		
 		// store command from event e
 		Object source = e.getSource();
 
-		// *********** Manager Log in **************
+		// *********** Admin Log in **************
 			if (source == buttonLogin) 
 			{
 				String userName = textUsername.getText();
@@ -439,8 +463,197 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 				}
 
 			}
-	   }
-		
+			
+		/*********    Start of  RMOS Manager Activities     **************/
+			
+			// *********** Admin add RCM **************
+		else if (source == addRCM )  
+		{
+			int rcmNum = Integer.parseInt(textRcmNo.getText());
+			String rcmId = textRcmId.getText();
+			String rcmLoc = textRcmLocation.getText();
+			System.out.println("rcmNum "+rcmNum+ " rcmId " +rcmId+ " rcmLoc " +rcmLoc);
+			// create a new RCM and store into RMOS list
+			RCMRecycle rcm = new RCMRecycle(rcmNum, rcmId, rcmLoc);
+			rmosManager.addRCM(rcm);
+			try 
+			{
+				// insert this RCM into database
+				DBOperations.addRCM(rcm);
+			}
+			catch (SQLException e1) 
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			// set display on RMOS panel
+			textDisplayOutput.setText("RCM Successfully Added");
+				
+		}
+		// ********* Remove a RCM from RMOS group *********
+		else if (source == removeRCM) 
+		{
+			int rcmNum = Integer.parseInt(textRcmNo.getText());
+			//int RcmID = Integer.parseInt(textRcmId.getText());
+			rmosManager.removeRCM(1);
+			try 
+			{
+				// remove the RCM from database
+				DBOperations.removeRCM(rcmNum);
+				
+			} 
+			catch (SQLException e1) 
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			// set display on RMOS panel
+			textDisplayOutput.setText("RCM Successfully Removed");				
+	   	}
+	   	// ********** Activate a RCM ****************
+		else if (source == activateRCM) 
+		{
+			// get RCM number
+			int rcmNum = Integer.parseInt(textRcmNo.getText());
+			int temp = rmosManager.activeRCM(rcmNum);	
+			
+			// activate the RCM
+			try 
+			{
+				DBOperations.activateRCM(temp);
+				
+			} 
+			catch (SQLException e1) 
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			textDisplayOutput.setText("RCM Successfully Activated");
+		}
+			// *********** Refill Money ******************
+		else if (source == refillRCM) 
+		{
+			rmosManager.setFunds();
+			try
+			{
+				 DBOperations.setFunds();
+				 textDisplayOutput.setText("Funds credited in RCM Successfully");
+						
+			} 
+			catch (SQLException e1) 
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+			// *********** Clear Recycale item from RCM ******************
+		else if (source == clearRCM) 
+		{
+			rmosManager.clearRcmWeight();
+			try
+			{
+				 DBOperations.clearRCM();
+				 textDisplayOutput.setText("RCM Emptied Successfully");		
+			} 
+			catch (SQLException e1) 
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+			// *********** Showlist of RCM under an RMOS******************
+		else if (source == showRCM) 
+		{
+			rmosManager.getRCMList();
+			try
+			{
+				 DBOperations.getRCMList();
+				 textDisplayOutput.setText("List of RCMs are");		
+			} 
+			catch (SQLException e1) 
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		/* *********  End of RMOS Manager Activities ******/
+			
+
+		/*********      Start of RCM Monitor Activities  	**************/	
+			
+		else if (source == currentWeight) 
+		{
+			// *********** Clear Recycled item from RCM ******************
+			rcmMonitor.getCurrentWeight();
+			textDisplayOutput.setText("Current Weight in RCM is");		
+			
+		}
+			
+			// *********** Display current cash in RCM ******************
+		else if (source == currentCash) 
+		{
+			rcmMonitor.getCurrentCash();
+			textDisplayOutput.setText("Current amount for Cash in RCM is");		
+		}
+			
+			// *********** Display current coupon in RCM ******************
+		else if (source == currentCoupon) 
+		{
+			rcmMonitor.getCurrentCash();
+			textDisplayOutput.setText("Current amount for coupon in RCM is");		
+		}			
+			// *********** Display No of times RCM was operated in a month ******************
+		else if (source == btnMonthlyTransactions) 
+		{
+			rcmMonitor.getMonthlyTransactions();
+			textDisplayOutput.setText("No of times RCM was operated in a month is ");		
+			
+		}
+			
+			// *********** Display the time when RCM was last Emptied ******************
+		else if (source == btnLastEmptied) 
+		{
+			rcmMonitor.getLastEmptied();
+			textDisplayOutput.setText("Time when RCM was last emptied ");	
+			
+		}
+			
+			// *********** Display the amount of money issued by RCM in a month ******************
+		else if (source == btnCashDebitedPerMonth) 
+		{
+			rcmMonitor.getCashDebitedPerMonth();
+			textDisplayOutput.setText("The amount of money issued by RCM in a month is ");	
+			
+		}
+			
+			// *********** Display the total volume of item recycled by RCM in a month ******************
+		else if (source == btnWeightPerMonth) 
+		{
+			rcmMonitor.getWeightPerMonth();
+			textDisplayOutput.setText("The total volume of item recycled RCM in a month is ");	
+			
+		}
+
+			// *********** Display Number of item recycled by RCM at present ******************
+		else if (source == btnCurrItemsRecycled) 
+		{
+			rcmMonitor.getCurrItemsRecycled();
+			textDisplayOutput.setText("Number of item recycled by RCM at present is ");	
+			
+		}			
+
+			// *********** Display Number of item recycled by RCM in a month  ******************
+		else if (source ==  btnItemsRecycledByMonth) 
+		{
+			rcmMonitor.getItemsRecycledPerMonth();
+			textDisplayOutput.setText("Number of item recycled by RCM in a month is ");	
+			
+		}
+			
+	}//end of actionPerform
+						
 //*********************************************************************************************************
 					
 	public static void main(String[] args) 
@@ -450,4 +663,4 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 		  rmosDisplay.setVisible(true);      
 	}
 }
-	
+

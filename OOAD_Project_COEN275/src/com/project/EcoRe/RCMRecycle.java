@@ -6,10 +6,13 @@
 package com.project.EcoRe;
 
 import java.util.Date;
+import java.util.Observable;
 
-class RCMRecycle 
+
+public class RCMRecycle extends Observable
 {
 
+	private int    rcmNum;
 	private String rcmId;
 	private String rmosId;
 	private String location;
@@ -21,4 +24,16 @@ class RCMRecycle
 	private Date lastEmptied;
 	private RecycleItem item;
 	
+	public RCMRecycle(int rcmNum) 
+	{
+		this.rcmNum = rcmNum;
+	}
+
+	public RCMRecycle(int rcmNum, String rcmId, String location) 
+	{
+		this.rcmNum = rcmNum;
+		this.rcmId = rcmId;
+		this.location = location;
+	}
+
 }
