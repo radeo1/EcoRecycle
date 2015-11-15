@@ -41,12 +41,13 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 	private Container contentPane;
 	private JPanel panel1,panel2,panel3;
 
-	private JTextField textUsername,textRcmId,textRcmNo,textRcmLocation,textRcmStatus;
+	private JTextField textUsername,textRcmId,textRcmNo,textRcmLocation;
+	private JTextField textRcm,textRcmNumber,textRcmLoc,textRcmStatus;
 	private JPasswordField password;
 	private JButton buttonLogin,addRCM,removeRCM,activateRCM,refillRCM,clearRCM,showRCM,currentWeight,currentCash,currentCoupon,
 					btnLastEmptied,btnMonthlyTransactions,btnCashDebitedPerMonth,btnWeightPerMonth,btnCurrItemsRecycled,btnItemsRecycledByMonth;
 	private JLabel  rcmPlaceLabel;
-	private JComboBox rcmCombo;
+	private JComboBox rcmCombo,comboRcmList;
 	static JTextArea textDisplayOutput;
 	
 	public RMOSDisplay()
@@ -226,7 +227,7 @@ public class RMOSDisplay extends JFrame implements ActionListener{
  	    controlPanel3.add(labelRcmList);
  	    controlPanel3.setLayout(null);
  	    
- 	    JComboBox comboRcmList = createComboBox();
+ 	    comboRcmList = createComboBox();
  	    comboRcmList.setBounds(100, 24, 95, 22);
  	   	controlPanel3.add(comboRcmList);
  	   	controlPanel3.setLayout(null);
@@ -243,7 +244,7 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 	    labelRcmNumber.setBounds(362, 24, 90, 22);
 	    controlPanel3.add(labelRcmNumber);
 	    
-	    JTextField textRcmNumber = new JTextField();
+	    textRcmNumber = new JTextField();
 	    textRcmNumber.setBounds(460,24, 100, 22);
 		controlPanel3.add(textRcmNumber);
 		controlPanel3.setLayout(null);
@@ -255,7 +256,7 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 		labelRcmLoc.setBounds(12, 60, 90, 22);
 	    controlPanel3.add(labelRcmLoc);
 	    
-	    JTextField textRcmLoc = new JTextField();
+	    textRcmLoc = new JTextField();
 	    textRcmLoc.setBounds(100,58, 95, 26);
 		controlPanel3.add(textRcmLoc);
 		
@@ -267,7 +268,7 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 	    controlPanel3.add(labelRcm);
 	    controlPanel3.setLayout(null);
 	    
-	    JTextField textRcm = new JTextField();
+	    textRcm = new JTextField();
 	    textRcm.setBounds(270,58, 80, 26);
 		controlPanel3.add(textRcm);		
 	    
@@ -298,8 +299,7 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 		currentCash.setFont(new Font("Arial", Font.BOLD, 14));
 		currentCash.setBounds(200, 100, 145, 26);
 		currentCash.addActionListener(this);
-		controlPanel3.add(currentCash);
-		;		
+		controlPanel3.add(currentCash);		
 		
 	// CurrentCoupon Button
 		currentCoupon = new JButton("Current Coupon ");
@@ -518,6 +518,7 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 		{
 			// get RCM number
 			int rcmNum = Integer.parseInt(textRcmNo.getText());
+			System.out.println("rcmNum "+rcmNum);
 			int temp = rmosManager.activeRCM(rcmNum);	
 			
 			// activate the RCM
@@ -586,6 +587,13 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 			
 		else if (source == currentWeight) 
 		{
+			int rcmNum = Integer.parseInt(textRcmNumber.getText());
+			String rcmId = textRcm.getText();
+			String rcmLoc = textRcmLoc.getText();
+			String rcmStatus = textRcmStatus.getText();
+			System.out.println("rcmNum "+rcmNum+ " rcmId " +rcmId+ " rcmLoc " +rcmLoc);
+			System.out.println("rcmStatus "+rcmStatus );
+			
 			// *********** Clear Recycled item from RCM ******************
 			rcmMonitor.getCurrentWeight();
 			textDisplayOutput.setText("Current Weight in RCM is");		
