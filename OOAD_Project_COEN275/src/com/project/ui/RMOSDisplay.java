@@ -59,7 +59,7 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 		//contentPane.setBorder(new EmptyBorder(15, 15, 15, 15));
 		
 		/******	Login Panel ******/
-		panel1 = new JPanel();
+		panel1 = new JPanel(new GridLayout(1, 0));
 		panel1.setBackground (new Color(204,204,0));
 		panel1.setPreferredSize( new Dimension( 1200,60) );
 		panel1.setBorder(new TitledBorder(new EtchedBorder(), "Admin Login"));
@@ -98,7 +98,7 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 		/**>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 		
 		/******	Operations Panel ******/
-	    panel2 =  new JPanel();
+	    panel2 =  new JPanel(new GridLayout(1, 0));
 	    panel2.setBackground(new Color(153,255,153));
 	    panel2.setPreferredSize( new Dimension(1200,600));
 	    panel2.setLayout(new GridLayout(2,2));
@@ -378,9 +378,9 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 	    /**>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 	    
 	    /*	Output Panel */
-	    panel3 =  new JPanel();
+	    panel3 =  new JPanel(new GridLayout(1, 0));
 	    panel3.setBackground(new Color(204,204,0));
-	    panel3.setPreferredSize( new Dimension(1200,200));
+	    panel3.setPreferredSize( new Dimension(1200,100));
 	    panel3.setBorder(new TitledBorder(new EtchedBorder(), "Output Screen"));
 	 	contentPane.add(panel3, BorderLayout.SOUTH);
 		panel3.setLayout(null);
@@ -663,13 +663,6 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 			
 	}//end of actionPerform
 						
-//*********************************************************************************************************
-					
-	public static void main(String[] args) 
-	
-	{
-		  RMOSDisplay rmosDisplay = new RMOSDisplay();
-		  rmosDisplay.setVisible(true);      
-	}
+//*********************************************************************************************************				
 }
 
