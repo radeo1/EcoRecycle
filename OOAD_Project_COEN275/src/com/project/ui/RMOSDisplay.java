@@ -495,8 +495,9 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 		else if (source == removeRCM) 
 		{
 			int rcmNum = Integer.parseInt(textRcmNo.getText());
+			System.out.println("rcmNum "+rcmNum);
 			//int RcmID = Integer.parseInt(textRcmId.getText());
-			rmosManager.removeRCM(1);
+			rmosManager.removeRCM(rcmNum);
 			try 
 			{
 				// remove the RCM from database
