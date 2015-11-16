@@ -1,3 +1,7 @@
+/**
+ * @author Pragati Shrivastava
+ * @version 1.0
+ */
 package com.project.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -665,4 +669,3 @@ public class RMOSDisplay extends JFrame implements ActionListener{
 						
 //*********************************************************************************************************				
 }
-
