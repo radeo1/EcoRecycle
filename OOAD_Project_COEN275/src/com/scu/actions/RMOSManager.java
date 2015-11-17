@@ -29,8 +29,6 @@ public class RMOSManager
 		return res;
 	}
 	public void setFunds() {
-		// TODO Auto-generated method stub
-		
 	}
 	public void clearRcmWeight() {
 		// TODO Auto-generated method stub

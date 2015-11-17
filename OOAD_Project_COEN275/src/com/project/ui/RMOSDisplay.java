@@ -9,7 +9,6 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,21 +21,16 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import com.project.BusinessLogic.ActionLogic;
-import com.project.EcoRe.Constant;
 import com.project.EcoRe.RCMMonitor;
 import com.project.EcoRe.RCMRecycle;
 import com.project.EcoRe.RMOS;
-import com.project.dbLogic.DBOperations;
 import com.scu.actions.LoginAction;
 import com.scu.actions.RMOSManager;
+import com.scu.logic.BackendLogic;
 
 public class RMOSDisplay extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1;
 
-	// private static final int FRAME_WIDTH = 1200;
-	// private static final int FRAME_HEIGHT = 900;
-	private RMOS rmos = new RMOS();
 	private RMOSManager rmosManager = new RMOSManager();
 	private RCMMonitor rcmMonitor = new RCMMonitor();
 
@@ -54,185 +48,68 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 	private JComboBox rcmCombo, comboRcmList;
 	static JTextArea textDisplayOutput;
 	static JTextArea errorDisplayOutput;
+	BackendLogic logic = new BackendLogic();
 
 	public RMOSDisplay() {
-		super("RMOS");
 
+		super("RMOS");
 		contentPane = getContentPane();
 		contentPane.setBackground(Color.BLUE);
-		// contentPane.setBorder(new EmptyBorder(15, 15, 15, 15));
 
-		/****** Login Panel ******/
-		panel1 = new JPanel(new GridLayout(1, 0));
-		panel1.setBackground(new Color(204, 204, 0));
-		panel1.setPreferredSize(new Dimension(1200, 60));
-		panel1.setBorder(new TitledBorder(new EtchedBorder(), "Admin Login"));
-		contentPane.add(panel1, BorderLayout.NORTH);
+		loadLoginPanel();
+		loadOperationsPanel();
+		loadOutputPanel();
 
-		JLabel labelUsername = new JLabel("UserName");
-		labelUsername.setFont(new Font("Arial", Font.BOLD, 14));
-		labelUsername.setForeground(new Color(30, 0, 200));
-		labelUsername.setBounds(50, 25, 95, 22);
-		panel1.add(labelUsername);
-		panel1.setLayout(null);
+		Toolkit toolkit = getToolkit();
+		Dimension size = toolkit.getScreenSize();
+		setLocation(size.width / 2 - getWidth() / 2, size.height / 2
+				- getHeight() / 2);
+		setSize(size.width, size.height);
+		setVisible(true);
+		System.out.println("Width " + size.width + " Height " + size.height);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 
-		textUsername = new JTextField();
-		textUsername.setBounds(140, 20, 200, 28);
-		panel1.add(textUsername);
-		textUsername.setColumns(10);
+	private void loadOutputPanel() {
+		/* Output Panel */
+		panel3 = new JPanel(new GridLayout(1, 0));
+		panel3.setBackground(new Color(204, 204, 0));
+		panel3.setPreferredSize(new Dimension(1200, 100));
+		panel3.setBorder(new TitledBorder(new EtchedBorder(), "Output Screen"));
+		contentPane.add(panel3, BorderLayout.SOUTH);
+		panel3.setLayout(null);
 
-		JLabel labelPassword = new JLabel("Password");
-		labelPassword.setFont(new Font("Arial", Font.BOLD, 14));
-		labelPassword.setForeground(new Color(30, 0, 200));
-		labelPassword.setBounds(470, 25, 275, 22);
-		panel1.add(labelPassword);
+		textDisplayOutput = new JTextArea();
+		textDisplayOutput.setBounds(6, 26, 1188, 234);
+		textDisplayOutput.setEditable(false);
+		textDisplayOutput.setBackground(new Color(204, 204, 0));
+		textDisplayOutput.setForeground(new Color(0, 51, 255));
+		textDisplayOutput.setFont(new Font("Arial", Font.BOLD, 14));
+		panel3.add(textDisplayOutput);
 
-		password = new JPasswordField();
-		password.setBounds(570, 20, 200, 28);
-		panel1.add(password);
+		/****** End of Output Panel ******/
+	}
 
-		buttonLogin = new JButton("Login");
-		buttonLogin.setForeground(new Color(200, 0, 0));
-		buttonLogin.setFont(new Font("Arial Black", Font.BOLD, 15));
-		buttonLogin.setBounds(900, 19, 150, 29);
-		buttonLogin.addActionListener(this);
-		panel1.add(buttonLogin);
-		
-		
-		
-		errorDisplayOutput = new JTextArea();
-		errorDisplayOutput.setBounds(900, 19, 150, 29);
-		errorDisplayOutput.setEditable(false);
-		errorDisplayOutput.setBackground(new Color(204, 204, 0));
-		errorDisplayOutput.setForeground(new Color(0, 51, 255));
-		errorDisplayOutput.setFont(new Font("Arial", Font.BOLD, 14));
-		panel1.add(errorDisplayOutput);
-		/* End of Login Panel */
+	private void loadRMOsUsageManagerPanel() {
+		/****** RMOS Usage Manager Panel ******/
+		JPanel controlPanel4;
 
-		/**
-		 * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		 * >>>>>>>>>>>>>>>>>>>>>>>>>>
-		 */
+		controlPanel4 = new JPanel();
+		controlPanel4.setBackground(Color.ORANGE);
+		controlPanel4.setPreferredSize(new Dimension(600, 355));
+		controlPanel4.setBorder(new TitledBorder(new EtchedBorder(),
+				"RMOS Usage Manager"));
+		panel2.add(controlPanel4);
 
-		/****** Operations Panel ******/
-		panel2 = new JPanel(new GridLayout(1, 0));
-		panel2.setBackground(new Color(153, 255, 153));
-		panel2.setPreferredSize(new Dimension(1200, 600));
-		panel2.setLayout(new GridLayout(2, 2));
+		/****** End of RMOS Usage Manager ******/
 
-		JPanel controlPanel1, controlPanel2, controlPanel3, controlPanel4;
+	}
 
-		/****** RMOS Manager Panel ******/
-		controlPanel1 = new JPanel();
-		controlPanel1.setBackground(Color.ORANGE);
-		controlPanel1.setPreferredSize(new Dimension(600, 245));
-		controlPanel1.setBorder(new TitledBorder(new EtchedBorder(),
-				"RMOS Manager"));
-		panel2.add(controlPanel1);
-
-		JLabel labelRcmId = new JLabel("RCM ID");
-		labelRcmId.setFont(new Font("Arial", Font.BOLD, 14));
-		labelRcmId.setForeground(new Color(30, 0, 200));
-		labelRcmId.setBackground(new Color(0, 204, 153));
-		labelRcmId.setBounds(12, 24, 70, 22);
-		controlPanel1.add(labelRcmId);
-		controlPanel1.setLayout(null);
-
-		textRcmId = new JTextField();
-		textRcmId.setBounds(80, 22, 60, 26);
-		controlPanel1.add(textRcmId);
-
-		JLabel labelRcmNo = new JLabel("RCM Number");
-		labelRcmNo.setFont(new Font("Arial", Font.BOLD, 14));
-		labelRcmNo.setForeground(new Color(30, 0, 200));
-		labelRcmNo.setBackground(new Color(0, 204, 153));
-		labelRcmNo.setBounds(168, 24, 90, 22);
-		controlPanel1.add(labelRcmNo);
-		controlPanel1.setLayout(null);
-
-		textRcmNo = new JTextField();
-		textRcmNo.setBounds(270, 22, 60, 26);
-		controlPanel1.add(textRcmNo);
-
-		JLabel labelRcmLocation = new JLabel("RCM Location");
-		labelRcmLocation.setFont(new Font("Arial", Font.BOLD, 14));
-		labelRcmLocation.setForeground(new Color(30, 0, 200));
-		labelRcmLocation.setBackground(new Color(0, 204, 153));
-		labelRcmLocation.setBounds(350, 24, 100, 22);
-		controlPanel1.add(labelRcmLocation);
-		controlPanel1.setLayout(null);
-
-		textRcmLocation = new JTextField();
-		textRcmLocation.setBounds(470, 22, 100, 26);
-		controlPanel1.add(textRcmLocation);
-
-		// AddRCM Button
-		addRCM = new JButton("Add RCM");
-		addRCM.setForeground(new Color(50, 0, 200));
-		addRCM.setFont(new Font("Arial", Font.BOLD, 14));
-		addRCM.setBounds(16, 66, 110, 26);
-		addRCM.addActionListener(this);
-		controlPanel1.add(addRCM);
-
-		// RemoveRCM Button
-		removeRCM = new JButton("Remove RCM ");
-		removeRCM.setForeground(new Color(50, 0, 200));
-		removeRCM.setFont(new Font("Arial", Font.BOLD, 14));
-		removeRCM.setBounds(144, 66, 130, 26);
-		removeRCM.addActionListener(this);
-		controlPanel1.add(removeRCM);
-
-		// ActivateRCM Button
-		activateRCM = new JButton("Activate RCM ");
-		activateRCM.setForeground(new Color(50, 0, 200));
-		activateRCM.setFont(new Font("Arial", Font.BOLD, 14));
-		activateRCM.setBounds(300, 66, 130, 26);
-		activateRCM.addActionListener(this);
-		controlPanel1.add(activateRCM);
-
-		// RefillFunds Button
-		refillRCM = new JButton("Refill Funds ");
-		refillRCM.setForeground(new Color(50, 0, 200));
-		refillRCM.setFont(new Font("Arial", Font.BOLD, 14));
-		refillRCM.addActionListener(this);
-		refillRCM.setBounds(16, 100, 120, 26);
-		controlPanel1.add(refillRCM);
-
-		// ClearRCM Button
-		clearRCM = new JButton("Vacate Machine ");
-		clearRCM.setForeground(new Color(50, 0, 200));
-		clearRCM.setFont(new Font("Arial", Font.BOLD, 14));
-		clearRCM.setBounds(145, 100, 140, 26);
-		clearRCM.addActionListener(this);
-		controlPanel1.add(clearRCM);
-		// clearRCM.addActionListener((ActionListener) this);
-
-		// ShowRCM Button
-		showRCM = new JButton("Display RCM List ");
-		showRCM.setForeground(new Color(50, 0, 200));
-		showRCM.setFont(new Font("Arial", Font.BOLD, 14));
-		showRCM.setBounds(295, 100, 180, 26);
-		showRCM.addActionListener(this);
-		controlPanel1.add(showRCM);
-
-		/* End of RMOS Manager Panel */
-
-		/************************************************************************/
-
-		/****** ITEM Daemon Panel ******/
-
-		controlPanel2 = new JPanel();
-		controlPanel2.setBackground(Color.ORANGE);
-		controlPanel2.setPreferredSize(new Dimension(600, 245));
-		controlPanel2.setBorder(new TitledBorder(new EtchedBorder(),
-				"ITEM Daemon"));
-		panel2.add(controlPanel2);
-
-		/****** End of ITEM Daemon ******/
-
-		/************************************************************************/
+	private void loadRCMMonitorPanel() {
 
 		/****** RCM Monitor Panel ******/
+		JPanel controlPanel3;
+
 		controlPanel3 = new JPanel();
 		controlPanel3.setBackground(Color.ORANGE);
 		controlPanel3.setPreferredSize(new Dimension(600, 355));
@@ -379,58 +256,182 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 
 		/****** End of RCM Monitor ******/
 
-		/***********************************************************************/
+	}
 
-		/****** RMOS Usage Manager Panel ******/
-		controlPanel4 = new JPanel();
-		controlPanel4.setBackground(Color.ORANGE);
-		controlPanel4.setPreferredSize(new Dimension(600, 355));
-		controlPanel4.setBorder(new TitledBorder(new EtchedBorder(),
-				"RMOS Usage Manager"));
-		panel2.add(controlPanel4);
+	private void loadItemDaemonPanel() {
+		/****** ITEM Daemon Panel ******/
 
-		/****** End of RMOS Usage Manager ******/
+		JPanel controlPanel2;
+		controlPanel2 = new JPanel();
+		controlPanel2.setBackground(Color.ORANGE);
+		controlPanel2.setPreferredSize(new Dimension(600, 245));
+		controlPanel2.setBorder(new TitledBorder(new EtchedBorder(),
+				"ITEM Daemon"));
+		panel2.add(controlPanel2);
+
+		/****** End of ITEM Daemon ******/
+	}
+
+	private void loadRMOSManagerPanel() {
+		JPanel controlPanel1;
+		/****** RMOS Manager Panel ******/
+		controlPanel1 = new JPanel();
+		controlPanel1.setBackground(Color.ORANGE);
+		controlPanel1.setPreferredSize(new Dimension(600, 245));
+		controlPanel1.setBorder(new TitledBorder(new EtchedBorder(),
+				"RMOS Manager"));
+		panel2.add(controlPanel1);
+
+		JLabel labelRcmId = new JLabel("RCM ID");
+		labelRcmId.setFont(new Font("Arial", Font.BOLD, 14));
+		labelRcmId.setForeground(new Color(30, 0, 200));
+		labelRcmId.setBackground(new Color(0, 204, 153));
+		labelRcmId.setBounds(12, 24, 70, 22);
+		controlPanel1.add(labelRcmId);
+		controlPanel1.setLayout(null);
+
+		textRcmId = new JTextField();
+		textRcmId.setBounds(80, 22, 60, 26);
+		controlPanel1.add(textRcmId);
+
+		JLabel labelRcmNo = new JLabel("RCM Number");
+		labelRcmNo.setFont(new Font("Arial", Font.BOLD, 14));
+		labelRcmNo.setForeground(new Color(30, 0, 200));
+		labelRcmNo.setBackground(new Color(0, 204, 153));
+		labelRcmNo.setBounds(168, 24, 90, 22);
+		controlPanel1.add(labelRcmNo);
+		controlPanel1.setLayout(null);
+
+		textRcmNo = new JTextField();
+		textRcmNo.setBounds(270, 22, 60, 26);
+		controlPanel1.add(textRcmNo);
+
+		JLabel labelRcmLocation = new JLabel("RCM Location");
+		labelRcmLocation.setFont(new Font("Arial", Font.BOLD, 14));
+		labelRcmLocation.setForeground(new Color(30, 0, 200));
+		labelRcmLocation.setBackground(new Color(0, 204, 153));
+		labelRcmLocation.setBounds(350, 24, 100, 22);
+		controlPanel1.add(labelRcmLocation);
+		controlPanel1.setLayout(null);
+
+		textRcmLocation = new JTextField();
+		textRcmLocation.setBounds(470, 22, 100, 26);
+		controlPanel1.add(textRcmLocation);
+
+		// AddRCM Button
+		addRCM = new JButton("Add RCM");
+		addRCM.setForeground(new Color(50, 0, 200));
+		addRCM.setFont(new Font("Arial", Font.BOLD, 14));
+		addRCM.setBounds(16, 66, 110, 26);
+		addRCM.addActionListener(this);
+		controlPanel1.add(addRCM);
+
+		// RemoveRCM Button
+		removeRCM = new JButton("Remove RCM ");
+		removeRCM.setForeground(new Color(50, 0, 200));
+		removeRCM.setFont(new Font("Arial", Font.BOLD, 14));
+		removeRCM.setBounds(144, 66, 130, 26);
+		removeRCM.addActionListener(this);
+		controlPanel1.add(removeRCM);
+
+		// ActivateRCM Button
+		activateRCM = new JButton("Activate RCM ");
+		activateRCM.setForeground(new Color(50, 0, 200));
+		activateRCM.setFont(new Font("Arial", Font.BOLD, 14));
+		activateRCM.setBounds(300, 66, 130, 26);
+		activateRCM.addActionListener(this);
+		controlPanel1.add(activateRCM);
+
+		// RefillFunds Button
+		refillRCM = new JButton("Refill Funds ");
+		refillRCM.setForeground(new Color(50, 0, 200));
+		refillRCM.setFont(new Font("Arial", Font.BOLD, 14));
+		refillRCM.addActionListener(this);
+		refillRCM.setBounds(16, 100, 120, 26);
+		controlPanel1.add(refillRCM);
+
+		// ClearRCM Button
+		clearRCM = new JButton("Vacate Machine ");
+		clearRCM.setForeground(new Color(50, 0, 200));
+		clearRCM.setFont(new Font("Arial", Font.BOLD, 14));
+		clearRCM.setBounds(145, 100, 140, 26);
+		clearRCM.addActionListener(this);
+		controlPanel1.add(clearRCM);
+		// clearRCM.addActionListener((ActionListener) this);
+
+		// ShowRCM Button
+		showRCM = new JButton("Display RCM List ");
+		showRCM.setForeground(new Color(50, 0, 200));
+		showRCM.setFont(new Font("Arial", Font.BOLD, 14));
+		showRCM.setBounds(295, 100, 180, 26);
+		showRCM.addActionListener(this);
+		controlPanel1.add(showRCM);
+
+		/* End of RMOS Manager Panel */
+
+	}
+
+	private void loadOperationsPanel() {
+		/****** Operations Panel ******/
+		panel2 = new JPanel(new GridLayout(1, 0));
+		panel2.setBackground(new Color(153, 255, 153));
+		panel2.setPreferredSize(new Dimension(1200, 600));
+		panel2.setLayout(new GridLayout(2, 2));
+		loadRMOSManagerPanel();
+		loadItemDaemonPanel();
+		loadRCMMonitorPanel();
+		loadRMOsUsageManagerPanel();
 
 		contentPane.add(panel2, BorderLayout.CENTER);
 
 		/****** End of Operations Panel ******/
+	}
 
-		/**
-		 * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		 * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		 */
+	private void loadLoginPanel() {
+		/****** Login Panel ******/
+		panel1 = new JPanel(new GridLayout(1, 0));
+		panel1.setBackground(new Color(204, 204, 0));
+		panel1.setPreferredSize(new Dimension(1200, 60));
+		panel1.setBorder(new TitledBorder(new EtchedBorder(), "Admin Login"));
+		contentPane.add(panel1, BorderLayout.NORTH);
 
-		/* Output Panel */
-		panel3 = new JPanel(new GridLayout(1, 0));
-		panel3.setBackground(new Color(204, 204, 0));
-		panel3.setPreferredSize(new Dimension(1200, 100));
-		panel3.setBorder(new TitledBorder(new EtchedBorder(), "Output Screen"));
-		contentPane.add(panel3, BorderLayout.SOUTH);
-		panel3.setLayout(null);
+		JLabel labelUsername = new JLabel("UserName");
+		labelUsername.setFont(new Font("Arial", Font.BOLD, 14));
+		labelUsername.setForeground(new Color(30, 0, 200));
+		labelUsername.setBounds(50, 25, 95, 22);
+		panel1.add(labelUsername);
+		panel1.setLayout(null);
 
-		textDisplayOutput = new JTextArea();
-		textDisplayOutput.setBounds(6, 26, 1188, 234);
-		textDisplayOutput.setEditable(false);
-		textDisplayOutput.setBackground(new Color(204, 204, 0));
-		textDisplayOutput.setForeground(new Color(0, 51, 255));
-		textDisplayOutput.setFont(new Font("Arial", Font.BOLD, 14));
-		panel3.add(textDisplayOutput);
+		textUsername = new JTextField();
+		textUsername.setBounds(140, 20, 200, 28);
+		panel1.add(textUsername);
+		textUsername.setColumns(10);
 
-		/****** End of Output Panel ******/
+		JLabel labelPassword = new JLabel("Password");
+		labelPassword.setFont(new Font("Arial", Font.BOLD, 14));
+		labelPassword.setForeground(new Color(30, 0, 200));
+		labelPassword.setBounds(470, 25, 275, 22);
+		panel1.add(labelPassword);
 
-		/**
-		 * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		 * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		 */
+		password = new JPasswordField();
+		password.setBounds(570, 20, 200, 28);
+		panel1.add(password);
 
-		Toolkit toolkit = getToolkit();
-		Dimension size = toolkit.getScreenSize();
-		setLocation(size.width / 2 - getWidth() / 2, size.height / 2
-				- getHeight() / 2);
-		setSize(size.width, size.height);
-		setVisible(true);
-		System.out.println("Width " + size.width + " Height " + size.height);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		buttonLogin = new JButton("Login");
+		buttonLogin.setForeground(new Color(200, 0, 0));
+		buttonLogin.setFont(new Font("Arial Black", Font.BOLD, 15));
+		buttonLogin.setBounds(900, 19, 150, 29);
+		buttonLogin.addActionListener(this);
+		panel1.add(buttonLogin);
+
+		errorDisplayOutput = new JTextArea();
+		errorDisplayOutput.setBounds(900, 19, 150, 29);
+		errorDisplayOutput.setEditable(false);
+		errorDisplayOutput.setBackground(new Color(204, 204, 0));
+		errorDisplayOutput.setForeground(new Color(0, 51, 255));
+		errorDisplayOutput.setFont(new Font("Arial", Font.BOLD, 14));
+		panel1.add(errorDisplayOutput);
+		/* End of Login Panel */
 	}
 
 	/* Part of RCM Monitor Operations Panel */
@@ -489,13 +490,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			// create a new RCM and store into RMOS list
 			RCMRecycle rcm = new RCMRecycle(rcmNum, rcmId, rcmLoc);
 			rmosManager.addRCM(rcm);
-			try {
-				// insert this RCM into database
-				DBOperations.addRCM(rcm);
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-
+			logic.addRCM(rcm);
 			// set display on RMOS panel
 			textDisplayOutput.setText("RCM Successfully Added");
 
@@ -505,13 +500,8 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			int rcmNum = Integer.parseInt(textRcmNo.getText());
 			System.out.println("rcmNum " + rcmNum);
 			rmosManager.removeRCM(rcmNum);
-			try {
-				// remove the RCM from database
-				DBOperations.removeRCM(rcmNum);
-
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			// remove the RCM from database
+			logic.removeRCM(rcmNum);
 
 			// set display on RMOS panel
 			textDisplayOutput.setText("RCM Successfully Removed");
@@ -523,45 +513,26 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			System.out.println("rcmNum " + rcmNum);
 			int temp = rmosManager.activeRCM(rcmNum);
 
-			// activate the RCM
-			try {
-				DBOperations.activateRCM(temp);
-
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			logic.activateRCM(temp);
 			textDisplayOutput.setText("RCM Successfully Activated");
 		}
 		// *********** Refill Money ******************
 		else if (source == refillRCM) {
 			rmosManager.setFunds();
-			try {
-				DBOperations.setFunds();
-				textDisplayOutput.setText("Funds credited in RCM Successfully");
-
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			logic.setFunds();
+			textDisplayOutput.setText("Funds credited in RCM Successfully");
 		}
 		// *********** Clear Recycale item from RCM ******************
 		else if (source == clearRCM) {
 			rmosManager.clearRcmWeight();
-			try {
-				DBOperations.clearRCM();
-				textDisplayOutput.setText("RCM Emptied Successfully");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			logic.clearRCM();
+			textDisplayOutput.setText("RCM Emptied Successfully");
 		}
 		// *********** Showlist of RCM under an RMOS******************
 		else if (source == showRCM) {
 			rmosManager.getRCMList();
-			try {
-				DBOperations.getRCMList();
-				textDisplayOutput.setText("List of RCMs are");
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			logic.getRCMList();
+			textDisplayOutput.setText("List of RCMs are");
 		}
 		/* ********* End of RMOS Manager Activities ***** */
 
@@ -648,5 +619,4 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 
 	}// end of actionPerform
 
-	// *********************************************************************************************************
 }

@@ -6,13 +6,11 @@ package com.project.EcoRe;
 
 import java.util.List;
 
-import com.project.dbLogic.DBOperations;
-
 public class Bootup {
 
 	private String userName;
 	private String password;
-	private DBOperations dboperations = new DBOperations();
+	//private DBOperations dboperations = new DBOperations();
 	
 	public void login()
 	{
@@ -52,12 +50,12 @@ public class Bootup {
 
 	private Admin loadUser() {
 		// TODO Need to add logic for db connection and fetch user details
-		Admin admin = dboperations.getUserByUserName(userName);
+		Admin admin = null;//dboperations.getUserByUserName(userName);
 		return admin;
 	}
 	public List<RMOS> loadRmos()
 	{
-		List <RMOS> rmosList= dboperations.getRmosByUserName(userName);
+		List <RMOS> rmosList=null;// dboperations.getRmosByUserName(userName);
 		return rmosList;
 	}
 }

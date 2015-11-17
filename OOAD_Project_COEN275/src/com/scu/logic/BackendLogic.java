@@ -37,4 +37,19 @@ public class BackendLogic {
 		boolean isDeleted = dbConnection.deleteFromDB(sql);
 		return isDeleted;
 	}
+
+	public void clearRCM() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void getRCMList() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setFunds() {
+		// TODO Auto-generated method stub
+		
+	}
 }
