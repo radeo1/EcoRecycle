@@ -9,7 +9,7 @@ public class LoginAction {
 	private BackendLogic logic = new BackendLogic();
 	private String message = "";
 
-	public String executeString() {
+	public String execute() {
 		if (!"".equals(username) && username != null && !"".equals(password)
 				&& password != null) {
 			boolean isValidUser = logic.validateUser(username, password);
