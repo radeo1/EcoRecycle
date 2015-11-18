@@ -4,8 +4,8 @@ import com.project.EcoRe.RCMRecycle;
 
 public class SelectQueries {
 
-	public String getPasswordByUserId(String userID) {
-		String sql = "SELECT PASSWORD FROM USER where USERID='" + userID + "';";
+	public String getPasswordByUserName(String userName) {
+		String sql = "SELECT PASSWORD FROM USER where USERNAME='" + userName + "';";
 		System.out.println(sql);
 		return sql;
 	}

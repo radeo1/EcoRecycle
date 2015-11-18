@@ -10,8 +10,8 @@ public class BackendLogic {
 	ScuDbConn dbConnection = new ScuDbConn();
 	SelectQueries query = new SelectQueries();
 
-	public boolean validateUser(String userID, String password) {
-		String sql = query.getPasswordByUserId(userID);
+	public boolean validateUser(String userName, String password) {
+		String sql = query.getPasswordByUserName(userName);
 		String passwordFromDB = dbConnection.getValueFromSql(sql);
 		if (password != null && password.equals(passwordFromDB)) {
 			return true;
