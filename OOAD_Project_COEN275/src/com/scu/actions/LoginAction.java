@@ -5,15 +5,14 @@ import com.scu.logic.BackendLogic;
 
 public class LoginAction {
 	private String username;
-	private String userId;
 	private String password;
 	private BackendLogic logic = new BackendLogic();
 	private String message = "";
 
-	public String execute() {
-		if (!"".equals(userId) && userId != null && !"".equals(password)
+	public String executeString() {
+		if (!"".equals(username) && username != null && !"".equals(password)
 				&& password != null) {
-			boolean isValidUser = logic.validateUser(userId, password);
+			boolean isValidUser = logic.validateUser(username, password);
 			if (isValidUser) {
 				message = message + "Log In Successful !";
 				Constant.SUCESS_LOGIN = true;
@@ -52,14 +51,6 @@ public class LoginAction {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 
 	public String getMessage() {
