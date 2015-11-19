@@ -24,6 +24,8 @@ import javax.swing.border.TitledBorder;
 import com.project.EcoRe.RCMMonitor;
 import com.project.EcoRe.RCMRecycle;
 import com.project.EcoRe.RMOS;
+import com.project.EcoRe.RecycleItem;
+import com.project.EcoRe.RMOSUsageManager;
 import com.scu.actions.LoginAction;
 import com.scu.actions.RMOSManager;
 import com.scu.logic.BackendLogic;
@@ -32,18 +34,19 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1;
 
 	private RMOSManager rmosManager = new RMOSManager();
+	private RMOSUsageManager rmosUsageManager = new RMOSUsageManager();
 	private RCMMonitor rcmMonitor = new RCMMonitor();
+	private RecycleItem recycleItem = new RecycleItem();
 
 	private Container contentPane;
 	private JPanel panel1, panel2, panel3;
 
 	private JTextField textUsername, textRcmId, textRcmNo, textRcmLocation;
-	private JTextField textRcm, textRcmNumber, textRcmLoc, textRcmStatus;
+	private JTextField textRcm, textRcmNumber, textRcmLoc, textRcmStatus, textItemType, textUnitPrice ;
 	private JPasswordField password;
-	private JButton buttonLogin, addRCM, removeRCM, activateRCM, refillRCM,
-			clearRCM, showRCM, currentWeight, currentCash, currentCoupon,
-			btnLastEmptied, btnMonthlyTransactions, btnCashDebitedPerMonth,
-			btnWeightPerMonth, btnCurrItemsRecycled, btnItemsRecycledByMonth;
+	private JButton buttonLogin, addRCM, removeRCM, activateRCM, refillRCM,deactivateRCM,clearRCM, showRCM, currentWeight,
+			currentCash, currentCoupon,btnLastEmptied, btnMonthlyTransactions, btnCashDebitedPerMonth,btnWeightPerMonth,
+			btnCurrItemsRecycled, btnItemsRecycledByMonth, addItem, removeItem, updatePrice, listItem, mostUsed, monthlyUsageGraph ;
 	private JLabel rcmPlaceLabel;
 	private JComboBox rcmCombo, comboRcmList;
 	static JTextArea textDisplayOutput;
@@ -100,6 +103,24 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		controlPanel4.setBorder(new TitledBorder(new EtchedBorder(),
 				"RMOS Usage Manager"));
 		panel2.add(controlPanel4);
+		
+		// MostUsed Button
+		mostUsed = new JButton("Most Used RCM");
+		mostUsed.setForeground(new Color(50, 0, 200));
+		mostUsed.setFont(new Font("Arial", Font.BOLD, 14));
+		mostUsed.setBounds(8, 24, 180, 22);
+		mostUsed.addActionListener(this);
+		controlPanel4.add(mostUsed);	
+		//controlPanel4.setLayout(null);
+		
+		// MonthlyUsageGraph Button
+		monthlyUsageGraph = new JButton("Monthly Usage Graph");
+		monthlyUsageGraph.setForeground(new Color(50, 0, 200));
+		monthlyUsageGraph.setFont(new Font("Arial", Font.BOLD, 14));
+		monthlyUsageGraph.setBounds(222, 24, 240, 22);
+		monthlyUsageGraph.addActionListener(this);
+		controlPanel4.add(monthlyUsageGraph);	
+		//controlPanel4.setLayout(null);
 
 		/****** End of RMOS Usage Manager ******/
 
@@ -258,7 +279,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 
 	}
 
-	private void loadItemDaemonPanel() {
+	private void loadRecycleItemPanel() {
 		/****** ITEM Daemon Panel ******/
 
 		JPanel controlPanel2;
@@ -266,9 +287,64 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		controlPanel2.setBackground(Color.ORANGE);
 		controlPanel2.setPreferredSize(new Dimension(600, 245));
 		controlPanel2.setBorder(new TitledBorder(new EtchedBorder(),
-				"ITEM Daemon"));
+				"Recycle Item "));
 		panel2.add(controlPanel2);
+		
+		JLabel labelItemType = new JLabel("Item Type");
+		labelItemType.setFont(new Font("Arial", Font.BOLD, 14));
+		labelItemType.setForeground(new Color(30, 0, 200));
+		labelItemType.setBackground(new Color(0, 204, 153));
+		labelItemType.setBounds(16, 24, 90, 22);
+		controlPanel2.add(labelItemType);
+		controlPanel2.setLayout(null);
 
+		textItemType = new JTextField();
+		textItemType.setBounds(134, 24, 100, 22);
+		controlPanel2.add(textItemType);
+
+        JLabel labelUnitPrice = new JLabel("Unit Price");
+		labelUnitPrice.setForeground(new Color(30, 0, 200));
+		labelUnitPrice.setFont(new Font("Arial", Font.BOLD, 14));
+		labelUnitPrice.setBounds(362, 24, 90, 22);
+		controlPanel2.add(labelUnitPrice);
+
+		textUnitPrice = new JTextField();
+		textUnitPrice.setBounds(460, 24, 100, 22);
+		controlPanel2.add(textUnitPrice);
+		controlPanel2.setLayout(null);
+
+		// AddITEM Button
+		addItem = new JButton("Add ITEM");
+		addItem.setForeground(new Color(50, 0, 200));
+		addItem.setFont(new Font("Arial", Font.BOLD, 14));
+		addItem.setBounds(16, 66, 100, 26);
+		addItem.addActionListener(this);
+		controlPanel2.add(addItem);
+
+		// RemoveITEM Button
+		removeItem = new JButton("Remove ITEM ");
+		removeItem.setForeground(new Color(50, 0, 200));
+		removeItem.setFont(new Font("Arial", Font.BOLD, 14));
+		removeItem.setBounds(134, 66, 130, 26);
+		removeItem.addActionListener(this);
+		controlPanel2.add(removeItem );
+
+		// UpdatePRICE Button
+		updatePrice = new JButton("Update PRICE ");
+		updatePrice.setForeground(new Color(50, 0, 200));
+		updatePrice.setFont(new Font("Arial", Font.BOLD, 14));
+		updatePrice.setBounds(300, 66, 130, 26);
+		updatePrice.addActionListener(this);
+		controlPanel2.add(updatePrice);
+
+		// ListItem Button
+		listItem = new JButton("List ITEM ");
+		listItem.setForeground(new Color(50, 0, 200));
+		listItem.setFont(new Font("Arial", Font.BOLD, 14));
+		listItem.setBounds(460, 66, 110, 26);
+		listItem.addActionListener(this);
+		controlPanel2.add(listItem);
+		
 		/****** End of ITEM Daemon ******/
 	}
 
@@ -341,6 +417,14 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		activateRCM.setBounds(300, 66, 130, 26);
 		activateRCM.addActionListener(this);
 		controlPanel1.add(activateRCM);
+		
+		// DeactivateRCM Button
+		deactivateRCM = new JButton("Deactivate RCM ");
+		deactivateRCM.setForeground(new Color(50, 0, 200));
+		deactivateRCM.setFont(new Font("Arial", Font.BOLD, 14));
+		deactivateRCM.setBounds(460, 66, 140, 26);
+		deactivateRCM.addActionListener(this);
+		controlPanel1.add(deactivateRCM);
 
 		// RefillFunds Button
 		refillRCM = new JButton("Refill Funds ");
@@ -378,7 +462,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		panel2.setPreferredSize(new Dimension(1200, 600));
 		panel2.setLayout(new GridLayout(2, 2));
 		loadRMOSManagerPanel();
-		loadItemDaemonPanel();
+		loadRecycleItemPanel();
 		loadRCMMonitorPanel();
 		loadRMOsUsageManagerPanel();
 
@@ -516,6 +600,17 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			logic.activateRCM(temp);
 			textDisplayOutput.setText("RCM Successfully Activated");
 		}
+		// ********** Activate a RCM ****************
+		else if (source == deactivateRCM) {
+			// get RCM number
+			int rcmNum = Integer.parseInt(textRcmNo.getText());
+			System.out.println("rcmNum " + rcmNum);
+			int temp = rmosManager.deactiveRCM(rcmNum);
+
+			logic.deactivateRCM(temp);
+			textDisplayOutput.setText("RCM Successfully Deactivated");
+				}
+		
 		// *********** Refill Money ******************
 		else if (source == refillRCM) {
 			rmosManager.setFunds();
@@ -616,6 +711,61 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 					.setText("Number of item recycled by RCM in a month is ");
 
 		}
+		// *********** Adds new Item in RCM
+				// ******************
+		else if (source == addItem) {
+			// get Item Type
+			String itemType = textItemType.getText();
+			System.out.println("itemType " + itemType);
+			int temp = recycleItem.addItem(itemType);
+
+			logic.activateRCM(temp);
+			textDisplayOutput.setText("Item Successfully Added");
+		}
+		// *********** Removes Item from RCM
+		// ******************
+		else if (source == removeItem) {
+			// get Item Type
+			String itemType = textItemType.getText();
+			System.out.println("itemType " + itemType);
+			int temp = recycleItem.removeItem(itemType);
+
+			logic.activateRCM(temp);
+			textDisplayOutput.setText("Item Removed Added");
+		}
+		// *********** Removes Item from RCM
+				// ******************
+		else if (source == updatePrice) {
+					// get Item Type
+			int uPrice = Integer.parseInt(textUnitPrice.getText());
+			String itemType = textItemType.getText();
+			System.out.println("itemType " + itemType + "itemPrice " +uPrice);
+			int temp = recycleItem.updatePrice(itemType,uPrice);
+
+			logic.updatePrice(temp);
+			textDisplayOutput.setText("Item Price Updated");
+		}
+			
+			// *********** Show list of Recycable Items ******************
+		else if (source == listItem) {
+			recycleItem.getItemList();
+			logic.getItemList();
+			textDisplayOutput.setText("List of Recycable Items are");
+		}
+
+			// *********** Show Most Used RCM  ******************
+		else if (source == mostUsed) {
+			rmosUsageManager.getMostUsedRCM();
+			logic.getItemList();
+			textDisplayOutput.setText("Most Used RCM is ");
+		}
+
+			// *********** Show Monthly Usage Statistics of RCMs ******************
+		else if (source == monthlyUsageGraph) {
+			rmosUsageManager.getMonthlyUsageGraph();
+			logic.getItemList();
+			textDisplayOutput.setText("Monthly Usage Statistics are ");
+		}	
 
 	}// end of actionPerform
 

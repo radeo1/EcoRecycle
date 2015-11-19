@@ -52,4 +52,19 @@ public class BackendLogic {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void deactivateRCM(int temp) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void updatePrice(int temp) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void getItemList() {
+		// TODO Auto-generated method stub
+		
+	}
 }

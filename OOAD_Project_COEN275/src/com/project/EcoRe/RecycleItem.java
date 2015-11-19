@@ -37,6 +37,22 @@ public class RecycleItem
 	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
+	public int addItem(String itemType) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int removeItem(String itemType) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int updatePrice(String itemType, int uPrice) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public void getItemList() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

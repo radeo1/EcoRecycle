@@ -38,4 +38,9 @@ public class RMOSManager
 		// TODO Auto-generated method stub
 		
 	}
+	public int deactiveRCM(int rcmNum) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 }
