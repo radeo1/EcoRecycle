@@ -68,9 +68,13 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		setLocation(size.width / 2 - getWidth() / 2, size.height / 2
 				- getHeight() / 2);
 		setSize(size.width, size.height);
-		setVisible(true);
+		
 		System.out.println("Width " + size.width + " Height " + size.height);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		pack();
+	    setLocationRelativeTo(null);
+	    setVisible(true);
 	}
 
 	private void loadOutputPanel() {
