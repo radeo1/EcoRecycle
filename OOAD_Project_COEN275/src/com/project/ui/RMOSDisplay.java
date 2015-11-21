@@ -27,6 +27,7 @@ import com.project.EcoRe.RMOS;
 import com.project.EcoRe.RecycleItem;
 import com.project.EcoRe.RMOSUsageManager;
 import com.scu.actions.LoginAction;
+import com.scu.actions.RCMAction;
 import com.scu.actions.RMOSManager;
 import com.scu.logic.BackendLogic;
 
@@ -570,29 +571,14 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 
 		// *********** Admin add RCM **************
 		else if (source == addRCM) {
-			int rcmNum = Integer.parseInt(textRcmNo.getText());
-			String rcmId = textRcmId.getText();
-			String rcmLoc = textRcmLocation.getText();
-			System.out.println("rcmNum " + rcmNum + " rcmId " + rcmId
-					+ " rcmLoc " + rcmLoc);
-			// create a new RCM and store into RMOS list
-			RCMRecycle rcm = new RCMRecycle(rcmNum, rcmId, rcmLoc);
-			rmosManager.addRCM(rcm);
-			logic.addRCM(rcm);
-			// set display on RMOS panel
-			textDisplayOutput.setText("RCM Successfully Added");
-
+			RCMAction rcmAction = new RCMAction();
+			String msg = rcmAction.addRCM(textRcmLocation.getText());
+			textDisplayOutput.setText(msg);
 		}
 		// ********* Remove a RCM from RMOS group *********
 		else if (source == removeRCM) {
-			int rcmNum = Integer.parseInt(textRcmNo.getText());
-			System.out.println("rcmNum " + rcmNum);
-			rmosManager.removeRCM(rcmNum);
-			// remove the RCM from database
-			logic.removeRCM(rcmNum);
-
-			// set display on RMOS panel
-			textDisplayOutput.setText("RCM Successfully Removed");
+			String msg = rmosManager.removeRCM(textRcmNo.getText());
+			textDisplayOutput.setText(msg);
 		}
 		// ********** Activate a RCM ****************
 		else if (source == activateRCM) {

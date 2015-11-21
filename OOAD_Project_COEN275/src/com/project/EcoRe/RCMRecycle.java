@@ -17,6 +17,9 @@ public class RCMRecycle extends Observable {
 	private Date lastEmptied;
 	private RecycleItem item;
 
+	public RCMRecycle(){
+		super();
+	}
 	public RCMRecycle(int rcmNum) {
 		this.rcmNum = rcmNum;
 	}

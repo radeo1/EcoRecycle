@@ -10,17 +10,22 @@ import com.scu.logic.BackendLogic;
 public class RMOSManager 
 {
 	private BackendLogic logic = new BackendLogic();
-	public void addRCM (RCMRecycle rcm)
+	public String addRCM (RCMRecycle rcm)
 	{
-		boolean isAdded = logic.addRCM(rcm);
+		return logic.addRCM(rcm);
 	}
 	public void activateRCM (int rcmNum)
 	{
 		boolean isUpdated = logic.activateRCM(rcmNum);
 	}
-	public void removeRCM (int rcmNum)
+	public String removeRCM (String rcmNum)
 	{
 		boolean isRemoved = logic.removeRCM(rcmNum);
+		if(isRemoved){
+			return "RCM Successfully Removed";
+		}else{
+			return "RCM is not Removed, Please try again";
+		}
 	}
 	public int activeRCM(int rcmNum)
 	{

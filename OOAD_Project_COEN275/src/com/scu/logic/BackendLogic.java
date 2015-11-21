@@ -20,10 +20,17 @@ public class BackendLogic {
 		}
 	}
 
-	public boolean addRCM(RCMRecycle rcm) {
+	public String addRCM(RCMRecycle rcm) {
 		String sql = query.createSqlForAddRCM(rcm);
 		boolean isAdded = dbConnection.insertIntoDB(sql);
-		return isAdded;		
+		if(isAdded){
+		sql = null;
+		sql= query.getRCMNum();
+		String rcmNumber = dbConnection.getValueFromSql(sql);
+		return "RCM number "+ rcmNumber +" is added successfully.";
+		}else{
+			return "RCM is not added Sucessful";
+		}
 	}
 
 	public boolean activateRCM(int rcmNum) {
@@ -32,7 +39,7 @@ public class BackendLogic {
 		return isUpdate;		
 	}
 
-	public boolean removeRCM(int rcmNum) {
+	public boolean removeRCM(String rcmNum) {
 		String sql = query.createSqlForDeleteRCMById(rcmNum);
 		boolean isDeleted = dbConnection.deleteFromDB(sql);
 		return isDeleted;
