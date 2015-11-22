@@ -19,29 +19,41 @@ public class SelectQueries {
 	}
 
 	public String createSqlForDeleteRCMById(String idToDelete) {
-		String sql = "DELETE FROM RCMRECYCLE WHERE RCMNUM in (" + idToDelete
+		String sql = "DELETE FROM RCMRECYCLE WHERE RCMID in (" + idToDelete
 				+ ");";
 		System.out.println(sql);
 		return sql;
 	}
 
-	public String createSqlForActivateRCM(int rcmNum) {
+	public String createSqlForActivateRCM(String rcmId) {
 		String sql = "UPDATE RCMRECYCLE SET ISACTIVATED='" + "ACTIVE"
-				+ "' WHERE RCMNUM =" + rcmNum + ";";
+				+ "' WHERE RCMID =" + rcmId + ";";
 		System.out.println(sql);
 		return sql;
 	}
 
-	public String createSqlForDeactivateRCM(int rcmNum) {
+	public String createSqlForDeactivateRCM(String rcmId) {
 		String sql = "UPDATE RCMRECYCLE SET ISACTIVATED='" + "DEACTIVE"
-				+ "' WHERE RCMNUM =" + rcmNum + ";";
+				+ "' WHERE RCMID =" + rcmId + ";";
 		System.out.println(sql);
 		return sql;
 	}
 
-	public String getRCMNum() {
+	public String getRCMID() {
 
-		return "SELECT MAX(RCMNUM) FROM RCMRECYCLE;";
+		return "SELECT MAX(RCMID) FROM RCMRECYCLE;";
+	}
+
+	public String createSqlForValidRCMById(String rcmId) {
+		String sql = "SELECT LOCATION FROM RCMRECYCLE WHERE RCMID = " + rcmId;
+		return sql;
+	}
+
+	public String createSqlForSetFund(String rcmId, int amount) {
+		String sql = "UPDATE RCMRECYCLE SET ISACTIVATED='" + "DEACTIVE"
+				+ "' WHERE RCMID =" + rcmId + ";";
+		System.out.println(sql);
+		return sql;
 	}
 
 }
