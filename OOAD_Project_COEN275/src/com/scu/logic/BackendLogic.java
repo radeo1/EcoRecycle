@@ -50,11 +50,6 @@ public class BackendLogic {
 		return isDeleted;
 	}
 
-	public void clearRCM() {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void getRCMList() {
 		// TODO Auto-generated method stub
 
@@ -77,6 +72,13 @@ public class BackendLogic {
 
 	public boolean setFund(String rcmId, int amount) {
 		String sql = query.createSqlForSetFund(rcmId,amount);
+		boolean isUpdate = dbConnection.updateToDB(sql);
+		return isUpdate;
+	}
+
+	public boolean clearRCMWeight(String rcmId) {
+		int weight = 0; //set to 0 for clearing
+		String sql = query.createSqlForsetWeight(rcmId,weight);
 		boolean isUpdate = dbConnection.updateToDB(sql);
 		return isUpdate;
 	}

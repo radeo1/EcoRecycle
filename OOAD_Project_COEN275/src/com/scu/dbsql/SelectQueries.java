@@ -50,8 +50,15 @@ public class SelectQueries {
 	}
 
 	public String createSqlForSetFund(String rcmId, int amount) {
-		String sql = "UPDATE RCMRECYCLE SET ISACTIVATED='" + "DEACTIVE"
-				+ "' WHERE RCMID =" + rcmId + ";";
+		String sql = "UPDATE RCMRECYCLE SET FUND=" + amount
+				+ " WHERE RCMID =" + rcmId + ";";
+		System.out.println(sql);
+		return sql;
+	}
+
+	public String createSqlForsetWeight(String rcmId, int weight) {
+		String sql = "UPDATE RCMRECYCLE SET WEIGHT=" + weight
+				+ " WHERE RCMID =" + rcmId + ";";
 		System.out.println(sql);
 		return sql;
 	}

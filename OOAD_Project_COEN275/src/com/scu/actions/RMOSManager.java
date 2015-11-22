@@ -62,23 +62,32 @@ public class RMOSManager {
 		if (isRcmIdPresentInDB) {
 			boolean isRemoved = logic.setFund(rcmId, amount);
 			if (isRemoved) {
-				return "RCM Successfully Removed";
+				return "RCM Successfully Refilled";
 			} else {
-				return "RCM is not Removed, Please try again";
+				return "RCM is not Refilled, Please try again";
 			}
 		} else {
 			return "RCM ID " + rcmId + " is not a valid RCM Id";
 		}
 	}
 
-	public void clearRcmWeight() {
+	public void getRCMList() {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void getRCMList() {
-		// TODO Auto-generated method stub
-
+	public String clearRcmWeight(String rcmId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			boolean isRemoved = logic.clearRCMWeight(rcmId);
+			if (isRemoved) {
+				return "RCM Successfully Cleared";
+			} else { 
+				return "RCM is not Cleared, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
 	}
 
 }
