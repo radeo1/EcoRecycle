@@ -54,4 +54,13 @@ public class RCMAction {
 		}
 		
 	}
+
+	public String clearRcmWeight(String rcmId) {
+		boolean isValid = Validation.isNotNullorEmplty(rcmId);
+		if (isValid) {
+			return rmosManager.clearRcmWeight(rcmId);
+		} else {
+			return "Please provide a vaild RCM ID";
+		}
+	}
 }

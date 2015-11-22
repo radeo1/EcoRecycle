@@ -599,9 +599,8 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		}
 		// *********** Clear Recycale item from RCM ******************
 		else if (source == clearRCM) {
-			rmosManager.clearRcmWeight();
-			logic.clearRCM();
-			textDisplayOutput.setText("RCM Emptied Successfully");
+			String msg = rcmAction.clearRcmWeight(textRcmId.getText());
+			textDisplayOutput.setText(msg);
 		}
 		// *********** Showlist of RCM under an RMOS******************
 		else if (source == showRCM) {
@@ -632,7 +631,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			rcmMonitor.getCurrentCash();
 			textDisplayOutput.setText("Current amount for Cash in RCM is");
 		}
-
+		
 		// *********** Display current coupon in RCM ******************
 		else if (source == currentCoupon) {
 			rcmMonitor.getCurrentCash();
