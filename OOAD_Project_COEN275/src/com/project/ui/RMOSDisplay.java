@@ -10,22 +10,25 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import com.project.EcoRe.RCMMonitor;
 import com.project.EcoRe.RCMRecycle;
-import com.project.EcoRe.RMOS;
-import com.project.EcoRe.RecycleItem;
 import com.project.EcoRe.RMOSUsageManager;
+import com.project.EcoRe.RecycleItem;
 import com.scu.actions.LoginAction;
 import com.scu.actions.RMOSManager;
 import com.scu.logic.BackendLogic;
@@ -58,7 +61,11 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		super("RMOS");
 		contentPane = getContentPane();
 		contentPane.setBackground(Color.BLUE);
-
+		Border outline1 = BorderFactory.createEmptyBorder(15, 15, 15, 15);
+		((JComponent)contentPane).setBorder(outline1);
+		//((JComponent)contentPane).setBorder(new EmptyBorder(15, 15, 15, 15));
+		//Border outline = BorderFactory.createLineBorder(Color.RED);
+        
 		loadLoginPanel();
 		loadOperationsPanel();
 		loadOutputPanel();
