@@ -62,4 +62,8 @@ public class RCMMonitor {
 		// TODO Auto-generated method stub
 		
 	}
+	public void getStatus() {
+		// TODO Auto-generated method stub
+		
+	}
 }

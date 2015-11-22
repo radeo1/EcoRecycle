@@ -5,7 +5,7 @@ import java.util.Observable;
 
 public class RCMRecycle extends Observable {
 
-	private int rcmNum;
+	
 	private String rcmId;
 	private String rmosId;
 	private String location;
@@ -20,23 +20,14 @@ public class RCMRecycle extends Observable {
 	public RCMRecycle(){
 		super();
 	}
-	public RCMRecycle(int rcmNum) {
-		this.rcmNum = rcmNum;
-	}
+	
 
-	public RCMRecycle(int rcmNum, String rcmId, String location) {
-		this.rcmNum = rcmNum;
+	public RCMRecycle(String rcmId, String location) {
+		
 		this.rcmId = rcmId;
 		this.location = location;
 	}
 
-	public int getRcmNum() {
-		return rcmNum;
-	}
-
-	public void setRcmNum(int rcmNum) {
-		this.rcmNum = rcmNum;
-	}
 
 	public String getRcmId() {
 		return rcmId;
