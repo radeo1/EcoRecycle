@@ -30,6 +30,7 @@ import com.project.EcoRe.RCMRecycle;
 import com.project.EcoRe.RMOSUsageManager;
 import com.project.EcoRe.RecycleItem;
 import com.scu.actions.LoginAction;
+import com.scu.actions.RCMAction;
 import com.scu.actions.RMOSManager;
 import com.scu.logic.BackendLogic;
 
@@ -55,6 +56,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 	static JTextArea textDisplayOutput;
 	static JTextArea errorDisplayOutput;
 	BackendLogic logic = new BackendLogic();
+	RCMAction rcmAction = new RCMAction();
 
 	public RMOSDisplay() {
 
@@ -577,56 +579,30 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 
 		// *********** Admin add RCM **************
 		else if (source == addRCM) {
-			int rcmNum = Integer.parseInt(textRcmNo.getText());
-			String rcmId = textRcmId.getText();
-			String rcmLoc = textRcmLocation.getText();
-			System.out.println("rcmNum " + rcmNum + " rcmId " + rcmId
-					+ " rcmLoc " + rcmLoc);
-			// create a new RCM and store into RMOS list
-			RCMRecycle rcm = new RCMRecycle(rcmNum, rcmId, rcmLoc);
-			rmosManager.addRCM(rcm);
-			logic.addRCM(rcm);
-			// set display on RMOS panel
-			textDisplayOutput.setText("RCM Successfully Added");
-
+			String msg = rcmAction.addRCM(textRcmLocation.getText());
+			textDisplayOutput.setText(msg);
 		}
 		// ********* Remove a RCM from RMOS group *********
 		else if (source == removeRCM) {
-			int rcmNum = Integer.parseInt(textRcmNo.getText());
-			System.out.println("rcmNum " + rcmNum);
-			rmosManager.removeRCM(rcmNum);
-			// remove the RCM from database
-			logic.removeRCM(rcmNum);
-
-			// set display on RMOS panel
-			textDisplayOutput.setText("RCM Successfully Removed");
+			String msg = rcmAction.removeRCM(textRcmId.getText());
+			textDisplayOutput.setText(msg);
 		}
 		// ********** Activate a RCM ****************
 		else if (source == activateRCM) {
-			// get RCM number
-			int rcmNum = Integer.parseInt(textRcmNo.getText());
-			System.out.println("rcmNum " + rcmNum);
-			int temp = rmosManager.activeRCM(rcmNum);
-
-			logic.activateRCM(temp);
-			textDisplayOutput.setText("RCM Successfully Activated");
+			String msg = rcmAction.activateRCM(textRcmId.getText());
+			textDisplayOutput.setText(msg);
 		}
-		// ********** Activate a RCM ****************
+		// ********** Deactivate a RCM ****************
 		else if (source == deactivateRCM) {
-			// get RCM number
-			int rcmNum = Integer.parseInt(textRcmNo.getText());
-			System.out.println("rcmNum " + rcmNum);
-			int temp = rmosManager.deactiveRCM(rcmNum);
-
-			logic.deactivateRCM(temp);
-			textDisplayOutput.setText("RCM Successfully Deactivated");
-				}
+			String msg = rcmAction.deActivateRCM(textRcmId.getText());
+			textDisplayOutput.setText(msg);
+		}
 		
 		// *********** Refill Money ******************
 		else if (source == refillRCM) {
-			rmosManager.setFunds();
-			logic.setFunds();
-			textDisplayOutput.setText("Funds credited in RCM Successfully");
+			int amount = 1000;
+			String msg = rcmAction.refillRCM(textRcmId.getText(),amount );
+			textDisplayOutput.setText(msg);
 		}
 		// *********** Clear Recycale item from RCM ******************
 		else if (source == clearRCM) {
@@ -645,11 +621,10 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		/********* Start of RCM Monitor Activities **************/
 
 		else if (source == currentWeight) {
-			int rcmNum = Integer.parseInt(textRcmNumber.getText());
 			String rcmId = textRcm.getText();
 			String rcmLoc = textRcmLoc.getText();
 			String rcmStatus = textRcmStatus.getText();
-			System.out.println("rcmNum " + rcmNum + " rcmId " + rcmId
+			System.out.println("rcmId " + rcmId + " rcmId " + rcmId
 					+ " rcmLoc " + rcmLoc);
 			System.out.println("rcmStatus " + rcmStatus);
 
@@ -730,7 +705,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			System.out.println("itemType " + itemType);
 			int temp = recycleItem.addItem(itemType);
 
-			logic.activateRCM(temp);
+			//logic.activateRCM(temp);
 			textDisplayOutput.setText("Item Successfully Added");
 		}
 		// *********** Removes Item from RCM
@@ -741,7 +716,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			System.out.println("itemType " + itemType);
 			int temp = recycleItem.removeItem(itemType);
 
-			logic.activateRCM(temp);
+			//logic.activateRCM(temp);
 			textDisplayOutput.setText("Item Removed Added");
 		}
 		// *********** Removes Item from RCM

@@ -5,34 +5,53 @@ import com.project.EcoRe.RCMRecycle;
 public class SelectQueries {
 
 	public String getPasswordByUserName(String userName) {
-		String sql = "SELECT PASSWORD FROM USER where USERNAME='" + userName + "';";
+		String sql = "SELECT PASSWORD FROM USER where USERNAME='" + userName
+				+ "';";
 		System.out.println(sql);
 		return sql;
 	}
 
 	public String createSqlForAddRCM(RCMRecycle rcm) {
-		String sql = "INSERT INTO RCMRECYCLE (RCMNUMBER, LOCATION) VALUES ('"
-				+ rcm.getRcmNum() + "','" + rcm.getLocation() + "');";
+		String sql = "INSERT INTO RCMRECYCLE (LOCATION) VALUES ('"
+				+ rcm.getLocation() + "');";
 		System.out.println(sql);
 		return sql;
 	}
 
-	public String createSqlForDeleteRCMById(int idToDelete) {
-		String sql = "DELETE FROM RCMRECYCLE WHERE RCMNUM in (" + idToDelete + ");";
+	public String createSqlForDeleteRCMById(String idToDelete) {
+		String sql = "DELETE FROM RCMRECYCLE WHERE RCMID in (" + idToDelete
+				+ ");";
 		System.out.println(sql);
 		return sql;
 	}
 
-	public String createSqlForActivateRCM(int rcmNum) {
+	public String createSqlForActivateRCM(String rcmId) {
 		String sql = "UPDATE RCMRECYCLE SET ISACTIVATED='" + "ACTIVE"
-				+ "' WHERE RCMNUM =" + rcmNum + ";";
+				+ "' WHERE RCMID =" + rcmId + ";";
 		System.out.println(sql);
 		return sql;
 	}
 
-	public String createSqlForDeactivateRCM(int rcmNum) {
+	public String createSqlForDeactivateRCM(String rcmId) {
 		String sql = "UPDATE RCMRECYCLE SET ISACTIVATED='" + "DEACTIVE"
-				+ "' WHERE RCMNUM =" + rcmNum + ";";
+				+ "' WHERE RCMID =" + rcmId + ";";
+		System.out.println(sql);
+		return sql;
+	}
+
+	public String getRCMID() {
+
+		return "SELECT MAX(RCMID) FROM RCMRECYCLE;";
+	}
+
+	public String createSqlForValidRCMById(String rcmId) {
+		String sql = "SELECT LOCATION FROM RCMRECYCLE WHERE RCMID = " + rcmId;
+		return sql;
+	}
+
+	public String createSqlForSetFund(String rcmId, int amount) {
+		String sql = "UPDATE RCMRECYCLE SET ISACTIVATED='" + "DEACTIVE"
+				+ "' WHERE RCMID =" + rcmId + ";";
 		System.out.println(sql);
 		return sql;
 	}
