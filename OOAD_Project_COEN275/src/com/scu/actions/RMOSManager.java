@@ -6,46 +6,79 @@ package com.scu.actions;
 
 import com.project.EcoRe.RCMRecycle;
 import com.scu.logic.BackendLogic;
+import com.scu.logic.Validation;
 
-public class RMOSManager 
-{
+public class RMOSManager {
 	private BackendLogic logic = new BackendLogic();
-	public String addRCM (RCMRecycle rcm)
-	{
+
+	public String addRCM(RCMRecycle rcm) {
 		return logic.addRCM(rcm);
 	}
-	public void activateRCM (int rcmNum)
-	{
-		boolean isUpdated = logic.activateRCM(rcmNum);
-	}
-	public String removeRCM (String rcmNum)
-	{
-		boolean isRemoved = logic.removeRCM(rcmNum);
-		if(isRemoved){
-			return "RCM Successfully Removed";
-		}else{
-			return "RCM is not Removed, Please try again";
+
+	public String activateRCM(String rcmId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			boolean isUpdated = logic.activateRCM(rcmId);
+			if (isUpdated) {
+				return "RCM Successfully Activated";
+			} else {
+				return "RCM is not Activated, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
 		}
 	}
-	public int activeRCM(int rcmNum)
-	{
-		int res=0;
-		
-		return res;
+
+	public String deactivateRCM(String rcmId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			boolean isUpdated = logic.deactivateRCM(rcmId);
+			if (isUpdated) {
+				return "RCM Successfully Deactivated";
+			} else {
+				return "RCM is not Deactivated, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
 	}
-	public void setFunds() {
+
+	public String removeRCM(String rcmId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			boolean isRemoved = logic.removeRCM(rcmId);
+			if (isRemoved) {
+				return "RCM Successfully Removed";
+			} else {
+				return "RCM is not Removed, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
 	}
+
+	public String setFunds(String rcmId, int amount) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			boolean isRemoved = logic.setFund(rcmId, amount);
+			if (isRemoved) {
+				return "RCM Successfully Removed";
+			} else {
+				return "RCM is not Removed, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
+	}
+
 	public void clearRcmWeight() {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	public void getRCMList() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	public int deactiveRCM(int rcmNum) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
+
 }

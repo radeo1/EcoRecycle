@@ -4,7 +4,6 @@ import com.project.EcoRe.RCMRecycle;
 import com.scu.connecctions.ScuDbConn;
 import com.scu.dbsql.SelectQueries;
 
-
 public class BackendLogic {
 
 	ScuDbConn dbConnection = new ScuDbConn();
@@ -23,55 +22,62 @@ public class BackendLogic {
 	public String addRCM(RCMRecycle rcm) {
 		String sql = query.createSqlForAddRCM(rcm);
 		boolean isAdded = dbConnection.insertIntoDB(sql);
-		if(isAdded){
-		sql = null;
-		sql= query.getRCMNum();
-		String rcmNumber = dbConnection.getValueFromSql(sql);
-		return "RCM number "+ rcmNumber +" is added successfully.";
-		}else{
+		if (isAdded) {
+			sql = null;
+			sql = query.getRCMID();
+			String rcmId = dbConnection.getValueFromSql(sql);
+			return "RCM ID " + rcmId + " is added successfully.";
+		} else {
 			return "RCM is not added Sucessful";
 		}
 	}
 
-	public boolean activateRCM(int rcmNum) {
-		String sql = query.createSqlForActivateRCM(rcmNum);
+	public boolean activateRCM(String rcmId) {
+		String sql = query.createSqlForActivateRCM(rcmId);
 		boolean isUpdate = dbConnection.updateToDB(sql);
-		return isUpdate;		
+		return isUpdate;
+	}
+	
+	public boolean deactivateRCM(String rcmId) {
+		String sql = query.createSqlForDeactivateRCM(rcmId);
+		boolean isUpdate = dbConnection.updateToDB(sql);
+		return isUpdate;
 	}
 
-	public boolean removeRCM(String rcmNum) {
-		String sql = query.createSqlForDeleteRCMById(rcmNum);
+	public boolean removeRCM(String rcmId) {
+		String sql = query.createSqlForDeleteRCMById(rcmId);
 		boolean isDeleted = dbConnection.deleteFromDB(sql);
 		return isDeleted;
 	}
 
 	public void clearRCM() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void getRCMList() {
 		// TODO Auto-generated method stub
-		
-	}
 
-	public void setFunds() {
-		// TODO Auto-generated method stub
-		
 	}
-
-	public void deactivateRCM(int temp) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void updatePrice(int temp) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void getItemList() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	public boolean isvalidRcmId(String rcmId) {
+		String sql = query.createSqlForValidRCMById(rcmId);
+		String location = dbConnection.getValueFromSql(sql);
+		return Validation.isNotNullorEmplty(location);
+	}
+
+	public boolean setFund(String rcmId, int amount) {
+		String sql = query.createSqlForSetFund(rcmId,amount);
+		boolean isUpdate = dbConnection.updateToDB(sql);
+		return isUpdate;
 	}
 }
