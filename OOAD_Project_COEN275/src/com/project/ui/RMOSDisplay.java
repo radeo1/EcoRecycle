@@ -9,8 +9,11 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -57,6 +60,8 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 	static JTextArea errorDisplayOutput;
 	BackendLogic logic = new BackendLogic();
 	RCMAction rcmAction = new RCMAction();
+	List<String> rcmIds = new ArrayList<String>();
+	DefaultComboBoxModel model = null;
 
 	public RMOSDisplay() {
 
@@ -540,9 +545,9 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 
 	/* Part of RCM Monitor Operations Panel */
 	public JComboBox createComboBox() {
-		String[] RCMachine = { "RCM01", "RCM02", "RCM03", "RCM04", "RCM05",
-				"RCM06", "RCM07", "RCM08", "RCM09", "RCM10" };
-		rcmCombo = new JComboBox(RCMachine);
+		rcmIds = rcmAction.getAllRcmId();
+		model = new DefaultComboBoxModel(rcmIds.toArray());
+		rcmCombo = new JComboBox(model);
 		rcmCombo.setForeground(Color.BLACK);
 		rcmCombo.setFont(new Font("Arial", Font.BOLD, 10));
 
@@ -619,26 +624,18 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		}
 		// *********** Showlist of RCM under an RMOS******************
 		else if (source == showRCM) {
-			rmosManager.getRCMList();
-			logic.getRCMList();
-			textDisplayOutput.setText("List of RCMs are");
+			rcmIds = rcmAction.getAllRcmId();
+			model.removeAllElements();
+			model.addElement(rcmIds.toArray());
+			textDisplayOutput.setText("RCM List is updated");
 		}
 		/* ********* End of RMOS Manager Activities ***** */
 
 		/********* Start of RCM Monitor Activities **************/
 
 		else if (source == currentWeight) {
-			String rcmId = textRcm.getText();
-			String rcmLoc = textRcmLoc.getText();
-			//String rcmStatus = textRcmStatus.getText();
-			System.out.println("rcmId " + rcmId + " rcmId " + rcmId
-					+ " rcmLoc " + rcmLoc);
-			//System.out.println("rcmStatus " + rcmStatus);
-
-			// *********** Clear Recycled item from RCM ******************
-			rcmMonitor.getCurrentWeight();
-			textDisplayOutput.setText("Current Weight in RCM is");
-
+			String msg = rcmAction.currentWeight(textRcm.getText());
+			textDisplayOutput.setText(msg);
 		}
 
 		// *********** Display current cash in RCM ******************
@@ -657,8 +654,6 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		else if (source == btnMonthlyTransactions) {
 			rcmMonitor.getMonthlyTransactions();
 			textDisplayOutput.setText("No of times RCM was operated in a month is ");
-					
-
 		}
 		// *********** Display current status of RCM ******************
 		else if (source == btnRcmStatus) 

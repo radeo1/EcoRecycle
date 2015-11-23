@@ -1,5 +1,8 @@
 package com.scu.actions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.project.EcoRe.RCMRecycle;
 import com.scu.logic.Validation;
 
@@ -59,6 +62,20 @@ public class RCMAction {
 		boolean isValid = Validation.isNotNullorEmplty(rcmId);
 		if (isValid) {
 			return rmosManager.clearRcmWeight(rcmId);
+		} else {
+			return "Please provide a vaild RCM ID";
+		}
+	}
+
+	public List<String> getAllRcmId() {
+		List<String> rcmIds = rmosManager.getAllRcmId();
+		return rcmIds;
+	}
+
+	public String currentWeight(String rcmId) {
+		boolean isValid = Validation.isNotNullorEmplty(rcmId);
+		if (isValid) {
+			return rmosManager.currentWeight(rcmId);
 		} else {
 			return "Please provide a vaild RCM ID";
 		}

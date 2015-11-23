@@ -1,5 +1,7 @@
 package com.scu.logic;
 
+import java.util.List;
+
 import com.project.EcoRe.RCMRecycle;
 import com.scu.connecctions.ScuDbConn;
 import com.scu.dbsql.SelectQueries;
@@ -81,5 +83,17 @@ public class BackendLogic {
 		String sql = query.createSqlForsetWeight(rcmId,weight);
 		boolean isUpdate = dbConnection.updateToDB(sql);
 		return isUpdate;
+	}
+
+	public List<String> getAllRmsId() {
+		String sql = query.createSqlForFetchRMSids();
+		List<String> outputList = dbConnection.getListOfFirstClm(sql);
+		return outputList;
+	}
+
+	public String getWeight(String rcmId) {
+		 String sql = query.createSqlForCurrentWeight(rcmId);
+		String weight = dbConnection.getValueFromSql(sql);
+		return weight;
 	}
 }

@@ -4,6 +4,8 @@
  */
 package com.scu.actions;
 
+import java.util.List;
+
 import com.project.EcoRe.RCMRecycle;
 import com.scu.logic.BackendLogic;
 import com.scu.logic.Validation;
@@ -71,10 +73,6 @@ public class RMOSManager {
 		}
 	}
 
-	public void getRCMList() {
-		// TODO Auto-generated method stub
-
-	}
 
 	public String clearRcmWeight(String rcmId) {
 		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
@@ -84,6 +82,25 @@ public class RMOSManager {
 				return "RCM Successfully Cleared";
 			} else { 
 				return "RCM is not Cleared, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
+	}
+
+	public List<String> getAllRcmId() {
+		List<String> rmsids = logic.getAllRmsId();
+		return rmsids;
+	}
+
+	public String currentWeight(String rcmId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			String currentWeight = logic.getWeight(rcmId);
+			if (Validation.isNotNullorEmplty(currentWeight)) {
+				return "RCM Id "+ rcmId + " has current weight as " +currentWeight;
+			} else {
+				return "RCM Id "+ rcmId + "current weight is not available, Please try again";
 			}
 		} else {
 			return "RCM ID " + rcmId + " is not a valid RCM Id";

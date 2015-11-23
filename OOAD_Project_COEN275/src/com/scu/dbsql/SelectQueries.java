@@ -46,12 +46,13 @@ public class SelectQueries {
 
 	public String createSqlForValidRCMById(String rcmId) {
 		String sql = "SELECT LOCATION FROM RCMRECYCLE WHERE RCMID = " + rcmId;
+		System.out.println(sql);
 		return sql;
 	}
 
 	public String createSqlForSetFund(String rcmId, int amount) {
-		String sql = "UPDATE RCMRECYCLE SET FUND=" + amount
-				+ " WHERE RCMID =" + rcmId + ";";
+		String sql = "UPDATE RCMRECYCLE SET FUND=" + amount + " WHERE RCMID ="
+				+ rcmId + ";";
 		System.out.println(sql);
 		return sql;
 	}
@@ -59,6 +60,19 @@ public class SelectQueries {
 	public String createSqlForsetWeight(String rcmId, int weight) {
 		String sql = "UPDATE RCMRECYCLE SET WEIGHT=" + weight
 				+ " WHERE RCMID =" + rcmId + ";";
+		System.out.println(sql);
+		return sql;
+	}
+
+	public String createSqlForFetchRMSids() {
+		String sql = "SELECT RCMID FROM RCMRECYCLE";
+		System.out.println(sql);
+		return sql;
+	}
+
+	public String createSqlForCurrentWeight(String rcmId) {
+		String sql = "SELECT CURRENT_WEIGHT FROM RCMRECYCLE WHERE RCMID ="
+				+ rcmId;
 		System.out.println(sql);
 		return sql;
 	}

@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ScuDbConn {
@@ -119,6 +121,21 @@ public class ScuDbConn {
 			}
 		}
 		return rs;
+	}
+
+	public List<String> getListOfFirstClm(String sql) {
+		ArrayList<String> outList = new ArrayList<String>();
+		Statement stmt;
+		try {
+			stmt = DBConnection.getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				outList.add(rs.getString(1));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return outList;
 	}
 
 }
