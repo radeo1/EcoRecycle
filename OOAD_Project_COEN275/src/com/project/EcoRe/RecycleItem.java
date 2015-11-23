@@ -1,11 +1,13 @@
 package com.project.EcoRe;
-
+import com.scu.logic.BackendLogic;
 public class RecycleItem
 {
 	private String itemName;
 	private String itemType;
 	private double itemWeight, itemWeightUnit;
 	private double unitPrice;
+	
+	private BackendLogic logic = new BackendLogic();
 	
 	public String getItemName() {
 		return itemName;
@@ -37,22 +39,28 @@ public class RecycleItem
 	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
-	public int addItem(String itemType) {
+	public String addItem(String itemType, int unitPrice) {
 		// TODO Auto-generated method stub
-		return 0;
+		this.itemType = itemType;
+                this.unitPrice = unitPrice;
+                String addItem = logic.addItem(itemType, unitPrice);
+		return addItem;
 	}
-	public int removeItem(String itemType) {
+	public String removeItem(String itemType) {
 		// TODO Auto-generated method stub
-		return 0;
+		String deleteItem = logic.removeItem(itemType);
+                return deleteItem;
 	}
-	public int updatePrice(String itemType, int uPrice) {
+	public String updatePrice(String itemType, int uPrice) {
 		// TODO Auto-generated method stub
-		return 0;
+		String updatePrice = logic.updatePrice(itemType, uPrice);
+                return updatePrice;
 	}
-	public void getItemList() {
+	public String getItemList() {
 		// TODO Auto-generated method stub
-		
-	}
+		String itemList = logic.getItemList();
+                return itemList;
+        }
 	
 	
 }
