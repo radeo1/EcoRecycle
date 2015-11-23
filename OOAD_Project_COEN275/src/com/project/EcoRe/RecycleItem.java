@@ -40,7 +40,6 @@ public class RecycleItem
 		this.unitPrice = unitPrice;
 	}
 	public String addItem(String itemType, int unitPrice) {
-		// TODO Auto-generated method stub
 		this.itemType = itemType;
                 this.unitPrice = unitPrice;
                 String addItem = logic.addItem(itemType, unitPrice);
@@ -61,6 +60,10 @@ public class RecycleItem
 		String itemList = logic.getItemList();
                 return itemList;
         }
+	public int addItem(String itemType2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 }

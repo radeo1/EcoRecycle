@@ -730,7 +730,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			// get Item Type
 			String itemType = textItemType.getText();
 			System.out.println("itemType " + itemType);
-			int temp = recycleItem.removeItem(itemType);
+			String temp = recycleItem.removeItem(itemType);
 
 			//logic.activateRCM(temp);
 			textDisplayOutput.setText("Item Removed Added");
@@ -742,7 +742,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			int uPrice = Integer.parseInt(textUnitPrice.getText());
 			String itemType = textItemType.getText();
 			System.out.println("itemType " + itemType + "itemPrice " +uPrice);
-			int temp = recycleItem.updatePrice(itemType,uPrice);
+			String temp = recycleItem.updatePrice(itemType,uPrice);
 
 			logic.updatePrice(temp);
 			textDisplayOutput.setText("Item Price Updated");

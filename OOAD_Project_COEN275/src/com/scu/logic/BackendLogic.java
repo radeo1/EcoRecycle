@@ -52,16 +52,13 @@ public class BackendLogic {
 		return isDeleted;
 	}
 
-	public void getRCMList() {
-		// TODO Auto-generated method stub
-
-	}
 	public void updatePrice(int temp) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void getItemList() {
+	public String getItemList() {
+		return null;
 		// TODO Auto-generated method stub
 
 	}
@@ -95,5 +92,30 @@ public class BackendLogic {
 		 String sql = query.createSqlForCurrentWeight(rcmId);
 		String weight = dbConnection.getValueFromSql(sql);
 		return weight;
+	}
+
+	public String addItem(String itemType, int unitPrice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String removeItem(String itemType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String updatePrice(String itemType, int uPrice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getMostUsedRCM() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void updatePrice(String temp) {
+		// TODO Auto-generated method stub
+		
 	}
 }
