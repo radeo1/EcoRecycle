@@ -119,4 +119,33 @@ public class SelectQueries {
 		return sql;
 	}
 
+public String createSqlForMostUsedRCM(){
+            String sql;
+            sql = "SELECT RCMNUM, RCMID, MONTHLYWEIGHT, LOCATION FROM RcmRecycle ORDER BY SUM(TRANSACTION_WEIGHT) DESC; ";
+            return sql;
+        }
+        
+        public String createSqlForAddItem(String itemType, double itemWeightUnit, double unitPrice){
+            String sql;
+            sql = "INSERT INTO RECYCLEITEM(ITEMTYPE, ITEM_UNIT_WEIGHT,UNIT_PRICE) VALUES ('"+itemType+"',"+itemWeightUnit + ",'"+unitPrice+"'); ";
+            return sql;
+        }
+        
+        public String createSqlForDeleteItem(String itemType){
+            String sql;
+            sql = "Delete from RECYCLEITEM where ITEMTYPE ='" + itemType+"';";
+            return sql;
+        }
+        
+        public String createSqlForUpdatePrice(String itemType, double unitPrice){
+            String sql;
+            sql = "Update RECYCLEITEM set UNIT_PRICE = "+ unitPrice +" where ITEMTYPE ='"+itemType +"';";
+            return sql;
+        }
+        
+        public String createSqlForGetItemList(){
+            String sql;
+            sql = "Select ITEMTYPE, ITEM_UNIT_WEIGHT, UNIT_PRICE FROM RECYCLEITEM;";
+            return sql;
+        }
 }
