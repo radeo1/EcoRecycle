@@ -1,5 +1,7 @@
 package com.project.EcoRe;
 import com.scu.logic.BackendLogic;
+import java.sql.ResultSet;
+
 public class RecycleItem
 {
 	private String itemName;
@@ -60,10 +62,7 @@ public class RecycleItem
 		String itemList = logic.getItemList();
                 return itemList;
         }
-	public int addItem(String itemType2) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 	
 	
 }
