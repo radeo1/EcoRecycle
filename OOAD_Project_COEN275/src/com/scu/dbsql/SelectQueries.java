@@ -77,4 +77,18 @@ public class SelectQueries {
 		return sql;
 	}
 
+	public String createSqlForCurrentCoupon(String rcmId) {
+		String sql = "SELECT AVAILABLE_COUPON FROM RCMRECYCLE WHERE RCMID ="
+				+ rcmId;
+		System.out.println(sql);
+		return sql;
+	}
+
+	public String createSqlForCurrentCash(String rcmId) {
+		String sql = "SELECT AVAILABLE_CASH FROM RCMRECYCLE WHERE RCMID ="
+				+ rcmId;
+		System.out.println(sql);
+		return sql;
+	}
+
 }

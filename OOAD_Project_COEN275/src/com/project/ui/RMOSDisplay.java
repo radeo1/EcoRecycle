@@ -640,20 +640,20 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 
 		// *********** Display current cash in RCM ******************
 		else if (source == currentCash) {
-			rcmMonitor.getCurrentCash();
-			textDisplayOutput.setText("Current amount for Cash in RCM is");
+			String msg = rcmAction.getCurrentCash(textRcm.getText());
+			textDisplayOutput.setText(msg);
 		}
 		
 		// *********** Display current coupon in RCM ******************
 		else if (source == currentCoupon) {
-			rcmMonitor.getCurrentCash();
-			textDisplayOutput.setText("Current amount for coupon in RCM is");
+			String msg = rcmAction.getCurrentCoupon(textRcm.getText());
+			textDisplayOutput.setText(msg);
 		}
 		// *********** Display No of times RCM was operated in a month
 		// ******************
 		else if (source == btnMonthlyTransactions) {
-			rcmMonitor.getMonthlyTransactions();
-			textDisplayOutput.setText("No of times RCM was operated in a month is ");
+			String msg = rcmAction.getMonthlyTransactions(textRcm.getText());
+			textDisplayOutput.setText(msg);
 		}
 		// *********** Display current status of RCM ******************
 		else if (source == btnRcmStatus) 

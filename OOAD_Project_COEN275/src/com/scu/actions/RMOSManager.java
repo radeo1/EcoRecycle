@@ -73,14 +73,13 @@ public class RMOSManager {
 		}
 	}
 
-
 	public String clearRcmWeight(String rcmId) {
 		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
 		if (isRcmIdPresentInDB) {
 			boolean isRemoved = logic.clearRCMWeight(rcmId);
 			if (isRemoved) {
 				return "RCM Successfully Cleared";
-			} else { 
+			} else {
 				return "RCM is not Cleared, Please try again";
 			}
 		} else {
@@ -98,9 +97,43 @@ public class RMOSManager {
 		if (isRcmIdPresentInDB) {
 			String currentWeight = logic.getWeight(rcmId);
 			if (Validation.isNotNullorEmplty(currentWeight)) {
-				return "RCM Id "+ rcmId + " has current weight as " +currentWeight;
+				return "RCM Id " + rcmId + " has current weight as "
+						+ currentWeight;
 			} else {
-				return "RCM Id "+ rcmId + "current weight is not available, Please try again";
+				return "RCM Id " + rcmId
+						+ "current weight is not available, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
+	}
+
+	public String currentCoupon(String rcmId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			String currentWeight = logic.getCoupon(rcmId);
+			if (Validation.isNotNullorEmplty(currentWeight)) {
+				return "RCM Id " + rcmId + " has current coupon as "
+						+ currentWeight;
+			} else {
+				return "RCM Id " + rcmId
+						+ "current Coupon is not available, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
+	}
+
+	public String currentCash(String rcmId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			String currentWeight = logic.getCash(rcmId);
+			if (Validation.isNotNullorEmplty(currentWeight)) {
+				return "RCM Id " + rcmId + " has current cash as "
+						+ currentWeight;
+			} else {
+				return "RCM Id " + rcmId
+						+ "current cash is not available, Please try again";
 			}
 		} else {
 			return "RCM ID " + rcmId + " is not a valid RCM Id";

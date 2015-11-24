@@ -80,4 +80,32 @@ public class RCMAction {
 			return "Please provide a vaild RCM ID";
 		}
 	}
+
+	public String getCurrentCash(String rcmId) {
+		boolean isValid = Validation.isNotNullorEmplty(rcmId);
+		if (isValid) {
+			return rmosManager.currentCash(rcmId);
+		} else {
+			return "Please provide a vaild RCM ID";
+		}
+	}
+
+	public String getCurrentCoupon(String rcmId) {
+		boolean isValid = Validation.isNotNullorEmplty(rcmId);
+		if (isValid) {
+			return rmosManager.currentCoupon(rcmId);
+		} else {
+			return "Please provide a vaild RCM ID";
+		}
+	}
+
+	//#TODO
+	public String getMonthlyTransactions(String rcmId) {
+		boolean isValid = Validation.isNotNullorEmplty(rcmId);
+		if (isValid) {
+			return null;//rmosManager.monthlyTrasnsaction(rcmId);
+		} else {
+			return "Please provide a vaild RCM ID";
+		}
+	}
 }

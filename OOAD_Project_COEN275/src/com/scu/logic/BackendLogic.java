@@ -94,6 +94,19 @@ public class BackendLogic {
 		return weight;
 	}
 
+	public String getCoupon(String rcmId) {
+		 String sql = query.createSqlForCurrentCoupon(rcmId);
+			String weight = dbConnection.getValueFromSql(sql);
+			return weight;
+	}
+
+	public String getCash(String rcmId) {
+		 String sql = query.createSqlForCurrentCash(rcmId);
+			String weight = dbConnection.getValueFromSql(sql);
+			return weight;
+	}
+	
+	
 	public String addItem(String itemType, int unitPrice) {
 		// TODO Auto-generated method stub
 		return null;
@@ -118,4 +131,5 @@ public class BackendLogic {
 		// TODO Auto-generated method stub
 		
 	}
+
 }
