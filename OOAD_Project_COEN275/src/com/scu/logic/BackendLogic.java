@@ -5,6 +5,7 @@ import java.util.List;
 import com.project.EcoRe.RCMRecycle;
 import com.scu.connecctions.ScuDbConn;
 import com.scu.dbsql.SelectQueries;
+import java.sql.ResultSet;
 
 public class BackendLogic {
 
@@ -50,17 +51,6 @@ public class BackendLogic {
 		String sql = query.createSqlForDeleteRCMById(rcmId);
 		boolean isDeleted = dbConnection.deleteFromDB(sql);
 		return isDeleted;
-	}
-
-	public void updatePrice(int temp) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public String getItemList() {
-		return null;
-		// TODO Auto-generated method stub
-
 	}
 
 	public boolean isvalidRcmId(String rcmId) {
