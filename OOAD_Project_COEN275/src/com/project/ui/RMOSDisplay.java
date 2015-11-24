@@ -707,8 +707,10 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		else if (source == addItem) {
 			// get Item Type
 			String itemType = textItemType.getText();
-			System.out.println("itemType " + itemType);
-			int temp = recycleItem.addItem(itemType);
+                        double itemWeightUnit = 1;
+                        double unitPrice = Double.parseDouble(textUnitPrice.getText());
+			System.out.println("itemType " + itemType +", unit weight "+itemWeightUnit+", itemPrice" +unitPrice);
+			recycleItem.addItem(itemType, itemWeightUnit, unitPrice);
 
 			//logic.activateRCM(temp);
 			textDisplayOutput.setText("Item Successfully Added");
@@ -719,21 +721,21 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			// get Item Type
 			String itemType = textItemType.getText();
 			System.out.println("itemType " + itemType);
-			String temp = recycleItem.removeItem(itemType);
+			recycleItem.removeItem(itemType);
 
 			//logic.activateRCM(temp);
-			textDisplayOutput.setText("Item Removed Added");
+			textDisplayOutput.setText("Item Removed");
 		}
-		// *********** Removes Item from RCM
+		// *********** Updates Item price
 				// ******************
 		else if (source == updatePrice) {
-					// get Item Type
-			int uPrice = Integer.parseInt(textUnitPrice.getText());
+			// get Item Type
+			double unitPrice = Double.parseDouble(textUnitPrice.getText());
 			String itemType = textItemType.getText();
-			System.out.println("itemType " + itemType + "itemPrice " +uPrice);
-			String temp = recycleItem.updatePrice(itemType,uPrice);
+			System.out.println("itemType " + itemType + " itemPrice " +unitPrice);
+			recycleItem.updatePrice(itemType,unitPrice);
 
-			logic.updatePrice(temp);
+			//logic.updatePrice(temp);
 			textDisplayOutput.setText("Item Price Updated");
 		}
 			
@@ -741,8 +743,9 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		else if (source == listItem) {
 			recycleItem.getItemList();
 			logic.getItemList();
-			textDisplayOutput.setText("List of Recycable Items are");
+			textDisplayOutput.setText("List of Recycable Items are"+ logic.getItemList());
 		}
+
 
 			// *********** Show Most Used RCM  ******************
 		else if (source == mostUsed) {
