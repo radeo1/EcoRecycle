@@ -111,10 +111,10 @@ public class RMOSManager {
 	public String currentCoupon(String rcmId) {
 		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
 		if (isRcmIdPresentInDB) {
-			String currentWeight = logic.getCoupon(rcmId);
-			if (Validation.isNotNullorEmplty(currentWeight)) {
+			String tempCurrent = logic.getCoupon(rcmId);
+			if (Validation.isNotNullorEmplty(tempCurrent)) {
 				return "RCM Id " + rcmId + " has current coupon as "
-						+ currentWeight;
+						+ tempCurrent;
 			} else {
 				return "RCM Id " + rcmId
 						+ "current Coupon is not available, Please try again";
@@ -127,13 +127,93 @@ public class RMOSManager {
 	public String currentCash(String rcmId) {
 		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
 		if (isRcmIdPresentInDB) {
-			String currentWeight = logic.getCash(rcmId);
-			if (Validation.isNotNullorEmplty(currentWeight)) {
+			String tempCurrent = logic.getCash(rcmId);
+			if (Validation.isNotNullorEmplty(tempCurrent)) {
 				return "RCM Id " + rcmId + " has current cash as "
-						+ currentWeight;
+						+ tempCurrent;
 			} else {
 				return "RCM Id " + rcmId
 						+ "current cash is not available, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
+	}
+
+	public String getLastEmptied(String rcmId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			String tempCurrent = logic.getLastEmptied(rcmId);
+			if (Validation.isNotNullorEmplty(tempCurrent)) {
+				return "RCM Id " + rcmId + " has Last Emptied Date as "
+						+ tempCurrent;
+			} else {
+				return "RCM Id " + rcmId
+						+ " Last Emptied Date is not available, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
+	}
+
+	public String getCashDebitedPerMonth(String rcmId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			String tempCurrent = logic.getCashDebitedPerMonth(rcmId);
+			if (Validation.isNotNullorEmplty(tempCurrent)) {
+				return "RCM Id " + rcmId + " has Cash Debited Per Month as "
+						+ tempCurrent;
+			} else {
+				return "RCM Id " + rcmId
+						+ " Cash Debited Per Month is not available, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
+	}
+
+	public String getWeightPerMonth(String rcmId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			String tempCurrent = logic.getWeightPerMonth(rcmId);
+			if (Validation.isNotNullorEmplty(tempCurrent)) {
+				return "RCM Id " + rcmId + " has Weight Per Month as "
+						+ tempCurrent;
+			} else {
+				return "RCM Id " + rcmId
+						+ " Weight Per Month is not available, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
+	}
+
+	public String getCurrItemsRecycled(String rcmId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			String tempCurrent = logic.getCurrItemsRecycled(rcmId);
+			if (Validation.isNotNullorEmplty(tempCurrent)) {
+				return "RCM Id " + rcmId + " has Current Items Recycled as "
+						+ tempCurrent;
+			} else {
+				return "RCM Id " + rcmId
+						+ " Current Items Recycled is not available, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
+	}
+
+	public String getItemsRecycledByMonth(String rcmId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			String tempCurrent = logic.getItemsRecycledByMonth(rcmId);
+			if (Validation.isNotNullorEmplty(tempCurrent)) {
+				return "RCM Id " + rcmId + " has Items Recycled By Month as "
+						+ tempCurrent;
+			} else {
+				return "RCM Id " + rcmId
+						+ " Items Recycled By Monthis not available, Please try again";
 			}
 		} else {
 			return "RCM ID " + rcmId + " is not a valid RCM Id";

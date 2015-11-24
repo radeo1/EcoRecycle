@@ -91,4 +91,32 @@ public class SelectQueries {
 		return sql;
 	}
 
+	public String createSqlForLastEmptied(String rcmId) {
+		String sql = "SELECT LAST_EMPTIED FROM RCMRECYCLE WHERE RCMID ="
+				+ rcmId;
+		System.out.println(sql);
+		return sql;
+	}
+
+	public String createSqlForWeightPerMonth(String rcmId) {
+		String sql = "SELECT  SUM(TRANSACTION_WEIGHT) AS MONTHLY_ACCUMULATED_WEIGHT FROM RCMRECYCLE WHERE RCMID ="
+				+ rcmId +"And Month(Start_Date) = Month(getdate()) AND Month(End_Date) = Month(getdate())";
+		System.out.println(sql);
+		return sql;
+	} 
+
+	public String createSqlForCurrItemsRecycled(String rcmId) {
+		String sql = "SELECT AVAILABLE_CASH FROM RCMRECYCLE WHERE RCMID ="
+				+ rcmId;
+		System.out.println(sql);
+		return sql;
+	}
+
+	public String createSqlForRecycledByMonth(String rcmId) {
+		String sql = "SELECT AVAILABLE_CASH FROM RCMRECYCLE WHERE RCMID ="
+				+ rcmId;
+		System.out.println(sql);
+		return sql;
+	}
+
 }

@@ -108,4 +108,49 @@ public class RCMAction {
 			return "Please provide a vaild RCM ID";
 		}
 	}
+
+	public String getLastEmptied(String rcmId) {
+		boolean isValid = Validation.isNotNullorEmplty(rcmId);
+		if (isValid) {
+			return rmosManager.getLastEmptied(rcmId);
+		} else {
+			return "Please provide a vaild RCM ID";
+		}
+	}
+
+	public String getCashDebitedPerMonth(String rcmId) {
+		boolean isValid = Validation.isNotNullorEmplty(rcmId);
+		if (isValid) {
+			return rmosManager.getCashDebitedPerMonth(rcmId);
+		} else {
+			return "Please provide a vaild RCM ID";
+		}
+	}
+
+	public String getWeightPerMonth(String rcmId) {
+		boolean isValid = Validation.isNotNullorEmplty(rcmId);
+		if (isValid) {
+			return rmosManager.getWeightPerMonth(rcmId);
+		} else {
+			return "Please provide a vaild RCM ID";
+		}
+	}
+
+	public String getCurrItemsRecycled(String rcmId) {
+		boolean isValid = Validation.isNotNullorEmplty(rcmId);
+		if (isValid) {
+			return rmosManager.getCurrItemsRecycled(rcmId);
+		} else {
+			return "Please provide a vaild RCM ID";
+		}
+	}
+
+	public String getItemsRecycledByMonth(String rcmId) {
+		boolean isValid = Validation.isNotNullorEmplty(rcmId);
+		if (isValid) {
+			return rmosManager.getItemsRecycledByMonth(rcmId);
+		} else {
+			return "Please provide a vaild RCM ID";
+		}
+	}
 }

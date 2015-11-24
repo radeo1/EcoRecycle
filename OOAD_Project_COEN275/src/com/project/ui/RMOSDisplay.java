@@ -651,6 +651,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		}
 		// *********** Display No of times RCM was operated in a month
 		// ******************
+		//#TODO
 		else if (source == btnMonthlyTransactions) {
 			String msg = rcmAction.getMonthlyTransactions(textRcm.getText());
 			textDisplayOutput.setText(msg);
@@ -661,56 +662,44 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			rcmMonitor.getStatus();
 			textDisplayOutput.setText("Current status of RCM is");
 		}
-		// *********** Display No of times RCM was operated in a month
-		// ******************
-		else if (source == btnMonthlyTransactions) {
-			rcmMonitor.getMonthlyTransactions();
-			textDisplayOutput
-					.setText("No of times RCM was operated in a month is ");
-
-		}
 
 		// *********** Display the time when RCM was last Emptied
 		// ******************
 		else if (source == btnLastEmptied) {
-			rcmMonitor.getLastEmptied();
-			textDisplayOutput.setText("Time when RCM was last emptied ");
+			String msg = rcmAction.getLastEmptied(textRcm.getText());
+			textDisplayOutput.setText(msg);
 
 		}
 
 		// *********** Display the amount of money issued by RCM in a month
 		// ******************
 		else if (source == btnCashDebitedPerMonth) {
-			rcmMonitor.getCashDebitedPerMonth();
-			textDisplayOutput
-					.setText("The amount of money issued by RCM in a month is ");
+			String msg = rcmAction.getCashDebitedPerMonth(textRcm.getText());
+			textDisplayOutput.setText(msg);
 
 		}
 
 		// *********** Display the total volume of item recycled by RCM in a
 		// month ******************
 		else if (source == btnWeightPerMonth) {
-			rcmMonitor.getWeightPerMonth();
-			textDisplayOutput
-					.setText("The total volume of item recycled RCM in a month is ");
+			String msg = rcmAction.getWeightPerMonth(textRcm.getText());
+			textDisplayOutput.setText(msg);
 
 		}
 
 		// *********** Display Number of item recycled by RCM at present
 		// ******************
 		else if (source == btnCurrItemsRecycled) {
-			rcmMonitor.getCurrItemsRecycled();
-			textDisplayOutput
-					.setText("Number of item recycled by RCM at present is ");
+			String msg = rcmAction.getCurrItemsRecycled(textRcm.getText());
+			textDisplayOutput.setText(msg);
 
 		}
 
 		// *********** Display Number of item recycled by RCM in a month
 		// ******************
 		else if (source == btnItemsRecycledByMonth) {
-			rcmMonitor.getItemsRecycledPerMonth();
-			textDisplayOutput
-					.setText("Number of item recycled by RCM in a month is ");
+			String msg = rcmAction.getItemsRecycledByMonth(textRcm.getText());
+			textDisplayOutput.setText(msg);
 
 		}
 		// *********** Adds new Item in RCM

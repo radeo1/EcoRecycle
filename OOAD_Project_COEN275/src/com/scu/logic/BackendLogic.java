@@ -39,7 +39,7 @@ public class BackendLogic {
 		boolean isUpdate = dbConnection.updateToDB(sql);
 		return isUpdate;
 	}
-	
+
 	public boolean deactivateRCM(String rcmId) {
 		String sql = query.createSqlForDeactivateRCM(rcmId);
 		boolean isUpdate = dbConnection.updateToDB(sql);
@@ -70,14 +70,14 @@ public class BackendLogic {
 	}
 
 	public boolean setFund(String rcmId, int amount) {
-		String sql = query.createSqlForSetFund(rcmId,amount);
+		String sql = query.createSqlForSetFund(rcmId, amount);
 		boolean isUpdate = dbConnection.updateToDB(sql);
 		return isUpdate;
 	}
 
 	public boolean clearRCMWeight(String rcmId) {
-		int weight = 0; //set to 0 for clearing
-		String sql = query.createSqlForsetWeight(rcmId,weight);
+		int weight = 0; // set to 0 for clearing
+		String sql = query.createSqlForsetWeight(rcmId, weight);
 		boolean isUpdate = dbConnection.updateToDB(sql);
 		return isUpdate;
 	}
@@ -89,24 +89,53 @@ public class BackendLogic {
 	}
 
 	public String getWeight(String rcmId) {
-		 String sql = query.createSqlForCurrentWeight(rcmId);
+		String sql = query.createSqlForCurrentWeight(rcmId);
 		String weight = dbConnection.getValueFromSql(sql);
 		return weight;
 	}
 
 	public String getCoupon(String rcmId) {
-		 String sql = query.createSqlForCurrentCoupon(rcmId);
-			String weight = dbConnection.getValueFromSql(sql);
-			return weight;
+		String sql = query.createSqlForCurrentCoupon(rcmId);
+		String weight = dbConnection.getValueFromSql(sql);
+		return weight;
 	}
 
 	public String getCash(String rcmId) {
-		 String sql = query.createSqlForCurrentCash(rcmId);
-			String weight = dbConnection.getValueFromSql(sql);
-			return weight;
+		String sql = query.createSqlForCurrentCash(rcmId);
+		String weight = dbConnection.getValueFromSql(sql);
+		return weight;
 	}
-	
-	
+
+	public String getItemsRecycledByMonth(String rcmId) {
+		String sql = query.createSqlForRecycledByMonth(rcmId);
+		String tempVal = dbConnection.getValueFromSql(sql);
+		return tempVal;
+	}
+
+	public String getCurrItemsRecycled(String rcmId) {
+		String sql = query.createSqlForCurrItemsRecycled(rcmId);
+		String tempVal = dbConnection.getValueFromSql(sql);
+		return tempVal;
+	}
+
+	public String getWeightPerMonth(String rcmId) {
+		String sql = query.createSqlForWeightPerMonth(rcmId);
+		String tempVal = dbConnection.getValueFromSql(sql);
+		return tempVal;
+	}
+
+	public String getCashDebitedPerMonth(String rcmId) {
+		String sql = query.createSqlForWeightPerMonth(rcmId);
+		String tempVal = dbConnection.getValueFromSql(sql);
+		return tempVal;
+	}
+
+	public String getLastEmptied(String rcmId) {
+		String sql = query.createSqlForLastEmptied(rcmId);
+		String tempVal = dbConnection.getValueFromSql(sql);
+		return tempVal;
+	}
+
 	public String addItem(String itemType, int unitPrice) {
 		// TODO Auto-generated method stub
 		return null;
@@ -129,7 +158,7 @@ public class BackendLogic {
 
 	public void updatePrice(String temp) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
