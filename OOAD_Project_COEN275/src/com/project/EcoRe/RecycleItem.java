@@ -41,25 +41,28 @@ public class RecycleItem
 	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
-	public String addItem(String itemType, int unitPrice) {
-		this.itemType = itemType;
-                this.unitPrice = unitPrice;
-                String addItem = logic.addItem(itemType, unitPrice);
-		return addItem;
-	}
-	public String removeItem(String itemType) {
+	public boolean addItem(String itemType, double itemWeightUnit, double unitPrice) {
 		// TODO Auto-generated method stub
-		String deleteItem = logic.removeItem(itemType);
+		this.itemType = itemType;
+                this.itemWeightUnit= itemWeightUnit;
+                this.unitPrice = unitPrice;
+                boolean addItem = logic.addItem(itemType, itemWeightUnit, unitPrice);
+			
+			return addItem;
+	}
+	public boolean removeItem(String itemType) {
+		// TODO Auto-generated method stub
+		boolean deleteItem = logic.removeItem(itemType);
                 return deleteItem;
 	}
-	public String updatePrice(String itemType, int uPrice) {
+	public boolean updatePrice(String itemType, double uPrice) {
 		// TODO Auto-generated method stub
-		String updatePrice = logic.updatePrice(itemType, uPrice);
+		boolean updatePrice = logic.updatePrice(itemType, uPrice);
                 return updatePrice;
 	}
-	public String getItemList() {
+	public ResultSet getItemList() {
 		// TODO Auto-generated method stub
-		String itemList = logic.getItemList();
+		ResultSet itemList = logic.getItemList();
                 return itemList;
         }
 	
