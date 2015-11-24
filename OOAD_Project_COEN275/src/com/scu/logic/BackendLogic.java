@@ -136,29 +136,40 @@ public class BackendLogic {
 		return tempVal;
 	}
 
-	public String addItem(String itemType, int unitPrice) {
+	public boolean addItem(String itemType, double itemWeightUnit, double unitPrice) {
 		// TODO Auto-generated method stub
-		return null;
+           
+            String sql = query.createSqlForAddItem(itemType,itemWeightUnit, unitPrice);
+            boolean addItem = dbConnection.updateToDB(sql);
+            return addItem;
+     	}
+        
+	public boolean removeItem(String itemType) {
+		// TODO Auto-generated method stub
+            String sql = query.createSqlForDeleteItem(itemType);
+            boolean deleteItem = dbConnection.deleteFromDB(sql);
+            return deleteItem;
+        }
+        
+	public boolean updatePrice(String itemType, double uPrice) {
+		// TODO Auto-generated method stub
+            String sql = query.createSqlForUpdatePrice(itemType, uPrice);
+            boolean updatePrice = dbConnection.updateToDB(sql);
+            return updatePrice;
 	}
 
-	public String removeItem(String itemType) {
+	public ResultSet getItemList() {
 		// TODO Auto-generated method stub
-		return null;
+            String sql = query.createSqlForGetItemList();
+            ResultSet itemList = dbConnection.getResultSet(sql);
+            return itemList;
+            
 	}
 
-	public String updatePrice(String itemType, int uPrice) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getMostUsedRCM() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void updatePrice(String temp) {
-		// TODO Auto-generated method stub
-
-	}
+	public String getMostUsedRCM(){
+            String sql = query.createSqlForMostUsedRCM();
+            String mostusedrcm = dbConnection.getValueFromSql(sql);
+            return mostusedrcm;
+        }
 
 }
