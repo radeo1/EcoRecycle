@@ -386,7 +386,7 @@ public class Vending extends JFrame implements ActionListener{
                     outputChangeTF.setText("Coupon value: " + df1.format(change) + "\n"+" Weight of item: "+df.format(random));
                     //outputChangeTF.setText("Not enough for " + itemTips[selectedButtonPos]);
                 //inputPriceTF.setText("Enter Weight Here ..");
-            } catch (Exception exception) {}
+            } }catch (Exception exception) {}
         }
 
     }
