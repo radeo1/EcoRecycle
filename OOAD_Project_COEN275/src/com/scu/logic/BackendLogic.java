@@ -126,7 +126,7 @@ public class BackendLogic {
 		return tempVal;
 	}
 
-	public boolean addItem(String itemType, double itemWeightUnit, double unitPrice) {
+public boolean addItem(String itemType, double itemWeightUnit, double unitPrice) {
 		// TODO Auto-generated method stub
            
             String sql = query.createSqlForAddItem(itemType,itemWeightUnit, unitPrice);
@@ -162,4 +162,18 @@ public class BackendLogic {
             return mostusedrcm;
         }
 
+        
+        public boolean addTransactionAmount(String rcmid, String itemType, double transweight, double transamount)
+        {
+            String sql = query.createSqlForTransactionAmount(rcmid, itemType, transweight, transamount);
+            boolean addItem = dbConnection.insertIntoDB(sql);
+            return addItem;
+        }
+        
+        public boolean addTransactionCoupon(String rcmid, String itemType, double transweight, double transcoupon)
+        {
+            String sql = query.createSqlForTransactionCoupon(rcmid, itemType, transweight, transcoupon);
+            boolean addItem = dbConnection.insertIntoDB(sql);
+            return addItem;
+        }
 }
