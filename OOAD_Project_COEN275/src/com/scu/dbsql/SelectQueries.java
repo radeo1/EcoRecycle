@@ -11,7 +11,8 @@ public class SelectQueries {
 		return sql;
 	}
 
-	public String createSqlForAddRCM(RCMRecycle rcm) {
+	public String createSqlForAddRCM(RCMRecycle rcm) 
+	{
 		String sql = "INSERT INTO RCMRECYCLE (LOCATION) VALUES ('"
 				+ rcm.getLocation() + "');";
 		System.out.println(sql);
