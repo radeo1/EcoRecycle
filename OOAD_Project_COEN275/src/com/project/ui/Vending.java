@@ -1,5 +1,6 @@
 package com.project.ui;
 
+import com.project.EcoRe.RCMRecycle;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,16 +18,21 @@ import javax.swing.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
-public class Vending extends JFrame{
+public class Vending extends JFrame implements ActionListener{
 
    
     
 	public static JButton[] reitemTextButtons;
+        private RCMRecycle rcm = new RCMRecycle();
     
     public Vending(String s) {
         super(s);
@@ -56,42 +62,77 @@ public class Vending extends JFrame{
         pPrice.setLayout(new BoxLayout(pPrice, BoxLayout.Y_AXIS));
         JPanel pPriceText = new JPanel();
         pPriceText.setLayout(new FlowLayout());
+        pPriceText.setForeground(new Color(50, 0, 200));
+	pPriceText.setFont(new Font("Arial", Font.BOLD, 14));
+	pPriceText.setBounds(12, 100, 280, 30);
+        
         JLabel priceTextLabel = new JLabel("Price");
-        JTextField amountTextField = new JTextField("$1.25");
+        priceTextLabel.setForeground(new Color(50, 0, 200));
+	priceTextLabel.setFont(new Font("Arial", Font.BOLD, 14));
+	priceTextLabel.setBounds(12, 100, 280, 30);
+        
+        JTextField amountTextField = new JTextField("$1.50");
+        amountTextField.setForeground(new Color(50, 0, 200));
+	amountTextField.setFont(new Font("Arial", Font.BOLD, 14));
+	amountTextField.setBounds(12, 100, 280, 30);
+        
         pPriceText.add(priceTextLabel);
         pPriceText.add(amountTextField);
         pPriceText.setBackground(new Color(148, 226, 79));
         JTextField enterMoneyTextField = new JTextField("Enter Weight Here ..");
+        
         JButton additem = new JButton("Recycle item");
+        additem.setForeground(new Color(50, 0, 200));
+	additem.setFont(new Font("Arial", Font.BOLD, 14));
+	additem.setBounds(12, 100, 280, 30);
+        
         pPrice.add(pPriceText);
         pPrice.add(additem);
         pPrice.setBackground(new Color(148, 226, 79));
         // The panel of "return amount"
         JTextField returnAmountTextField = new JTextField("Return amount ..");
-
+        
         // The "choose one" panel
         JPanel pChooseOne = new JPanel();
         pChooseOne.setLayout(new GridLayout(4,1));
         pChooseOne.setCursor(new Cursor(Cursor.HAND_CURSOR));
         reitemTextButtons = new JButton[itemType];
+        
         pChooseOne.setBorder(new TitledBorder("Choose one"));
 
-        // Add the above four panels together
         
-        JPanel p1 = new JPanel();
-        JButton cash = new JButton("Cash");
-        
+        //transaction panel
+       JButton cash = new JButton("Cash");
+       /* cash.setForeground(new Color(50, 0, 200));
+	cash.setFont(new Font("Arial", Font.BOLD, 14));
+	cash.setBounds(12, 100, 280, 30);
+        cash.addActionListener(this);
+             */       
+		
+       
+
+
         JButton coupon = new JButton("Coupon");
+       /* coupon.setForeground(new Color(50, 0, 200));
+	coupon.setFont(new Font("Arial", Font.BOLD, 14));
+	coupon.setBounds(12, 100, 280, 30);
+        coupon.addActionListener(this);
+        
+    */
+        
+        // Add the above four panels together
+        JPanel p1 = new JPanel();
+        
         p1.setLayout(new BoxLayout(p1, BoxLayout.Y_AXIS));
-        p1.setPreferredSize(new Dimension (300, 400));
+        p1.setPreferredSize(new Dimension (300, 600));
         pPrice.setBackground(new Color(148, 226, 79));
         p1.add(pPrice);
         pChooseOne.setBackground(new Color(148, 226, 79));
         p1.add(pChooseOne);
         returnAmountTextField.setBackground(new Color(148, 226, 79));
         p1.add(returnAmountTextField);
-        p1.add(cash, BorderLayout.WEST);
-        p1.add(coupon, BorderLayout.WEST);
+//        p1.add(cash, BorderLayout.WEST);
+ //       p1.add(coupon, BorderLayout.WEST);
         
         
 
@@ -102,6 +143,8 @@ public class Vending extends JFrame{
         ((TitledBorder) recycleItem.getBorder()).setTitleColor(Color.black);
         int itemImgWidth = 50, itemImgHeight = 50;
         JButton[] itemImageButtons = new JButton[itemType];
+        
+        
         DisplayPricesActionListener displayPriceListener = new DisplayPricesActionListener(amountTextField, itemImageButtons);
         for (int i = 0; i < itemImageButtons.length; i++) {
 
@@ -118,7 +161,7 @@ public class Vending extends JFrame{
 
         // The panel of "where you get your item"
         JButton whereButton = new JButton("This is where you insert your item!");
-        
+       
         whereButton.setPreferredSize(new Dimension(250, 100));
         whereButton.setBackground(new Color(148, 226, 79));
         whereButton.setOpaque(true);
@@ -140,11 +183,14 @@ public class Vending extends JFrame{
         // the action listener
         PayForGoodyActionListener payitemListener = 
             new PayForGoodyActionListener(reitemTextButtons, whereButton,
-                    additem, returnAmountTextField);
+                    additem, returnAmountTextField, cash,coupon);
         
         for (int i = 0; i < itemType; i++) {
             reitemTextButtons[i] = new JButton(itemNames[i]);
+            
+            
             reitemTextButtons[i].setToolTipText(itemTips[i]);
+          
             // ActionListener attached to each button
             reitemTextButtons[i].addActionListener(payitemListener); 
 			switch(itemNames[i])
@@ -181,6 +227,11 @@ public class Vending extends JFrame{
             
         }
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 
@@ -268,13 +319,17 @@ public class Vending extends JFrame{
 
         final JButton[] selectButtons;		// Array of buttons to choose goodies
         final JButton whereButton;
-        final JButton additem;		// Text Field where money is entered
+        final JButton additem;		// Button where item is added
         final JTextField outputChangeTF; // Text Field where "here is your goody is displayed" 
-
+        JButton cash = new JButton("Cash");
+        
+      
+        JButton coupon = new JButton("Coupon");
+        
         
         public PayForGoodyActionListener(JButton[] selectButtons,
                 JButton whereButton,
-                JButton additem, JTextField outputChangeTF) {
+                JButton additem, JTextField outputChangeTF, JButton cash, JButton coupon) {
             super();
             this.whereButton = whereButton;
             
@@ -282,18 +337,26 @@ public class Vending extends JFrame{
             this.additem = additem;
             
             this.outputChangeTF = outputChangeTF;
-            
+            this.cash = cash;
+            this.coupon = coupon;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
             int selectedButtonPos = -1;
+            String itemtype ="";
+            int rcmnum = 1;
+            String rcmid = "RCMO1";
+            Object source = e.getSource();
             for (int i=0; i<selectButtons.length; i++){
                 if (e.getSource().equals(selectButtons[i])){
                     selectedButtonPos = i;
+                    itemtype =itemTips[selectedButtonPos];
                     break;
                 }
+                
             }
+            
             //String priceEntered = JButton additem.getText();
             double inputMoney = 0.0;
             double change = 0.0; 
@@ -301,23 +364,35 @@ public class Vending extends JFrame{
                 //inputMoney = Double.parseDouble(priceEntered);
                 double random = Math.random()*9;
                 change = random * itemPrices[selectedButtonPos];
+                
                 DecimalFormat df = new DecimalFormat("#.00");
-                    df.format(random);
+                    double transweight = Double.parseDouble(df.format(random));
                     DecimalFormat df1 = new DecimalFormat("#.00");
-                    df1.format(change);
-                if (change >= 0.0) {
+                    double transamount= Double.parseDouble(df1.format(change));
+                    double transcoupon= Double.parseDouble(df1.format(change));
+                    
+                    
+                if (transamount >= 5.0) {
                     whereButton.setText("You inserted " + itemTips[selectedButtonPos]);
                     
-                    outputChangeTF.setText("Your total is: " + df1.format(change) + " and weight of item is: "+df.format(random));
+                    rcm.transactionamount(rcmid, itemtype, transweight, transamount);
+                    outputChangeTF.setText("Cash value: " + df1.format(change) + "\n"+" Weight of item: "+df.format(random));
+                
                 }
-                else
-                    outputChangeTF.setText("Not enough for " + itemTips[selectedButtonPos]);
+                else if(transamount <5.0)
+                    whereButton.setText("You inserted " + itemTips[selectedButtonPos]);
+               
+                    rcm.transactioncoupon(rcmid, itemtype, transweight, transcoupon);
+                    outputChangeTF.setText("Coupon value: " + df1.format(change) + "\n"+" Weight of item: "+df.format(random));
+                    //outputChangeTF.setText("Not enough for " + itemTips[selectedButtonPos]);
                 //inputPriceTF.setText("Enter Weight Here ..");
             } catch (Exception exception) {}
         }
 
     }
 
+    
+    
 
     final int itemType = 8;
     final String[] itemImageNames = {
@@ -351,13 +426,13 @@ public class Vending extends JFrame{
     /**
      * @param args
      */
-    public static void main(String[] args) {
+  /*  public static void main(String[] args) {
         // TODO Auto-generated method stub
-        Vending v = new Vending("THE FRONT VIEW OF A VENDING MACHINE");
+        Vending v = new Vending("RCM");
         v.setSize(600, 800);
         v.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         v.setVisible(true);
 		v.setFocusable(true);
-    }
+    }*/
 
 }
