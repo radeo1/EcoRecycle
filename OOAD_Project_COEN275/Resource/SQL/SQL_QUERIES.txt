@@ -57,5 +57,10 @@ Update RECYCLEITEM set UNIT_PRICE = unit_Price  where ITEMTYPE = itemType;
 
 Select ITEMTYPE, ITEM_UNIT_WEIGHT, UNIT_PRICE FROM RECYCLEITEM;
 
+SELECT COUNT(TRANSACTION_DATE) AS MONTHLY_ITEMS_RECYCLED WHERE DATE BETWEEN startDate AND endDate;
 
+Create table TRANSACTION(TRANSNUM int(50) AUTO_INCREMENT PRIMARY KEY, RCMID varchar(50), ITEMTYPE varchar(50), TRANSACTION_WEIGHT double(10,2), TRANSACTION_AMOUNT double(10,2), TRANSACTION_DATE CURRENT_TIMESTAMP, TRANSACTIOn_COUPON double(10,2));
 
+Insert into TRANSACTION (rcmid, itemType, transaction_weight, transaction_amount, transaction_coupon) VALUES('rcmid','itemType',transweight,transamount,0);
+
+Insert into TRANSACTION (rcmid, itemType, transaction_weight, transaction_amount, transaction_coupon) VALUES('rcmid','itemType',transweight,0,transcoupon);

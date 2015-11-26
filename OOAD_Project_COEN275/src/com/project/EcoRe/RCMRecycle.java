@@ -1,5 +1,7 @@
 package com.project.EcoRe;
 
+import com.scu.logic.BackendLogic;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.Observable;
 
@@ -10,6 +12,7 @@ public class RCMRecycle extends Observable {
 	private String rmosId;
 	private String location;
 	private String status;
+        private String itemType;
 	private double currentWeight;
 	private double transactionWeight;
 	private double availableCash;
@@ -17,6 +20,8 @@ public class RCMRecycle extends Observable {
 	private Date lastEmptied;
 	private RecycleItem item;
 
+        private BackendLogic logic = new BackendLogic();
+        
 	public RCMRecycle(){
 		super();
 	}
@@ -108,5 +113,28 @@ public class RCMRecycle extends Observable {
 	public void setItem(RecycleItem item) {
 		this.item = item;
 	}
+        
+        public boolean transactionamount(String rcmid, String itemType, double transweight, double transamount){
+            
+            
+            boolean addItem = logic.addTransactionAmount(rcmid, itemType, transweight, transamount);
+            return addItem;
+        }
+        
+    /**
+     *
+     * @param rcmid
+     * @param itemType
+     * @param transweight
+     * @param transcoupon
+     * @param transdate
+     * @return
+     */
+    public boolean transactioncoupon(String rcmid, String itemType, double transweight, double transcoupon){
+            
+            
+            boolean addItem = logic.addTransactionCoupon(rcmid, itemType, transweight, transcoupon);
+            return addItem;
+        }
 
 }
