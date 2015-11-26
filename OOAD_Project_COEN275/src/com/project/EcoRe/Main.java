@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import com.project.ui.Vending;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JFrame;
 
 /**
  *
@@ -21,11 +22,15 @@ public class Main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                
-               Vending vend = new Vending("RCM");
-               
-		vend.setVisible(true);
+                Vending vend = new Vending("RCM");
+                vend.setSize(800, 800);
+                vend.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                vend.setVisible(true);
+		vend.setFocusable(true);
+		
             }
         });
     }
 
 }
+
