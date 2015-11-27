@@ -92,34 +92,15 @@ public class ScuDbConn {
 	}
 
 	public ResultSet getResultSet(String sql) {
-		Connection con = null;
-		Statement st = null;
+		Statement stmt;
 		ResultSet rs = null;
-
-		String url = "jdbc:mysql://localhost:3306/testdb";
-		String user = "admin";
-		String password = "admin123";
-
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection(url, user, password);
-			st = con.createStatement();
-			rs = st.executeQuery(sql);
-		} catch (Exception ex) {
-			System.out.println(ex);
-		} finally {
-			try {
-				if (st != null) {
-					st.close();
-				}
-				if (con != null) {
-					con.close();
-				}
-
-			} catch (SQLException ex) {
-				System.out.println(ex);
-			}
+			stmt = DBConnection.getConnectionTest().createStatement();
+			rs = stmt.executeQuery(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 		return rs;
 	}
 
