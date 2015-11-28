@@ -6,14 +6,14 @@ public class Validation {
 	public static boolean isNotNullorEmplty(String str) {
 		if (str == null || "".equals(str)) {
 			return false;
-		} else {
+		} else { 
 			return true;
 		}
 	}
 
 	public static boolean isValidRcmId(String rcmId) {
 
-		return true;//logic.isvalidRcmId(rcmId);
+		return logic.isvalidRcmId(rcmId);
 	}
 	
 	public static boolean isNumber(String s) {

@@ -13,8 +13,8 @@ public class SelectQueries {
 
 	public String createSqlForAddRCM(RCMRecycle rcm) 
 	{
-		String sql = "INSERT INTO RCMRECYCLE (LOCATION) VALUES ('"
-				+ rcm.getLocation() + "');";
+		String sql = "INSERT INTO RCMRECYCLE (LOCATION,STATUS) VALUES ('"
+				+ rcm.getLocation() + "','INACTIVE');";
 		System.out.println(sql);
 		return sql;
 	}
@@ -27,14 +27,14 @@ public class SelectQueries {
 	}
 
 	public String createSqlForActivateRCM(String rcmId) {
-		String sql = "UPDATE RCMRECYCLE SET ISACTIVATED='" + "ACTIVE"
+		String sql = "UPDATE RCMRECYCLE SET STATUS='" + "ACTIVE"
 				+ "' WHERE RCMID =" + rcmId + ";";
 		System.out.println(sql);
 		return sql;
 	}
-
+	
 	public String createSqlForDeactivateRCM(String rcmId) {
-		String sql = "UPDATE RCMRECYCLE SET ISACTIVATED='" + "DEACTIVE"
+		String sql = "UPDATE RCMRECYCLE SET STATUS='" + "DEACTIVE"
 				+ "' WHERE RCMID =" + rcmId + ";";
 		System.out.println(sql);
 		return sql;
