@@ -1,16 +1,31 @@
 package com.scu.logic;
 
 public class Validation {
+	static BackendLogic logic = new BackendLogic();
 
 	public static boolean isNotNullorEmplty(String str) {
-		if(str == null || "".equals(str)){
+		if (str == null || "".equals(str)) {
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	}
+
+	public static boolean isValidRcmId(String rcmId) {
+
+		return true;//logic.isvalidRcmId(rcmId);
+	}
 	
-	public static boolean isValidRcmId(String rcmId){
-		return false;
+	public static boolean isNumber(String s) {
+		s = s.trim();
+		if (!isNotNullorEmplty(s)) {
+			return false;
+		}
+		for (int i = 0; i < s.length(); i++) {
+			if (!Character.isDigit(s.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

@@ -48,12 +48,14 @@ public class RCMAction {
 		}
 	}
 
-	public String refillRCM(String rcmId, int amount) {
-		boolean isValid = Validation.isNotNullorEmplty(rcmId);
-		if (isValid) {
+	public String refillRCM(String rcmId, String amountStr ) {
+		boolean isValidRcmId = Validation.isNotNullorEmplty(rcmId);
+		boolean isValidNumer = Validation.isNumber(amountStr);
+		if (isValidRcmId && isValidNumer ) {
+			int amount = Integer.parseInt(amountStr);
 			return rmosManager.setFunds(rcmId, amount);
 		} else {
-			return "Please provide a vaild RCM ID";
+			return "Please provide a vaild RCM ID with Valid Amount";
 		}
 		
 	}

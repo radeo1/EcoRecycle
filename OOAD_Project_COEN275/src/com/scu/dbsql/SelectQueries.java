@@ -46,7 +46,7 @@ public class SelectQueries {
 	}
 
 	public String createSqlForValidRCMById(String rcmId) {
-		String sql = "SELECT LOCATION FROM RCMRECYCLE WHERE RCMID = " + rcmId;
+		String sql = "SELECT RCMID FROM RCMRECYCLE WHERE RCMID = " + rcmId;
 		System.out.println(sql);
 		return sql;
 	}
@@ -106,6 +106,14 @@ public class SelectQueries {
 		return sql;
 	} 
 
+
+	public String createSqlForCashDebitedPerMonth(String rcmId) {
+		String sql = "SELECT  SUM(CASH_DEBITED) AS MONTHLY_ACCUMULATED_CASH FROM RCMRECYCLE WHERE RCMID ="
+				+ rcmId +"And Month(Start_Date) = Month(getdate()) AND Month(End_Date) = Month(getdate())";
+		System.out.println(sql);
+		return sql;
+	}
+	
 	public String createSqlForCurrItemsRecycled(String rcmId) {
 		String sql = "SELECT AVAILABLE_CASH FROM RCMRECYCLE WHERE RCMID ="
 				+ rcmId;

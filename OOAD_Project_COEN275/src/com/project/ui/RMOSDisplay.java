@@ -24,23 +24,19 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import com.project.EcoRe.RCMMonitor;
-import com.project.EcoRe.RCMRecycle;
 import com.project.EcoRe.RMOSUsageManager;
 import com.project.EcoRe.RecycleItem;
 import com.scu.actions.LoginAction;
 import com.scu.actions.RCMAction;
-import com.scu.actions.RMOSManager;
 import com.scu.logic.BackendLogic;
 
 public class RMOSDisplay extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1;
 
-	private RMOSManager rmosManager = new RMOSManager();
 	private RMOSUsageManager rmosUsageManager = new RMOSUsageManager();
 	private RCMMonitor rcmMonitor = new RCMMonitor();
 	private RecycleItem recycleItem = new RecycleItem();
@@ -612,9 +608,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		
 		// *********** Refill Money ******************
 		else if (source == refillRCM) {
-			//int amount = 1000;
-			int amount =Integer.parseInt(textRefillAmount.getText());
-			String msg = rcmAction.refillRCM(textRcmId.getText(),amount );
+			String msg = rcmAction.refillRCM(textRcmId.getText(),textRefillAmount.getText() );
 			textDisplayOutput.setText(msg);
 		}
 		// *********** Clear Recycale item from RCM ******************
@@ -626,7 +620,10 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		else if (source == showRCM) {
 			rcmIds = rcmAction.getAllRcmId();
 			model.removeAllElements();
-			model.addElement(rcmIds.toArray());
+			for(String rcmid : rcmIds){
+			model.addElement(rcmid);
+			}
+
 			textDisplayOutput.setText("RCM List is updated");
 		}
 		/* ********* End of RMOS Manager Activities ***** */

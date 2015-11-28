@@ -115,7 +115,7 @@ public class BackendLogic {
 	}
 
 	public String getCashDebitedPerMonth(String rcmId) {
-		String sql = query.createSqlForWeightPerMonth(rcmId);
+		String sql = query.createSqlForCashDebitedPerMonth(rcmId);
 		String tempVal = dbConnection.getValueFromSql(sql);
 		return tempVal;
 	}
