@@ -183,7 +183,13 @@ public class BackendLogic {
 
 	public String getCurrentStatus(String rcmId) {
 		String sql = query.createSqlForCurrentStatus(rcmId);
-		String mostusedrcm = dbConnection.getValueFromSql(sql);
-		return mostusedrcm;
+		String status = dbConnection.getValueFromSql(sql);
+		return status;
+	}
+
+	public String monthlyTrasnsaction(String rcmId) {
+		String sql = query.createSqlForMonthlyTrasnsaction(rcmId);
+		String count = dbConnection.getValueFromSql(sql);
+		return count;
 	}
 }

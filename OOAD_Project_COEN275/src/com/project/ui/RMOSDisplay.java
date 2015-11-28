@@ -709,7 +709,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		// *********** Display the amount of money issued by RCM in a month
 		// ******************
 		else if (source == btnCashDebitedPerMonth) {
-			String msg = rcmAction.getCashDebitedPerMonth(textRcm.getText());
+			String msg = rcmAction.getCashDebitedPerMonth(rcmPlaceLabel.getText());
 			textDisplayOutput.setText(msg);
 
 		}
@@ -717,15 +717,15 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		// *********** Display the total volume of item recycled by RCM in a
 		// month ******************
 		else if (source == btnWeightPerMonth) {
-			String msg = rcmAction.getWeightPerMonth(textRcm.getText());
+			String msg = rcmAction.getWeightPerMonth(rcmPlaceLabel.getText());
 			textDisplayOutput.setText(msg);
 
 		}
-
+   
 		// *********** Display Number of item recycled by RCM at present
 		// ******************
 		else if (source == btnCurrItemsRecycled) {
-			String msg = rcmAction.getCurrItemsRecycled(textRcm.getText());
+			String msg = rcmAction.getCurrItemsRecycled(rcmPlaceLabel.getText());
 			textDisplayOutput.setText(msg);
 
 		}
@@ -733,7 +733,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		// *********** Display Number of item recycled by RCM in a month
 		// ******************
 		else if (source == btnItemsRecycledByMonth) {
-			String msg = rcmAction.getItemsRecycledByMonth(textRcm.getText());
+			String msg = rcmAction.getItemsRecycledByMonth(rcmPlaceLabel.getText());
 			textDisplayOutput.setText(msg);
 
 		}

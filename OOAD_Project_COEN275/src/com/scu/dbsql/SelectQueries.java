@@ -11,8 +11,7 @@ public class SelectQueries {
 		return sql;
 	}
 
-	public String createSqlForAddRCM(RCMRecycle rcm) 
-	{
+	public String createSqlForAddRCM(RCMRecycle rcm) {
 		String sql = "INSERT INTO RCMRECYCLE (LOCATION,STATUS) VALUES ('"
 				+ rcm.getLocation() + "','INACTIVE');";
 		System.out.println(sql);
@@ -32,7 +31,7 @@ public class SelectQueries {
 		System.out.println(sql);
 		return sql;
 	}
-	
+
 	public String createSqlForDeactivateRCM(String rcmId) {
 		String sql = "UPDATE RCMRECYCLE SET STATUS='" + "DEACTIVE"
 				+ "' WHERE RCMID =" + rcmId + ";";
@@ -100,78 +99,109 @@ public class SelectQueries {
 	}
 
 	public String createSqlForWeightPerMonth(String rcmId) {
-		String sql = "SELECT  SUM(TRANSACTION_WEIGHT) AS MONTHLY_ACCUMULATED_WEIGHT FROM RCMRECYCLE WHERE RCMID ="
-				+ rcmId +"And Month(Start_Date) = Month(getdate()) AND Month(End_Date) = Month(getdate())";
-		System.out.println(sql);
-		return sql;
-	} 
-
-
-	public String createSqlForCashDebitedPerMonth(String rcmId) {
-		String sql = "SELECT  SUM(CASH_DEBITED) AS MONTHLY_ACCUMULATED_CASH FROM RCMRECYCLE WHERE RCMID ="
-				+ rcmId +"And Month(Start_Date) = Month(getdate()) AND Month(End_Date) = Month(getdate())";
+		String sql = "SELECT SUM(TRANSACTION_WEIGHT)  AS MONTHLY_ACCUMULATED_WEIGHT FROM RCMRECYCLE WHERE RCMID = "
+				+ rcmId
+				+ "AND Month(TRANSACTION_DATE) = MONTH(CURDATE()) GROUP BY TRANSACTION_DATE,RCMID; ";
 		System.out.println(sql);
 		return sql;
 	}
-	
+
+	public String createSqlForCashDebitedPerMonth(String rcmId) {
+		String sql = "SELECT SUM(TRANSACTION_AMOUNT)  AS MONTHLY_CASH_DEBITED FROM RCMRECYCLE WHERE RCMID = "
+				+ rcmId
+				+ "AND Month(TRANSACTION_DATE) = MONTH(CURDATE()) GROUP BY TRANSACTION_DATE,RCMID; ";
+		System.out.println(sql);
+		return sql;
+	}
+
 	public String createSqlForCurrItemsRecycled(String rcmId) {
-		String sql = "SELECT AVAILABLE_CASH FROM RCMRECYCLE WHERE RCMID ="
-				+ rcmId;
+		String sql = "SELECT COUNT(TRANSACTION_DATE) AS MONTHLY_TRANSACTION FROM RCMRECYCLE WHERE RCMID ="
+				+ rcmId + " AND MONTH (TRANSACTION_DATE)= MONTH(CURDATE());";
 		System.out.println(sql);
 		return sql;
 	}
 
 	public String createSqlForRecycledByMonth(String rcmId) {
-		String sql = "SELECT AVAILABLE_CASH FROM RCMRECYCLE WHERE RCMID ="
-				+ rcmId;
+		String sql = "SELECT SUM(TRANSACTION_AMOUNT)  AS MONTHLY_CASH_DEBITED FROM RCMRECYCLE WHERE RCMID = "
+				+ rcmId
+				+ "AND Month(TRANSACTION_DATE) = MONTH(CURDATE()) GROUP BY TRANSACTION_DATE,RCMID; ";
 		System.out.println(sql);
 		return sql;
 	}
 
- public String createSqlForMostUsedRCM(){
-            String sql;
-            sql = "SELECT RCMID, MONTHLYWEIGHT, LOCATION FROM RcmRecycle ORDER BY SUM(TRANSACTION_WEIGHT) DESC; ";
-            return sql;
-        }
-        
-        public String createSqlForAddItem(String itemType, double itemWeightUnit, double unitPrice){
-            String sql;
-            sql = "INSERT INTO RECYCLEITEM(ITEMTYPE, ITEM_UNIT_WEIGHT,UNIT_PRICE) VALUES ('"+itemType+"',"+itemWeightUnit + ",'"+unitPrice+"'); ";
-            return sql;
-        }
-        
-        public String createSqlForDeleteItem(String itemType){
-            String sql;
-            sql = "Delete from RECYCLEITEM where ITEMTYPE ='" + itemType+"';";
-            return sql;
-        }
-        
-        public String createSqlForUpdatePrice(String itemType, double unitPrice){
-            String sql;
-            sql = "Update RECYCLEITEM set UNIT_PRICE = "+ unitPrice +" where ITEMTYPE ='"+itemType +"';";
-            return sql;
-        }
-        
-        public String createSqlForGetItemList(){
-            String sql;
-            sql = "Select ITEMTYPE, ITEM_UNIT_WEIGHT, UNIT_PRICE FROM RECYCLEITEM;";
-            return sql;
-        }
-        
-        public String createSqlForTransactionAmount(String rcmid, String itemType, double transweight, double transamount){
-            String sql;
-            sql = "Insert into TRANSACTION (rcmid, itemType, transaction_weight, transaction_amount, transaction_coupon) VALUES('"+rcmid+"','"+itemType+"',"+transweight+ ","+transamount+","+0+");";
-            return sql;
-        }
-        
-         public String createSqlForTransactionCoupon(String rcmid, String itemType, double transweight,double transcoupon){
-            String sql;
-            sql = "Insert into TRANSACTION (rcmid, itemType, transaction_weight, transaction_amount, transaction_coupon) VALUES('"+rcmid+"','"+itemType+"',"+transweight+ ","+0+ ","+transcoupon+");";
-            return sql;
-        }
+	public String createSqlForMostUsedRCM() {
+		String sql;
+		sql = "SELECT RCMID, MONTHLYWEIGHT, LOCATION FROM RcmRecycle ORDER BY SUM(TRANSACTION_WEIGHT) DESC; ";
+		return sql;
+	}
 
-		public String createSqlForCurrentStatus(String rcmId) {
-			String sql = "SELECT STATUS FROM RCMRECYCLE WHERE RCMID = " + rcmId;
-			System.out.println(sql);
-			return sql;		}
+	public String createSqlForAddItem(String itemType, double itemWeightUnit,
+			double unitPrice) {
+		String sql;
+		sql = "INSERT INTO RECYCLEITEM(ITEMTYPE, ITEM_UNIT_WEIGHT,UNIT_PRICE) VALUES ('"
+				+ itemType + "'," + itemWeightUnit + ",'" + unitPrice + "'); ";
+		return sql;
+	}
+
+	public String createSqlForDeleteItem(String itemType) {
+		String sql;
+		sql = "Delete from RECYCLEITEM where ITEMTYPE ='" + itemType + "';";
+		return sql;
+	}
+
+	public String createSqlForUpdatePrice(String itemType, double unitPrice) {
+		String sql;
+		sql = "Update RECYCLEITEM set UNIT_PRICE = " + unitPrice
+				+ " where ITEMTYPE ='" + itemType + "';";
+		return sql;
+	}
+
+	public String createSqlForGetItemList() {
+		String sql;
+		sql = "Select ITEMTYPE, ITEM_UNIT_WEIGHT, UNIT_PRICE FROM RECYCLEITEM;";
+		return sql;
+	}
+
+	public String createSqlForTransactionAmount(String rcmid, String itemType,
+			double transweight, double transamount) {
+		String sql;
+		sql = "Insert into TRANSACTION (rcmid, itemType, transaction_weight, transaction_amount, transaction_coupon) VALUES('"
+				+ rcmid
+				+ "','"
+				+ itemType
+				+ "',"
+				+ transweight
+				+ ","
+				+ transamount + "," + 0 + ");";
+		return sql;
+	}
+
+	public String createSqlForTransactionCoupon(String rcmid, String itemType,
+			double transweight, double transcoupon) {
+		String sql;
+		sql = "Insert into TRANSACTION (rcmid, itemType, transaction_weight, transaction_amount, transaction_coupon) VALUES('"
+				+ rcmid
+				+ "','"
+				+ itemType
+				+ "',"
+				+ transweight
+				+ ","
+				+ 0
+				+ ","
+				+ transcoupon + ");";
+		return sql;
+	}
+
+	public String createSqlForCurrentStatus(String rcmId) {
+		String sql = "SELECT STATUS FROM RCMRECYCLE WHERE RCMID = " + rcmId;
+		System.out.println(sql);
+		return sql;
+	}
+
+	public String createSqlForMonthlyTrasnsaction(String rcmId) {
+		String sql = "SELECT COUNT(TRANSACTION_DATE) AS MONTHLY_TRANSACTION FROM RCMRECYCLE WHERE RCMID ='"
+				+ rcmId + "' AND MONTH (TRANSACTION_DATE)= MONTH(CURDATE());";
+		System.out.println(sql);
+		return sql;
+	}
 }

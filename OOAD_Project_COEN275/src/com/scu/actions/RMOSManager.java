@@ -226,7 +226,7 @@ public class RMOSManager {
 	}
 
 	public String getCurrentStatus(String rcmId) {
-		
+
 		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
 		if (isRcmIdPresentInDB) {
 			String tempStatus = logic.getCurrentStatus(rcmId);
@@ -240,6 +240,22 @@ public class RMOSManager {
 		} else {
 			return "RCM ID " + rcmId + " is not a valid RCM Id";
 		}
-		
+
+	}
+
+	public String monthlyTrasnsaction(String rcmId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			String temp = logic.monthlyTrasnsaction(rcmId);
+			if (Validation.isNotNullorEmplty(temp)) {
+				return " The Monthly Transection for current month for RCM ID "
+						+ rcmId + " is " + temp;
+			} else {
+				return " The Monthly Transection for current month for RCM ID "
+						+ rcmId + " is not available, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
 	}
 }

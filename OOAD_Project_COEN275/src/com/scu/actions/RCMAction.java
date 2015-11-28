@@ -105,7 +105,7 @@ public class RCMAction {
 	public String getMonthlyTransactions(String rcmId) {
 		boolean isValid = Validation.isNotNullorEmplty(rcmId);
 		if (isValid) {
-			return null;//rmosManager.monthlyTrasnsaction(rcmId);
+			return rmosManager.monthlyTrasnsaction(rcmId);
 		} else {
 			return "Please provide a vaild RCM ID";
 		}
