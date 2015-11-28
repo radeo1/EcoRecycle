@@ -5,6 +5,7 @@ import java.util.List;
 import com.project.EcoRe.RCMRecycle;
 import com.scu.connecctions.ScuDbConn;
 import com.scu.dbsql.SelectQueries;
+
 import java.sql.ResultSet;
 
 public class BackendLogic {
@@ -126,54 +127,63 @@ public class BackendLogic {
 		return tempVal;
 	}
 
-public boolean addItem(String itemType, double itemWeightUnit, double unitPrice) {
+	public boolean addItem(String itemType, double itemWeightUnit,
+			double unitPrice) {
 		// TODO Auto-generated method stub
-           
-            String sql = query.createSqlForAddItem(itemType,itemWeightUnit, unitPrice);
-            boolean addItem = dbConnection.updateToDB(sql);
-            return addItem;
-     	}
-        
+
+		String sql = query.createSqlForAddItem(itemType, itemWeightUnit,
+				unitPrice);
+		boolean addItem = dbConnection.updateToDB(sql);
+		return addItem;
+	}
+
 	public boolean removeItem(String itemType) {
 		// TODO Auto-generated method stub
-            String sql = query.createSqlForDeleteItem(itemType);
-            boolean deleteItem = dbConnection.deleteFromDB(sql);
-            return deleteItem;
-        }
-        
+		String sql = query.createSqlForDeleteItem(itemType);
+		boolean deleteItem = dbConnection.deleteFromDB(sql);
+		return deleteItem;
+	}
+
 	public boolean updatePrice(String itemType, double uPrice) {
 		// TODO Auto-generated method stub
-            String sql = query.createSqlForUpdatePrice(itemType, uPrice);
-            boolean updatePrice = dbConnection.updateToDB(sql);
-            return updatePrice;
+		String sql = query.createSqlForUpdatePrice(itemType, uPrice);
+		boolean updatePrice = dbConnection.updateToDB(sql);
+		return updatePrice;
 	}
 
 	public ResultSet getItemList() {
 		// TODO Auto-generated method stub
-            String sql = query.createSqlForGetItemList();
-            ResultSet itemList = dbConnection.getResultSet(sql);
-            return itemList;
-            
+		String sql = query.createSqlForGetItemList();
+		ResultSet itemList = dbConnection.getResultSet(sql);
+		return itemList;
+
 	}
 
-	public String getMostUsedRCM(){
-            String sql = query.createSqlForMostUsedRCM();
-            String mostusedrcm = dbConnection.getValueFromSql(sql);
-            return mostusedrcm;
-        }
+	public String getMostUsedRCM() {
+		String sql = query.createSqlForMostUsedRCM();
+		String mostusedrcm = dbConnection.getValueFromSql(sql);
+		return mostusedrcm;
+	}
 
-        
-        public boolean addTransactionAmount(String rcmid, String itemType, double transweight, double transamount)
-        {
-            String sql = query.createSqlForTransactionAmount(rcmid, itemType, transweight, transamount);
-            boolean addItem = dbConnection.insertIntoDB(sql);
-            return addItem;
-        }
-        
-        public boolean addTransactionCoupon(String rcmid, String itemType, double transweight, double transcoupon)
-        {
-            String sql = query.createSqlForTransactionCoupon(rcmid, itemType, transweight, transcoupon);
-            boolean addItem = dbConnection.insertIntoDB(sql);
-            return addItem;
-        }
+	public boolean addTransactionAmount(String rcmid, String itemType,
+			double transweight, double transamount) {
+		String sql = query.createSqlForTransactionAmount(rcmid, itemType,
+				transweight, transamount);
+		boolean addItem = dbConnection.insertIntoDB(sql);
+		return addItem;
+	}
+
+	public boolean addTransactionCoupon(String rcmid, String itemType,
+			double transweight, double transcoupon) {
+		String sql = query.createSqlForTransactionCoupon(rcmid, itemType,
+				transweight, transcoupon);
+		boolean addItem = dbConnection.insertIntoDB(sql);
+		return addItem;
+	}
+
+	public String getCurrentStatus(String rcmId) {
+		String sql = query.createSqlForCurrentStatus(rcmId);
+		String mostusedrcm = dbConnection.getValueFromSql(sql);
+		return mostusedrcm;
+	}
 }

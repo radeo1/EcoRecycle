@@ -148,7 +148,8 @@ public class RMOSManager {
 				return "RCM Id " + rcmId + " has Last Emptied Date as "
 						+ tempCurrent;
 			} else {
-				return "RCM Id " + rcmId
+				return "RCM Id "
+						+ rcmId
 						+ " Last Emptied Date is not available, Please try again";
 			}
 		} else {
@@ -164,7 +165,8 @@ public class RMOSManager {
 				return "RCM Id " + rcmId + " has Cash Debited Per Month as "
 						+ tempCurrent;
 			} else {
-				return "RCM Id " + rcmId
+				return "RCM Id "
+						+ rcmId
 						+ " Cash Debited Per Month is not available, Please try again";
 			}
 		} else {
@@ -180,7 +182,8 @@ public class RMOSManager {
 				return "RCM Id " + rcmId + " has Weight Per Month as "
 						+ tempCurrent;
 			} else {
-				return "RCM Id " + rcmId
+				return "RCM Id "
+						+ rcmId
 						+ " Weight Per Month is not available, Please try again";
 			}
 		} else {
@@ -196,7 +199,8 @@ public class RMOSManager {
 				return "RCM Id " + rcmId + " has Current Items Recycled as "
 						+ tempCurrent;
 			} else {
-				return "RCM Id " + rcmId
+				return "RCM Id "
+						+ rcmId
 						+ " Current Items Recycled is not available, Please try again";
 			}
 		} else {
@@ -212,12 +216,30 @@ public class RMOSManager {
 				return "RCM Id " + rcmId + " has Items Recycled By Month as "
 						+ tempCurrent;
 			} else {
-				return "RCM Id " + rcmId
-						+ " Items Recycled By Monthis not available, Please try again";
+				return "RCM Id "
+						+ rcmId
+						+ " Items Recycled By Month is not available, Please try again";
 			}
 		} else {
 			return "RCM ID " + rcmId + " is not a valid RCM Id";
 		}
 	}
 
+	public String getCurrentStatus(String rcmId) {
+		
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			String tempStatus = logic.getCurrentStatus(rcmId);
+			if (Validation.isNotNullorEmplty(tempStatus)) {
+				return " Current status of RCM Id " + rcmId + " is "
+						+ tempStatus;
+			} else {
+				return "RCM Id " + rcmId
+						+ " Current Status not available, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
+		
+	}
 }

@@ -103,6 +103,7 @@ public class ScuDbConn {
 
 	public List<String> getListOfFirstClm(String sql) {
 		ArrayList<String> outList = new ArrayList<String>();
+		outList.add("-Select-");
 		Statement stmt;
 		try {
 			stmt = DBConnection.getConnection().createStatement();

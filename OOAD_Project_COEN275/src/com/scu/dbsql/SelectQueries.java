@@ -130,7 +130,7 @@ public class SelectQueries {
 
  public String createSqlForMostUsedRCM(){
             String sql;
-            sql = "SELECT RCMNUM, RCMID, MONTHLYWEIGHT, LOCATION FROM RcmRecycle ORDER BY SUM(TRANSACTION_WEIGHT) DESC; ";
+            sql = "SELECT RCMID, MONTHLYWEIGHT, LOCATION FROM RcmRecycle ORDER BY SUM(TRANSACTION_WEIGHT) DESC; ";
             return sql;
         }
         
@@ -169,4 +169,9 @@ public class SelectQueries {
             sql = "Insert into TRANSACTION (rcmid, itemType, transaction_weight, transaction_amount, transaction_coupon) VALUES('"+rcmid+"','"+itemType+"',"+transweight+ ","+0+ ","+transcoupon+");";
             return sql;
         }
+
+		public String createSqlForCurrentStatus(String rcmId) {
+			String sql = "SELECT STATUS FROM RCMRECYCLE WHERE RCMID = " + rcmId;
+			System.out.println(sql);
+			return sql;		}
 }

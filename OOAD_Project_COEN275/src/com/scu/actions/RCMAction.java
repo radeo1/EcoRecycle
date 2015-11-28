@@ -155,4 +155,12 @@ public class RCMAction {
 			return "Please provide a vaild RCM ID";
 		}
 	}
+
+	public String getCurrentStaus(String rcmId) {
+		boolean isValid = Validation.isNotNullorEmplty(rcmId);
+		if (isValid) {
+			return rmosManager.getCurrentStatus(rcmId);
+		} else {
+			return "Please provide a vaild RCM ID";
+		}	}
 }
