@@ -204,4 +204,10 @@ public class SelectQueries {
 		System.out.println(sql);
 		return sql;
 	}
+
+	public String createSqlForFetchRMOSids(String userName) {
+		String sql = "SELECT RMOSID FROM RMOS_USER_MAPPING WHERE USERNAME = " + userName;
+		System.out.println(sql);
+		return sql;
+	}
 }

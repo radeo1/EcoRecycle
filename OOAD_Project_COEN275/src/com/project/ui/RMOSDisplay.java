@@ -32,6 +32,7 @@ import com.project.EcoRe.RMOSUsageManager;
 import com.project.EcoRe.RecycleItem;
 import com.scu.actions.LoginAction;
 import com.scu.actions.RCMAction;
+import com.scu.actions.RMOSAction;
 import com.scu.logic.BackendLogic;
 
 public class RMOSDisplay extends JFrame implements ActionListener {
@@ -56,8 +57,11 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 	static JTextArea errorDisplayOutput;
 	BackendLogic logic = new BackendLogic();
 	RCMAction rcmAction = new RCMAction();
+	RMOSAction rmosAction = new RMOSAction();
 	List<String> rcmIds = new ArrayList<String>();
+	List<String> rmosIds =  new ArrayList<String>();
 	DefaultComboBoxModel model = null;
+	DefaultComboBoxModel modelForRmos = null;
 
 	public RMOSDisplay() {
 
@@ -541,18 +545,10 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		buttonLogin.addActionListener(this);
 		cpanel1.add(buttonLogin);
 
-		errorDisplayOutput = new JTextArea();
-		errorDisplayOutput.setBounds(420, 19, 100, 29);
-		errorDisplayOutput.setEditable(false);
-		errorDisplayOutput.setBackground(new Color(204, 204, 0));
-		errorDisplayOutput.setForeground(new Color(0, 51, 255));
-		errorDisplayOutput.setFont(new Font("Arial", Font.BOLD, 14));
-		cpanel1.add(errorDisplayOutput);
-		
-		String [] rmosIds = {"","rmos01","rmos02","rmos03"};
-		//rmosIds = rmosAction.getAllRmosId();
-		//model = new DefaultComboBoxModel(rmosIds.toArray());
-		rmosCombo = new JComboBox(rmosIds);
+		rmosIds = rmosAction.getAllRmosId(textUsername.getText());
+		modelForRmos = new DefaultComboBoxModel(rmosIds.toArray());
+		rmosCombo = new JComboBox(modelForRmos);
+
 		rmosCombo.setForeground(Color.BLACK);
 		rmosCombo.setFont(new Font("Arial", Font.BOLD, 10));
 		rmosCombo.setBounds(10, 24, 90, 22);
@@ -617,6 +613,13 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			loginAction.setPassword(passWord);
 			loginAction.setUsername(userName);
 			canLogIn = loginAction.execute();
+			if("success".equals(canLogIn)){
+				rmosIds = rmosAction.getAllRmosId(userName);
+				modelForRmos.removeAllElements();
+				for(String rmoId : rmosIds){
+				modelForRmos.addElement(rmoId);
+				}
+			}
 			textDisplayOutput.setText(loginAction.getMessage());
 		}
 

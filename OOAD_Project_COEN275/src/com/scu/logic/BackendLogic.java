@@ -192,4 +192,10 @@ public class BackendLogic {
 		String count = dbConnection.getValueFromSql(sql);
 		return count;
 	}
+
+	public List<String> getAllRmosId(String userName) {
+		String sql = query.createSqlForFetchRMOSids(userName);
+		List<String> outputList = dbConnection.getListOfFirstClm(sql);
+		return outputList;
+	}
 }

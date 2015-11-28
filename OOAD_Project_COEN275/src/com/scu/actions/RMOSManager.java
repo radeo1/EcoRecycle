@@ -258,4 +258,9 @@ public class RMOSManager {
 			return "RCM ID " + rcmId + " is not a valid RCM Id";
 		}
 	}
+
+	public List<String> getAllRmosId(String userName) {
+		List<String> rmsids = logic.getAllRmosId(userName);
+		return rmsids;
+	}
 }
