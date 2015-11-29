@@ -230,8 +230,12 @@ public class BackendLogic {
 		String sql = query.createSqlForSetCoupon(rcmId, creditCoupon);
 		boolean isUpdate = dbConnection.updateToDB(sql);
 		return isUpdate;
-	
-		
+	}
+
+	public String getLocation(String rcmId) {
+		String sql = query.createSqlForLocation(rcmId);
+		String location = dbConnection.getValueFromSql(sql);
+		return location;
 	}
 
 }

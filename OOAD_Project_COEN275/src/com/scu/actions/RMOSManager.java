@@ -83,9 +83,28 @@ public class RMOSManager {
 		if (isRcmIdPresentInDB) {
 			boolean isMapped = Validation.isValidMapping(rcmId, rmosId);
 			if (isMapped) {
-				boolean isRemoved = logic.setFund(rcmId, amount);
-				logic.setCoupon(rcmId, Constant.CREDIT_COUPON); //filling the coupon as well
-				if (isRemoved) {
+				boolean isAdded = logic.setFund(rcmId, amount);
+				if (isAdded) {
+					return "RCM Successfully Refilled";
+				} else {
+					return "RCM is not Refilled, Please try again";
+				}
+			} else {
+				return "RCM ID " + rcmId + " and RMOS ID " + rmosId
+						+ " is not a Mapped, Please select correct RMOS Id";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
+	}
+
+	public String setCoupon(String rcmId, int amount, String rmosId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			boolean isMapped = Validation.isValidMapping(rcmId, rmosId);
+			if (isMapped) {
+				boolean isAdded = logic.setCoupon(rcmId, amount);
+				if (isAdded) {
 					return "RCM Successfully Refilled";
 				} else {
 					return "RCM is not Refilled, Please try again";
@@ -295,5 +314,22 @@ public class RMOSManager {
 	public List<String> getAllRmosId(String userName) {
 		List<String> rmsids = logic.getAllRmosId(userName);
 		return rmsids;
+	}
+
+	public String getLocation(String rcmId) {
+		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
+		if (isRcmIdPresentInDB) {
+			String tempCurrent = logic.getLocation(rcmId);
+			if (Validation.isNotNullorEmplty(tempCurrent)) {
+				return "RCM Id " + rcmId + " has Location as "
+						+ tempCurrent;
+			} else {
+				return "RCM Id "
+						+ rcmId
+						+ " Location is not available, Please try again";
+			}
+		} else {
+			return "RCM ID " + rcmId + " is not a valid RCM Id";
+		}
 	}
 }

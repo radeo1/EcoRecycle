@@ -249,4 +249,11 @@ public class SelectQueries {
 		System.out.println(sql);
 		return sql;
 	}
+
+	public String createSqlForLocation(String rcmId) {
+		String sql = "SELECT LOCATION FROM RCMRECYCLE WHERE RCMID ="
+				+ rcmId;
+		System.out.println(sql);
+		return sql;
+	}
 }

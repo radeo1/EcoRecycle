@@ -679,7 +679,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		}
 		// *********** Refill coupon ******************
 		else if (source == refillCoupon) {
-			String msg = rcmAction.refillRCM(textRcmId.getText(),
+			String msg = rcmAction.refillRCMCoupon(textRcmId.getText(),
 					textRefillAmount.getText(), rmosPlaceLabel.getText());
 			textDisplayOutput.setText(msg);
 		}

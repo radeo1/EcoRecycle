@@ -168,8 +168,25 @@ public class RCMAction {
 		}
 	}
 
-	public String getLocation(String text) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getLocation(String rcmId) {
+		boolean isValid = Validation.isNotNullorEmplty(rcmId);
+		if (isValid) {
+			return rmosManager.getLocation(rcmId);
+		} else {
+			return "Please provide a vaild RCM ID";
+		}
+	}
+
+	public String refillRCMCoupon(String rcmId, String amountStr, String rmosId) {
+		boolean isValidRcmId = Validation.isNotNullorEmplty(rcmId);
+		boolean isValidNumer = Validation.isNumber(amountStr);
+		if (isValidRcmId && isValidNumer) {
+			int amount = Integer.parseInt(amountStr);
+			return rmosManager.setFunds(rcmId, amount,rmosId);
+
+		} else {
+			return "Please provide a vaild RCM ID with Valid Amount";
+		}
+
 	}
 }
