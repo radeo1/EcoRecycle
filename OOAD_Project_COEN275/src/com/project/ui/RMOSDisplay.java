@@ -27,6 +27,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import com.project.EcoRe.Constant;
 import com.project.EcoRe.RCMMonitor;
 import com.project.EcoRe.RMOSUsageManager;
 import com.project.EcoRe.RecycleItem;
@@ -625,6 +626,12 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		// store command from event e
 		Object source = e.getSource();
 
+		if(source != buttonLogin){
+			if(!Constant.SUCESS_LOGIN){
+				textDisplayOutput.setText("Please Login");
+				return;
+			}
+		}
 		// *********** Admin Log in **************
 		if (source == buttonLogin) {
 			String userName = textUsername.getText();
