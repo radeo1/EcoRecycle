@@ -57,7 +57,7 @@ public class SelectQueries {
 	}
 
 	public String createSqlForSetFund(String rcmId, double d) {
-		String sql = "UPDATE RCMRECYCLE SET FUND=" + d + " WHERE RCMID ="
+		String sql = "UPDATE RCMRECYCLE SET AVAILABLE_CASH=" + d + " WHERE RCMID ="
 				+ rcmId + ";";
 		System.out.println(sql);
 		return sql;
