@@ -1,5 +1,6 @@
 package com.scu.dbsql;
 
+import com.project.EcoRe.Constant;
 import com.project.EcoRe.RCMRecycle;
 
 public class SelectQueries {
@@ -30,7 +31,9 @@ public class SelectQueries {
 
 	public String createSqlForActivateRCM(String rcmId) {
 		String sql = "UPDATE RCMRECYCLE SET STATUS='" + "ACTIVE"
-				+ "' WHERE RCMID =" + rcmId + ";";
+				+ "',CURRENT_WEIGHT=0,AVAILABLE_CASH =" + Constant.CREDIT_CASH
+				+ ",AVAILABLE_COUPON=" + Constant.CREDIT_COUPON
+				+ " WHERE RCMID =" + rcmId + ";";
 		System.out.println(sql);
 		return sql;
 	}
@@ -251,8 +254,7 @@ public class SelectQueries {
 	}
 
 	public String createSqlForLocation(String rcmId) {
-		String sql = "SELECT LOCATION FROM RCMRECYCLE WHERE RCMID ="
-				+ rcmId;
+		String sql = "SELECT LOCATION FROM RCMRECYCLE WHERE RCMID =" + rcmId;
 		System.out.println(sql);
 		return sql;
 	}
