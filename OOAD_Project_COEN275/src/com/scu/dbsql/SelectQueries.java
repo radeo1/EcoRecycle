@@ -244,7 +244,7 @@ public class SelectQueries {
 	}
 
 	public String createSqlForSetCoupon(String rcmId, double creditCoupon) {
-		String sql = "UPDATE RCMRECYCLE SET COUPON=" + creditCoupon
+		String sql = "UPDATE RCMRECYCLE SET AVAILABLE_COUPON=" + creditCoupon
 				+ " WHERE RCMID =" + rcmId + ";";
 		System.out.println(sql);
 		return sql;
