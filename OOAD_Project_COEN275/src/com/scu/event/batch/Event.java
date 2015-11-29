@@ -1,5 +1,6 @@
 package com.scu.event.batch;
 
+/* Added by Pragati Shrivastava. This is replica of event table in database*/
 public class Event {
 
 	private int id;

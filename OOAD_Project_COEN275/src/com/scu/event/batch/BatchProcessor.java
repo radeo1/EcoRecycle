@@ -13,6 +13,9 @@ public class BatchProcessor {
 			.newScheduledThreadPool(1);
 	ExecuteBatch executer = new ExecuteBatch();
 
+	/** This method executes events periodically
+	 * No i/o parameter
+	 */
 	public void executeEventsPeriodically() {
 		final Runnable eventFinder = new Runnable() {
 			public void run() {

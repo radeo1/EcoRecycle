@@ -1,6 +1,6 @@
 package com.scu.logic;
 
-import java.util.ArrayList;
+import java.sql.ResultSet;
 import java.util.List;
 
 import com.project.EcoRe.RCMRecycle;
@@ -8,13 +8,24 @@ import com.scu.connecctions.ScuDbConn;
 import com.scu.dbsql.SelectQueries;
 import com.scu.event.batch.Event;
 
-import java.sql.ResultSet;
-
+/**
+ * This is an interface with the database and GUI
+ * 
+ * @author Pragati Shrivasava
+ * 
+ */
 public class BackendLogic {
 
 	ScuDbConn dbConnection = new ScuDbConn();
 	SelectQueries query = new SelectQueries();
 
+	/**
+	 * This method validates user
+	 * 
+	 * @param userName
+	 * @param password
+	 * @return boolean
+	 */
 	public boolean validateUser(String userName, String password) {
 		String sql = query.getPasswordByUserName(userName);
 		String passwordFromDB = dbConnection.getValueFromSql(sql);
@@ -25,6 +36,12 @@ public class BackendLogic {
 		}
 	}
 
+	/**
+	 * This method adds RCM
+	 * 
+	 * @param rcm
+	 * @return String
+	 */
 	public String addRCM(RCMRecycle rcm) {
 		String sql = query.createSqlForAddRCM(rcm);
 		boolean isAdded = dbConnection.insertIntoDB(sql);
@@ -38,36 +55,73 @@ public class BackendLogic {
 		}
 	}
 
+	/**
+	 * This method activates RCM
+	 * 
+	 * @param rcmId
+	 * @return Boolean
+	 */
 	public boolean activateRCM(String rcmId) {
 		String sql = query.createSqlForActivateRCM(rcmId);
 		boolean isUpdate = dbConnection.updateToDB(sql);
 		return isUpdate;
 	}
 
+	/**
+	 * This method deactivates RCM
+	 * 
+	 * @param rcmId
+	 * @return boolean
+	 */
 	public boolean deactivateRCM(String rcmId) {
 		String sql = query.createSqlForDeactivateRCM(rcmId);
 		boolean isUpdate = dbConnection.updateToDB(sql);
 		return isUpdate;
 	}
 
+	/**
+	 * This method removes RCM
+	 * 
+	 * @param rcmId
+	 * @return boolean
+	 */
 	public boolean removeRCM(String rcmId) {
 		String sql = query.createSqlForDeleteRCMById(rcmId);
 		boolean isDeleted = dbConnection.deleteFromDB(sql);
 		return isDeleted;
 	}
 
+	/**
+	 * This method checks if RCM is valid
+	 * 
+	 * @param rcmId
+	 * @return boolean
+	 */
 	public boolean isvalidRcmId(String rcmId) {
 		String sql = query.createSqlForValidRCMById(rcmId);
 		String location = dbConnection.getValueFromSql(sql);
 		return Validation.isNotNullorEmplty(location);
 	}
 
+	/**
+	 * This method sets fund for a particular RCM
+	 * 
+	 * @param rcmId
+	 * @param d
+	 * @return boolean
+	 */
 	public boolean setFund(String rcmId, double d) {
 		String sql = query.createSqlForSetFund(rcmId, d);
 		boolean isUpdate = dbConnection.updateToDB(sql);
 		return isUpdate;
 	}
 
+	/**
+	 * This method empties RCM content
+	 * 
+	 * @param rcmId
+	 * @return boolean
+	 */
 	public boolean clearRCMWeight(String rcmId) {
 		double weight = 0; // set to 0 for clearing
 		String sql = query.createSqlForsetWeight(rcmId, weight);
@@ -75,47 +129,97 @@ public class BackendLogic {
 		return isUpdate;
 	}
 
-	public boolean updateRCMWeight(String rcmId,double weight) {
+	/**
+	 * This method updates RCM content
+	 * 
+	 * @param rcmId
+	 * @param weight
+	 * @return boolean
+	 */
+	public boolean updateRCMWeight(String rcmId, double weight) {
 		String sql = query.createSqlForsetWeight(rcmId, weight);
 		boolean isUpdate = dbConnection.updateToDB(sql);
 		return isUpdate;
 	}
+
+	/**
+	 * This method Lists all rmos id
+	 * 
+	 * @param rmosId
+	 * @return list
+	 */
 	public List<String> getAllRmsId(String rmosId) {
 		String sql = query.createSqlForFetchRMSids(rmosId);
 		List<String> outputList = dbConnection.getListOfFirstClm(sql);
 		return outputList;
 	}
 
+	/**
+	 * This method gets RCM's weight/content status
+	 * 
+	 * @param rcmId
+	 * @return String
+	 */
 	public String getWeight(String rcmId) {
 		String sql = query.createSqlForCurrentWeight(rcmId);
 		String weight = dbConnection.getValueFromSql(sql);
 		return weight;
 	}
 
+	/**
+	 * This method gets RCM coupon staus
+	 * 
+	 * @param rcmId
+	 * @return String
+	 */
 	public String getCoupon(String rcmId) {
 		String sql = query.createSqlForCurrentCoupon(rcmId);
 		String weight = dbConnection.getValueFromSql(sql);
 		return weight;
 	}
 
+	/**
+	 * This method gets RCM cash status
+	 * 
+	 * @param rcmId
+	 * @return String
+	 */
 	public String getCash(String rcmId) {
 		String sql = query.createSqlForCurrentCash(rcmId);
 		String weight = dbConnection.getValueFromSql(sql);
 		return weight;
 	}
 
+	/**
+	 * This method gets number of items recycled in a month for a RCM
+	 * 
+	 * @param String
+	 * @return String
+	 */
 	public String getItemsRecycledByMonth(String rcmId) {
 		String sql = query.createSqlForRecycledByMonth(rcmId);
 		String tempVal = dbConnection.getValueFromSql(sql);
 		return tempVal;
 	}
 
+	/**
+	 * This method gets number of item recycled on a particular day
+	 * 
+	 * @param rcmId
+	 * @return String
+	 */
 	public String getCurrItemsRecycled(String rcmId) {
 		String sql = query.createSqlForCurrItemsRecycled(rcmId);
 		String tempVal = dbConnection.getValueFromSql(sql);
 		return tempVal;
 	}
 
+	/**
+	 * This method gets weight of RCM for a month
+	 * 
+	 * @param rcmId
+	 * @return string
+	 */
 	public String getWeightPerMonth(String rcmId) {
 		String sql = query.createSqlForWeightPerMonth(rcmId);
 		String tempVal = dbConnection.getValueFromSql(sql);
@@ -136,8 +240,6 @@ public class BackendLogic {
 
 	public boolean addItem(String itemType, double itemWeightUnit,
 			double unitPrice) {
-		// TODO Auto-generated method stub
-
 		String sql = query.createSqlForAddItem(itemType, itemWeightUnit,
 				unitPrice);
 		boolean addItem = dbConnection.updateToDB(sql);
@@ -145,25 +247,21 @@ public class BackendLogic {
 	}
 
 	public boolean removeItem(String itemType) {
-		// TODO Auto-generated method stub
 		String sql = query.createSqlForDeleteItem(itemType);
 		boolean deleteItem = dbConnection.deleteFromDB(sql);
 		return deleteItem;
 	}
 
 	public boolean updatePrice(String itemType, double uPrice) {
-		// TODO Auto-generated method stub
 		String sql = query.createSqlForUpdatePrice(itemType, uPrice);
 		boolean updatePrice = dbConnection.updateToDB(sql);
 		return updatePrice;
 	}
 
 	public ResultSet getItemList() {
-		// TODO Auto-generated method stub
 		String sql = query.createSqlForGetItemList();
 		ResultSet itemList = dbConnection.getResultSet(sql);
 		return itemList;
-
 	}
 
 	public String getMostUsedRCM() {

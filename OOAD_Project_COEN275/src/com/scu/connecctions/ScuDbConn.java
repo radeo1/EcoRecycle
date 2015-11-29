@@ -9,6 +9,10 @@ import java.util.Map;
 
 import com.scu.event.batch.Event;
 
+/**
+ * @author anant
+ *
+ */
 public class ScuDbConn {
 
 	public boolean deleteFromDB(String sql) {
@@ -103,6 +107,11 @@ public class ScuDbConn {
 		return rs;
 	}
 
+	/**
+	 * Desc : This method will give list of first colum
+	 * @param sql
+	 * @return List
+	 */
 	public List<String> getListOfFirstClm(String sql) {
 		ArrayList<String> outList = new ArrayList<String>();
 		Statement stmt;
@@ -118,6 +127,10 @@ public class ScuDbConn {
 		return outList;
 	}
 
+	/**
+	 * @param sql
+	 * @return List
+	 */
 	public List<Event> getEventList(String sql) {
 		ArrayList<Event> outList = new ArrayList<Event>();
 		Statement stmt;

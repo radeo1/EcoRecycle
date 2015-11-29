@@ -5,6 +5,9 @@ import java.util.List;
 import com.project.EcoRe.Constant;
 import com.scu.logic.BackendLogic;
 
+/** This will execute the batch in every 30 seconds 
+ * @author Pragati Shrivastava
+ */
 public class ExecuteBatch {
 
 	BackendLogic logic =  new BackendLogic();
