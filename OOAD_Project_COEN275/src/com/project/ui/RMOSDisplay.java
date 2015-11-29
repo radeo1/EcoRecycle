@@ -643,29 +643,29 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		}
 		// ********* Remove a RCM from RMOS group *********
 		else if (source == removeRCM) {
-			String msg = rcmAction.removeRCM(textRcmId.getText());
+			String msg = rcmAction.removeRCM(textRcmId.getText(), rmosPlaceLabel.getText());
 			textDisplayOutput.setText(msg);
 		}
 		// ********** Activate a RCM ****************
 		else if (source == activateRCM) {
-			String msg = rcmAction.activateRCM(textRcmId.getText());
+			String msg = rcmAction.activateRCM(textRcmId.getText(), rmosPlaceLabel.getText());
 			textDisplayOutput.setText(msg);
 		}
 		// ********** Deactivate a RCM ****************
 		else if (source == deactivateRCM) {
-			String msg = rcmAction.deActivateRCM(textRcmId.getText());
+			String msg = rcmAction.deActivateRCM(textRcmId.getText(), rmosPlaceLabel.getText());
 			textDisplayOutput.setText(msg);
 		}
 
 		// *********** Refill Money ******************
 		else if (source == refillRCM) {
 			String msg = rcmAction.refillRCM(textRcmId.getText(),
-					textRefillAmount.getText());
+					textRefillAmount.getText(), rmosPlaceLabel.getText());
 			textDisplayOutput.setText(msg);
 		}
 		// *********** Clear Recycale item from RCM ******************
 		else if (source == clearRCM) {
-			String msg = rcmAction.clearRcmWeight(textRcmId.getText());
+			String msg = rcmAction.clearRcmWeight(textRcmId.getText(), rmosPlaceLabel.getText());
 			textDisplayOutput.setText(msg);
 		}
 		// *********** Showlist of RCM under an RMOS******************

@@ -22,49 +22,50 @@ public class RCMAction {
 		}
 	}
 
-	public String removeRCM(String rcmId) {
+	public String removeRCM(String rcmId, String rmosId) {
 		boolean isValid = Validation.isNotNullorEmplty(rcmId);
 		if (isValid) {
-			return rmosManager.removeRCM(rcmId);
+			
+			return rmosManager.removeRCM(rcmId,rmosId);
 		} else {
 			return "Please provide a vaild RCM ID";
 		}
 	}
 
-	public String activateRCM(String rcmId) {
+	public String activateRCM(String rcmId, String rmosId) {
 		boolean isValid = Validation.isNotNullorEmplty(rcmId);
 		if (isValid) {
-			return rmosManager.activateRCM(rcmId);
+			return rmosManager.activateRCM(rcmId,rmosId);
 		} else {
 			return "Please provide a vaild RCM ID";
 		}
 	}
 
-	public String deActivateRCM(String rcmId) {
+	public String deActivateRCM(String rcmId, String rmosId) {
 		boolean isValid = Validation.isNotNullorEmplty(rcmId);
 		if (isValid) {
-			return rmosManager.deactivateRCM(rcmId);
+			return rmosManager.deactivateRCM(rcmId,rmosId);
 		} else {
 			return "Please provide a vaild RCM ID";
 		}
 	}
 
-	public String refillRCM(String rcmId, String amountStr ) {
+	public String refillRCM(String rcmId, String amountStr, String rmosId) {
 		boolean isValidRcmId = Validation.isNotNullorEmplty(rcmId);
 		boolean isValidNumer = Validation.isNumber(amountStr);
-		if (isValidRcmId && isValidNumer ) {
+		if (isValidRcmId && isValidNumer) {
 			int amount = Integer.parseInt(amountStr);
-			return rmosManager.setFunds(rcmId, amount);
+			return rmosManager.setFunds(rcmId, amount,rmosId);
 		} else {
 			return "Please provide a vaild RCM ID with Valid Amount";
 		}
-		
+
 	}
 
-	public String clearRcmWeight(String rcmId) {
+	public String clearRcmWeight(String rcmId, String rmosId) {
 		boolean isValid = Validation.isNotNullorEmplty(rcmId);
 		if (isValid) {
-			return rmosManager.clearRcmWeight(rcmId);
+			return rmosManager.clearRcmWeight(rcmId,rmosId);
 		} else {
 			return "Please provide a vaild RCM ID";
 		}
@@ -102,7 +103,7 @@ public class RCMAction {
 		}
 	}
 
-	//#TODO
+	// #TODO
 	public String getMonthlyTransactions(String rcmId) {
 		boolean isValid = Validation.isNotNullorEmplty(rcmId);
 		if (isValid) {
@@ -163,5 +164,6 @@ public class RCMAction {
 			return rmosManager.getCurrentStatus(rcmId);
 		} else {
 			return "Please provide a vaild RCM ID";
-		}	}
+		}
+	}
 }

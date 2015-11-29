@@ -210,4 +210,10 @@ public class SelectQueries {
 		System.out.println(sql);
 		return sql;
 	}
+
+	public String createSqlTogetRmosIdbyRcmId(String rcmId) {
+		String sql = "SELECT RMOSID FROM RCMRECYCLE WHERE RCMID = " + rcmId;
+		System.out.println(sql);
+		return sql;
+	}
 }

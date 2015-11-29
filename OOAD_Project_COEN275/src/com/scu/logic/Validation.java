@@ -13,7 +13,7 @@ public class Validation {
 
 	public static boolean isValidRcmId(String rcmId) {
 
-		return true;//logic.isvalidRcmId(rcmId);
+		return logic.isvalidRcmId(rcmId);
 	}
 	
 	public static boolean isNumber(String s) {
@@ -27,5 +27,11 @@ public class Validation {
 			}
 		}
 		return true;
+	}
+	
+	public static boolean isValidMapping(String rcmId, String rmosId){
+		
+		return logic.isMappingRcmIdRmosId(rcmId,rcmId);
+		
 	}
 }

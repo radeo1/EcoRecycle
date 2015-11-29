@@ -198,4 +198,14 @@ public class BackendLogic {
 		List<String> outputList = dbConnection.getListOfFirstClm(sql);
 		return outputList;
 	}
+
+	public boolean isMappingRcmIdRmosId(String rcmId, String rmosId) {
+		String sql = query.createSqlTogetRmosIdbyRcmId(rcmId);
+		String opRmosId = dbConnection.getValueFromSql(sql);
+		if(rmosId.equalsIgnoreCase(opRmosId)){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

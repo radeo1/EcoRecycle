@@ -17,70 +17,101 @@ public class RMOSManager {
 		return logic.addRCM(rcm);
 	}
 
-	public String activateRCM(String rcmId) {
+	public String activateRCM(String rcmId, String rmosId) {
 		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
 		if (isRcmIdPresentInDB) {
-			boolean isUpdated = logic.activateRCM(rcmId);
-			if (isUpdated) {
-				return "RCM Successfully Activated";
+			boolean isMapped = Validation.isValidMapping(rcmId, rmosId);
+			if (isMapped) {
+				boolean isUpdated = logic.activateRCM(rcmId);
+				if (isUpdated) {
+					return "RCM Successfully Activated";
+				} else {
+					return "RCM is not Activated, Please try again";
+				}
 			} else {
-				return "RCM is not Activated, Please try again";
+				return "RCM ID " + rcmId + " and RMOS ID " + rmosId
+						+ " is not a Mapped, Please select correct RMOS Id";
 			}
 		} else {
 			return "RCM ID " + rcmId + " is not a valid RCM Id";
 		}
 	}
 
-	public String deactivateRCM(String rcmId) {
+	public String deactivateRCM(String rcmId, String rmosId) {
 		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
 		if (isRcmIdPresentInDB) {
-			boolean isUpdated = logic.deactivateRCM(rcmId);
-			if (isUpdated) {
-				return "RCM Successfully Deactivated";
+			boolean isMapped = Validation.isValidMapping(rcmId, rmosId);
+			if (isMapped) {
+				boolean isUpdated = logic.deactivateRCM(rcmId);
+				if (isUpdated) {
+					return "RCM Successfully Deactivated";
+				} else {
+					return "RCM is not Deactivated, Please try again";
+				}
 			} else {
-				return "RCM is not Deactivated, Please try again";
+				return "RCM ID " + rcmId + " and RMOS ID " + rmosId
+						+ " is not a Mapped, Please select correct RMOS Id";
 			}
 		} else {
 			return "RCM ID " + rcmId + " is not a valid RCM Id";
 		}
 	}
 
-	public String removeRCM(String rcmId) {
+	public String removeRCM(String rcmId, String rmosId) {
 		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
 		if (isRcmIdPresentInDB) {
-			boolean isRemoved = logic.removeRCM(rcmId);
-			if (isRemoved) {
-				return "RCM Successfully Removed";
+			boolean isMapped = Validation.isValidMapping(rcmId, rmosId);
+			if (isMapped) {
+				boolean isRemoved = logic.removeRCM(rcmId);
+				if (isRemoved) {
+					return "RCM Successfully Removed";
+				} else {
+					return "RCM is not Removed, Please try again";
+				}
 			} else {
-				return "RCM is not Removed, Please try again";
+				return "RCM ID " + rcmId + " and RMOS ID " + rmosId
+						+ " is not a Mapped, Please select correct RMOS Id";
 			}
 		} else {
 			return "RCM ID " + rcmId + " is not a valid RCM Id";
 		}
 	}
 
-	public String setFunds(String rcmId, int amount) {
+	public String setFunds(String rcmId, int amount, String rmosId) {
 		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
 		if (isRcmIdPresentInDB) {
-			boolean isRemoved = logic.setFund(rcmId, amount);
-			if (isRemoved) {
-				return "RCM Successfully Refilled";
+			boolean isMapped = Validation.isValidMapping(rcmId, rmosId);
+			if (isMapped) {
+				boolean isRemoved = logic.setFund(rcmId, amount);
+				if (isRemoved) {
+					return "RCM Successfully Refilled";
+				} else {
+					return "RCM is not Refilled, Please try again";
+				}
 			} else {
-				return "RCM is not Refilled, Please try again";
+				return "RCM ID " + rcmId + " and RMOS ID " + rmosId
+						+ " is not a Mapped, Please select correct RMOS Id";
 			}
 		} else {
 			return "RCM ID " + rcmId + " is not a valid RCM Id";
 		}
 	}
 
-	public String clearRcmWeight(String rcmId) {
+	public String clearRcmWeight(String rcmId, String rmosId) {
 		boolean isRcmIdPresentInDB = Validation.isValidRcmId(rcmId);
 		if (isRcmIdPresentInDB) {
-			boolean isRemoved = logic.clearRCMWeight(rcmId);
-			if (isRemoved) {
-				return "RCM Successfully Cleared";
+			boolean isMapped = Validation.isValidMapping(rcmId, rmosId);
+			if (isMapped) {
+				boolean isRemoved = logic.clearRCMWeight(rcmId);
+				if (isRemoved) {
+					return "RCM Successfully Cleared";
+				} else {
+					return "RCM is not Cleared, Please try again";
+				}
 			} else {
-				return "RCM is not Cleared, Please try again";
+				return "RCM ID " + rcmId + " and RMOS ID " + rmosId
+						+ " is not a Mapped, Please select correct RMOS Id";
+
 			}
 		} else {
 			return "RCM ID " + rcmId + " is not a valid RCM Id";
