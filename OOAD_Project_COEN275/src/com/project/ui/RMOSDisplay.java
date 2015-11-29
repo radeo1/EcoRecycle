@@ -50,9 +50,9 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			textRcmLocation;
 	private JTextField textRcm, textRcmLoc, textItemType, textUnitPrice;
 	private JPasswordField password;
-	private JButton buttonLogin, addRCM, removeRCM, activateRCM, refillRCM,
+	private JButton buttonLogin, addRCM, removeRCM, activateRCM, refillFunds,refillCoupon,
 			deactivateRCM, clearRCM, showRCM, currentWeight, currentCash,
-			currentCoupon, btnLastEmptied, btnMonthlyTransactions,
+			currentCoupon, btnLastEmptied, btnMonthlyTransactions,btnRcmLocation,
 			btnCashDebitedPerMonth, btnWeightPerMonth, btnRcmStatus,
 			btnCurrItemsRecycled, btnItemsRecycledByMonth, addItem, removeItem,
 			updatePrice, listItem, mostUsed, monthlyUsageGraph;
@@ -190,8 +190,14 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		 * 100, 22); controlPanel3.add(textRcmNumber);
 		 * controlPanel3.setLayout(null);
 		 */
+		btnRcmLocation = new JButton("RCM Location ");
+		btnRcmLocation.setForeground(new Color(50, 0, 200));
+		btnRcmLocation.setFont(new Font("Arial", Font.BOLD, 14));
+		btnRcmLocation.setBounds(400, 22, 140, 26);
+		btnRcmLocation.addActionListener(this);
+		controlPanel3.add(btnRcmLocation);
 
-		JLabel labelRcmLoc = new JLabel("Location");
+		/*JLabel labelRcmLoc = new JLabel("Location");
 		labelRcmLoc.setFont(new Font("Arial", Font.BOLD, 14));
 		labelRcmLoc.setForeground(new Color(30, 0, 200));
 		labelRcmLoc.setBackground(new Color(0, 204, 153));
@@ -200,7 +206,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 
 		textRcmLoc = new JTextField();
 		textRcmLoc.setBounds(465, 22, 100, 26);
-		controlPanel3.add(textRcmLoc);
+		controlPanel3.add(textRcmLoc);*/
 
 		JLabel labelRcm = new JLabel("RCM ID");
 		labelRcm.setFont(new Font("Arial", Font.BOLD, 14));
@@ -405,24 +411,25 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		labelRefillAmount.setFont(new Font("Arial", Font.BOLD, 14));
 		labelRefillAmount.setForeground(new Color(30, 0, 200));
 		labelRefillAmount.setBackground(new Color(0, 204, 153));
-		labelRefillAmount.setBounds(148, 24, 110, 22);
+		labelRefillAmount.setBounds(350, 24, 100, 22);
 		controlPanel1.add(labelRefillAmount);
 		controlPanel1.setLayout(null);
 
 		textRefillAmount = new JTextField();
-		textRefillAmount.setBounds(265, 22, 70, 26);
+		textRefillAmount.setBounds(470, 22, 100, 26);
 		controlPanel1.add(textRefillAmount);
 
 		JLabel labelRcmLocation = new JLabel("RCM Location");
 		labelRcmLocation.setFont(new Font("Arial", Font.BOLD, 14));
 		labelRcmLocation.setForeground(new Color(30, 0, 200));
 		labelRcmLocation.setBackground(new Color(0, 204, 153));
-		labelRcmLocation.setBounds(350, 24, 100, 22);
+		labelRcmLocation.setBounds(148, 24, 110, 22);
 		controlPanel1.add(labelRcmLocation);
 		controlPanel1.setLayout(null);
 
 		textRcmLocation = new JTextField();
-		textRcmLocation.setBounds(470, 22, 100, 26);
+		textRcmLocation.setBounds(265, 22, 70, 26);
+				
 		controlPanel1.add(textRcmLocation);
 
 		// AddRCM Button
@@ -445,7 +452,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		activateRCM = new JButton("Activate RCM ");
 		activateRCM.setForeground(new Color(50, 0, 200));
 		activateRCM.setFont(new Font("Arial", Font.BOLD, 14));
-		activateRCM.setBounds(300, 66, 130, 26);
+		activateRCM.setBounds(280, 66, 125, 26);
 		activateRCM.addActionListener(this);
 		controlPanel1.add(activateRCM);
 
@@ -453,23 +460,30 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		deactivateRCM = new JButton("Deactivate RCM ");
 		deactivateRCM.setForeground(new Color(50, 0, 200));
 		deactivateRCM.setFont(new Font("Arial", Font.BOLD, 14));
-		deactivateRCM.setBounds(460, 66, 140, 26);
+		deactivateRCM.setBounds(440, 66, 140, 26);
 		deactivateRCM.addActionListener(this);
 		controlPanel1.add(deactivateRCM);
 
 		// RefillFunds Button
-		refillRCM = new JButton("Refill Funds ");
-		refillRCM.setForeground(new Color(50, 0, 200));
-		refillRCM.setFont(new Font("Arial", Font.BOLD, 14));
-		refillRCM.addActionListener(this);
-		refillRCM.setBounds(16, 100, 120, 26);
-		controlPanel1.add(refillRCM);
+		refillFunds = new JButton("Refill Funds ");
+		refillFunds.setForeground(new Color(50, 0, 200));
+		refillFunds.setFont(new Font("Arial", Font.BOLD, 14));
+		refillFunds.addActionListener(this);
+		refillFunds.setBounds(16, 100, 120, 26);
+		controlPanel1.add(refillFunds);
+		
+		refillCoupon = new JButton("Refill Coupon");
+		refillCoupon.setForeground(new Color(50, 0, 200));
+		refillCoupon.setFont(new Font("Arial", Font.BOLD, 14));
+		refillCoupon.setBounds(145, 100, 140, 26);
+		refillCoupon.addActionListener(this);
+		controlPanel1.add(refillCoupon);
 
 		// ClearRCM Button
 		clearRCM = new JButton("Vacate Machine ");
 		clearRCM.setForeground(new Color(50, 0, 200));
 		clearRCM.setFont(new Font("Arial", Font.BOLD, 14));
-		clearRCM.setBounds(145, 100, 140, 26);
+		clearRCM.setBounds(280, 100, 140, 26);
 		clearRCM.addActionListener(this);
 		controlPanel1.add(clearRCM);
 		// clearRCM.addActionListener((ActionListener) this);
@@ -478,7 +492,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		showRCM = new JButton("Display RCM List ");
 		showRCM.setForeground(new Color(50, 0, 200));
 		showRCM.setFont(new Font("Arial", Font.BOLD, 14));
-		showRCM.setBounds(295, 100, 180, 26);
+		showRCM.setBounds(440, 100, 150, 26);
 		showRCM.addActionListener(this);
 		controlPanel1.add(showRCM);
 
@@ -658,7 +672,13 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		}
 
 		// *********** Refill Money ******************
-		else if (source == refillRCM) {
+		else if (source == refillFunds) {
+			String msg = rcmAction.refillRCM(textRcmId.getText(),
+					textRefillAmount.getText(), rmosPlaceLabel.getText());
+			textDisplayOutput.setText(msg);
+		}
+		// *********** Refill coupon ******************
+		else if (source == refillCoupon) {
 			String msg = rcmAction.refillRCM(textRcmId.getText(),
 					textRefillAmount.getText(), rmosPlaceLabel.getText());
 			textDisplayOutput.setText(msg);
@@ -681,6 +701,10 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		/* ********* End of RMOS Manager Activities ***** */
 
 		/********* Start of RCM Monitor Activities **************/
+		else if (source == btnRcmLocation) {
+			String msg = rcmAction.getLocation(rcmPlaceLabel.getText());
+			textDisplayOutput.setText(msg);
+		}
 
 		else if (source == currentWeight) {
 			String msg = rcmAction.currentWeight(rcmPlaceLabel.getText());
