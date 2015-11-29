@@ -1,18 +1,18 @@
 package com.project.EcoRe;
 
 import com.scu.logic.BackendLogic;
+
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Observable;
 
 public class RCMRecycle extends Observable {
 
-	
 	private String rcmId;
 	private String rmosId;
 	private String location;
 	private String status;
-        private String itemType;
+	private String itemType;
 	private double currentWeight;
 	private double transactionWeight;
 	private double availableCash;
@@ -20,19 +20,17 @@ public class RCMRecycle extends Observable {
 	private Date lastEmptied;
 	private RecycleItem item;
 
-        private BackendLogic logic = new BackendLogic();
-        
-	public RCMRecycle(){
+	private BackendLogic logic = new BackendLogic();
+
+	public RCMRecycle() {
 		super();
 	}
-	
 
 	public RCMRecycle(String rcmId, String location) {
-		
+
 		this.rcmId = rcmId;
 		this.location = location;
 	}
-
 
 	public String getRcmId() {
 		return rcmId;
@@ -113,28 +111,85 @@ public class RCMRecycle extends Observable {
 	public void setItem(RecycleItem item) {
 		this.item = item;
 	}
-        
-        public boolean transactionamount(String rcmid, String itemType, double transweight, double transamount){
-            
-            
-            boolean addItem = logic.addTransactionAmount(rcmid, itemType, transweight, transamount);
-            return addItem;
-        }
-        
-    /**
-     *
-     * @param rcmid
-     * @param itemType
-     * @param transweight
-     * @param transcoupon
-     * @param transdate
-     * @return
-     */
-    public boolean transactioncoupon(String rcmid, String itemType, double transweight, double transcoupon){
-            
-            
-            boolean addItem = logic.addTransactionCoupon(rcmid, itemType, transweight, transcoupon);
-            return addItem;
-        }
 
+	public boolean transactionamount(String rcmid, String itemType,
+			double transweight, double transamount) {
+
+		updateRCMCash(rcmid, transweight, transamount);
+		boolean addItem = logic.addTransactionAmount(rcmid, itemType,
+				transweight, transamount);
+		return addItem;
+	}
+
+	/**
+	 * 
+	 * @param rcmid
+	 * @param itemType
+	 * @param transweight
+	 * @param transcoupon
+	 * @param transdate
+	 * @return
+	 */
+	public boolean transactioncoupon(String rcmid, String itemType,
+			double transweight, double transcoupon) {
+
+		updateRCMCoupon(rcmid, transweight, transcoupon);
+
+		boolean addItem = logic.addTransactionCoupon(rcmid, itemType,
+				transweight, transcoupon);
+		return addItem;
+	}
+
+	// Start : Added by Pragati
+	private String updateRCMCash(String rcmid, double transweight,
+			double transamount) {
+		String weightIn = logic.getWeight(rcmid);
+		String amountIn = logic.getCash(rcmid);
+		double weight = Double.parseDouble(weightIn);
+		double cash = Double.parseDouble(amountIn);
+		if (weight > transweight) {
+			if (cash > transamount) {
+				updateRCMWeight(rcmid, weight - transweight);
+				updateRCMCash(rcmid, cash - transamount);
+			} else {
+				return "Not having enough Cash availabe.";
+
+			}
+		} else {
+			return "Not having enough weight space availabe.";
+		}
+		return "";
+	}
+
+	private String updateRCMCoupon(String rcmid, double transweight,
+			double transcoupon) {
+		String weightIn = logic.getWeight(rcmid);
+		String couponIn = logic.getCoupon(rcmid);
+		double weight = Double.parseDouble(weightIn);
+		double coupon = Double.parseDouble(couponIn);
+		if (weight > transweight) {
+			if (coupon > transcoupon) {
+				updateRCMWeight(rcmid, weight - transweight);
+				updateRCMCoupon(rcmid, coupon - transcoupon);
+			} else {
+				return "Not having enough Cash availabe.";
+			}
+		} else {
+			return "Not having enough weight space availabe.";
+		}
+		return "";
+	}
+
+	private boolean updateRCMCash(String rcmid, double d) {
+		return logic.setFund(rcmid, d);
+	}
+
+	private boolean updateRCMCoupon(String rcmid, double d) {
+		return logic.setCoupon(rcmid, d);
+	}
+
+	public boolean updateRCMWeight(String rcmid, double weight) {
+		return logic.updateRCMWeight(rcmid, weight);
+	}
+	// End : Added by Pragati
 }

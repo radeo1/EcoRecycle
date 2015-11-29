@@ -69,12 +69,17 @@ public class BackendLogic {
 	}
 
 	public boolean clearRCMWeight(String rcmId) {
-		int weight = 0; // set to 0 for clearing
+		double weight = 0; // set to 0 for clearing
 		String sql = query.createSqlForsetWeight(rcmId, weight);
 		boolean isUpdate = dbConnection.updateToDB(sql);
 		return isUpdate;
 	}
 
+	public boolean updateRCMWeight(String rcmId,double weight) {
+		String sql = query.createSqlForsetWeight(rcmId, weight);
+		boolean isUpdate = dbConnection.updateToDB(sql);
+		return isUpdate;
+	}
 	public List<String> getAllRmsId(String rmosId) {
 		String sql = query.createSqlForFetchRMSids(rmosId);
 		List<String> outputList = dbConnection.getListOfFirstClm(sql);

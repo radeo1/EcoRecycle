@@ -63,7 +63,7 @@ public class SelectQueries {
 		return sql;
 	}
 
-	public String createSqlForsetWeight(String rcmId, int weight) {
+	public String createSqlForsetWeight(String rcmId, double weight) {
 		String sql = "";
 		if (weight > 0) {
 			sql = "UPDATE RCMRECYCLE SET CURRENT_WEIGHT=" + weight
