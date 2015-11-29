@@ -1,10 +1,10 @@
 package com.project.EcoRe;
 
-import com.scu.logic.BackendLogic;
-
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.Observable;
+
+import com.scu.logic.BackendLogic;
+import com.scu.logic.Validation;
 
 public class RCMRecycle extends Observable {
 
@@ -115,10 +115,15 @@ public class RCMRecycle extends Observable {
 	public boolean transactionamount(String rcmid, String itemType,
 			double transweight, double transamount) {
 
-		updateRCMCash(rcmid, transweight, transamount);
-		boolean addItem = logic.addTransactionAmount(rcmid, itemType,
-				transweight, transamount);
-		return addItem;
+		String msg = updateRCMCash(rcmid, transweight, transamount);
+		System.out.println(msg);
+		if (!Validation.isNotNullorEmplty(msg)) {
+			boolean addItem = logic.addTransactionAmount(rcmid, itemType,
+					transweight, transamount);
+			return addItem;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -133,11 +138,15 @@ public class RCMRecycle extends Observable {
 	public boolean transactioncoupon(String rcmid, String itemType,
 			double transweight, double transcoupon) {
 
-		updateRCMCoupon(rcmid, transweight, transcoupon);
-
-		boolean addItem = logic.addTransactionCoupon(rcmid, itemType,
-				transweight, transcoupon);
-		return addItem;
+		String msg = updateRCMCoupon(rcmid, transweight, transcoupon);
+		System.out.println(msg);
+		if (!Validation.isNotNullorEmplty(msg)) {
+			boolean addItem = logic.addTransactionCoupon(rcmid, itemType,
+					transweight, transcoupon);
+			return addItem;
+		} else {
+			return false;
+		}
 	}
 
 	// Start : Added by Pragati
