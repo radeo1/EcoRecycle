@@ -56,6 +56,7 @@ public class RCMAction {
 		if (isValidRcmId && isValidNumer) {
 			int amount = Integer.parseInt(amountStr);
 			return rmosManager.setFunds(rcmId, amount,rmosId);
+
 		} else {
 			return "Please provide a vaild RCM ID with Valid Amount";
 		}

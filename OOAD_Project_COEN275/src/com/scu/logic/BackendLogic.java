@@ -226,4 +226,12 @@ public class BackendLogic {
 
 	}
 
+	public boolean setCoupon(String rcmId, double creditCoupon) {
+		String sql = query.createSqlForSetCoupon(rcmId, creditCoupon);
+		boolean isUpdate = dbConnection.updateToDB(sql);
+		return isUpdate;
+	
+		
+	}
+
 }

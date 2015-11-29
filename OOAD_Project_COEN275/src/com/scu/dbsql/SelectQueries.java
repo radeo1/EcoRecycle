@@ -61,8 +61,15 @@ public class SelectQueries {
 	}
 
 	public String createSqlForsetWeight(String rcmId, int weight) {
-		String sql = "UPDATE RCMRECYCLE SET CURRENT_WEIGHT=" + weight
-				+ " WHERE RCMID =" + rcmId + ";";
+		String sql = "";
+		if (weight > 0) {
+			sql = "UPDATE RCMRECYCLE SET CURRENT_WEIGHT=" + weight
+					+ " WHERE RCMID =" + rcmId + ";";
+		} else {
+			sql = "UPDATE RCMRECYCLE SET CURRENT_WEIGHT=" + weight
+					+ ", LAST_EMPTIED = CURDATE() WHERE RCMID =" + rcmId + ";";
+
+		}
 		System.out.println(sql);
 		return sql;
 	}
@@ -231,7 +238,14 @@ public class SelectQueries {
 	}
 
 	public String createSqlForDeleteEventById(int idToDelete) {
-		String sql = "DELETE FROM EVENT WHERE ID in (" + idToDelete + ");";
+		String sql = "DELETE FROM EVENTS WHERE ID =" + idToDelete + ";";
+		System.out.println(sql);
+		return sql;
+	}
+
+	public String createSqlForSetCoupon(String rcmId, double creditCoupon) {
+		String sql = "UPDATE RCMRECYCLE SET COUPON=" + creditCoupon
+				+ " WHERE RCMID =" + rcmId + ";";
 		System.out.println(sql);
 		return sql;
 	}

@@ -16,11 +16,11 @@ public class ExecuteBatch {
 			if(Constant.FILLED100P.equalsIgnoreCase(event.getEvent()) ||Constant.FILLED75P.equalsIgnoreCase(event.getEvent()) ){
 				logic.clearRCMWeight(event.getRcmId()+"");
 			}
-			if(Constant.CASH0P.equalsIgnoreCase(event.getEvent()) ){
+			if(Constant.CASH0P.equalsIgnoreCase(event.getEvent()) || Constant.CASH25P.equalsIgnoreCase(event.getEvent())  ){
 				logic.setFund(event.getRcmId()+"", Constant.CREDIT_CASH);
 			}
-			if(Constant.CASH25P.equalsIgnoreCase(event.getEvent()) ){
-				logic.setFund(event.getRcmId()+"", (0.75 * Constant.CREDIT_CASH));
+			if(Constant.COUPON0P.equalsIgnoreCase(event.getEvent()) || Constant.COUPON25P.equalsIgnoreCase(event.getEvent())  ){
+				logic.setCoupon(event.getRcmId()+"", Constant.CREDIT_COUPON);
 			}
 			boolean isDeleted = logic.clearEvent(event.getId());
 			if(!isDeleted){

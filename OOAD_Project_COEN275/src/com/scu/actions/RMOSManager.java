@@ -6,6 +6,7 @@ package com.scu.actions;
 
 import java.util.List;
 
+import com.project.EcoRe.Constant;
 import com.project.EcoRe.RCMRecycle;
 import com.scu.logic.BackendLogic;
 import com.scu.logic.Validation;
@@ -83,6 +84,7 @@ public class RMOSManager {
 			boolean isMapped = Validation.isValidMapping(rcmId, rmosId);
 			if (isMapped) {
 				boolean isRemoved = logic.setFund(rcmId, amount);
+				logic.setCoupon(rcmId, Constant.CREDIT_COUPON); //filling the coupon as well
 				if (isRemoved) {
 					return "RCM Successfully Refilled";
 				} else {
