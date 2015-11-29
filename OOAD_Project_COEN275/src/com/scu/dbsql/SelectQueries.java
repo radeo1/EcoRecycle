@@ -61,7 +61,7 @@ public class SelectQueries {
 	}
 
 	public String createSqlForsetWeight(String rcmId, int weight) {
-		String sql = "UPDATE RCMRECYCLE SET WEIGHT=" + weight
+		String sql = "UPDATE RCMRECYCLE SET CURRENT_WEIGHT=" + weight
 				+ " WHERE RCMID =" + rcmId + ";";
 		System.out.println(sql);
 		return sql;
