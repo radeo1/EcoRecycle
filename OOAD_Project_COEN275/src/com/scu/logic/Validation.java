@@ -31,7 +31,7 @@ public class Validation {
 	
 	public static boolean isValidMapping(String rcmId, String rmosId){
 		
-		return logic.isMappingRcmIdRmosId(rcmId,rcmId);
+		return logic.isMappingRcmIdRmosId(rcmId,rmosId);
 		
 	}
 }
