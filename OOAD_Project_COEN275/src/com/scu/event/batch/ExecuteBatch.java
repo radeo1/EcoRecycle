@@ -22,6 +22,10 @@ public class ExecuteBatch {
 			if(Constant.CASH25P.equalsIgnoreCase(event.getEvent()) ){
 				logic.setFund(event.getRcmId()+"", (0.75 * Constant.CREDIT_CASH));
 			}
+			boolean isDeleted = logic.clearEvent(event.getId());
+			if(!isDeleted){
+				System.out.println("Need Manual efforts as Event id " + event.getId() +" is not deleted. Please take care.");
+			}
 		}
 	}
 

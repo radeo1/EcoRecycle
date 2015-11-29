@@ -215,7 +215,15 @@ public class BackendLogic {
 		String sql = query.createSqlForEventList();
 		List<Event> outputList = dbConnection.getEventList(sql);
 		return outputList;
-		
+
+	}
+
+	public boolean clearEvent(int id) {
+
+		String sql = query.createSqlForDeleteEventById(id);
+		boolean isDeleted = dbConnection.deleteFromDB(sql);
+		return isDeleted;
+
 	}
 
 }

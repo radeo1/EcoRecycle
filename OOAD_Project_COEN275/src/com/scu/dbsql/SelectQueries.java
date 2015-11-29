@@ -229,4 +229,10 @@ public class SelectQueries {
 		System.out.println(sql);
 		return sql;
 	}
+
+	public String createSqlForDeleteEventById(int idToDelete) {
+		String sql = "DELETE FROM EVENT WHERE ID in (" + idToDelete + ");";
+		System.out.println(sql);
+		return sql;
+	}
 }
