@@ -13,7 +13,10 @@ public class SelectQueries {
 
 	public String createSqlForAddRCM(RCMRecycle rcm) {
 		String sql = "INSERT INTO RCMRECYCLE (LOCATION,STATUS,RMOSID) VALUES ('"
-				+ rcm.getLocation() + "','INACTIVE','"+rcm.getRmosId()+"');";
+				+ rcm.getLocation()
+				+ "','INACTIVE','"
+				+ rcm.getRmosId()
+				+ "');";
 		System.out.println(sql);
 		return sql;
 	}
@@ -65,7 +68,8 @@ public class SelectQueries {
 	}
 
 	public String createSqlForFetchRMSids(String rmosId) {
-		String sql = "SELECT RCMID FROM RCMRECYCLE WHERE RMOSID = '"+rmosId+"'";
+		String sql = "SELECT RCMID FROM RCMRECYCLE WHERE RMOSID = '" + rmosId
+				+ "'";
 		System.out.println(sql);
 		return sql;
 	}
@@ -99,32 +103,33 @@ public class SelectQueries {
 	}
 
 	public String createSqlForWeightPerMonth(String rcmId) {
-		String sql = "SELECT SUM(TRANSACTION_WEIGHT)  AS MONTHLY_ACCUMULATED_WEIGHT FROM RCMRECYCLE WHERE RCMID = "
+		String sql = "SELECT SUM(TRANSACTION_WEIGHT) AS MONTHLY_ACCUMULATED_WEIGHT FROM TRANSACTION WHERE RCMID ="
 				+ rcmId
-				+ "AND Month(TRANSACTION_DATE) = MONTH(CURDATE()) GROUP BY TRANSACTION_DATE,RCMID; ";
+				+ " AND TRANSACTION_DATE between DATE_ADD(curdate(), INTERVAL -30 day) and Curdate() GROUP BY RCMID; ";
 		System.out.println(sql);
 		return sql;
 	}
 
 	public String createSqlForCashDebitedPerMonth(String rcmId) {
-		String sql = "SELECT SUM(TRANSACTION_AMOUNT)  AS MONTHLY_CASH_DEBITED FROM RCMRECYCLE WHERE RCMID = "
+		String sql = "SELECT SUM(TRANSACTION_AMOUNT)+SUM(TRANSACTION_COUPON) AS MONTHLY_AMOUNT_DEBITED FROM TRANSACTION WHERE RCMID ="
 				+ rcmId
-				+ "AND Month(TRANSACTION_DATE) = MONTH(CURDATE()) GROUP BY TRANSACTION_DATE,RCMID; ";
+				+ " AND TRANSACTION_DATE between DATE_ADD(curdate(), INTERVAL -30 day) and Curdate() GROUP BY RCMID; ";
 		System.out.println(sql);
 		return sql;
 	}
 
 	public String createSqlForCurrItemsRecycled(String rcmId) {
-		String sql = "SELECT COUNT(TRANSACTION_DATE) AS MONTHLY_TRANSACTION FROM RCMRECYCLE WHERE RCMID ="
-				+ rcmId + " AND MONTH (TRANSACTION_DATE)= MONTH(CURDATE());";
+		String sql = "SELECT COUNT(TRANSACTION_DATE) AS CURRENT_ITEMS_RECYCLED FROM TRANSACTION WHERE RCMID ="
+				+ rcmId
+				+ "AND TRANSACTION_DATE =Curdate() GROUP BY RCMID,TRANSACTION_DATE;";
 		System.out.println(sql);
 		return sql;
 	}
 
 	public String createSqlForRecycledByMonth(String rcmId) {
-		String sql = "SELECT SUM(TRANSACTION_AMOUNT)  AS MONTHLY_CASH_DEBITED FROM RCMRECYCLE WHERE RCMID = "
+		String sql = "SELECT COUNT(TRANSACTION_DATE) AS MONTHLY_ITEMS_RECYCLED FROM TRANSACTION WHERE RCMID ="
 				+ rcmId
-				+ "AND Month(TRANSACTION_DATE) = MONTH(CURDATE()) GROUP BY TRANSACTION_DATE,RCMID; ";
+				+ " AND TRANSACTION_DATE between DATE_ADD(curdate(), INTERVAL -30 day) and Curdate() GROUP BY RCMID; ";
 		System.out.println(sql);
 		return sql;
 	}
@@ -199,14 +204,16 @@ public class SelectQueries {
 	}
 
 	public String createSqlForMonthlyTrasnsaction(String rcmId) {
-		String sql = "SELECT COUNT(TRANSACTION_DATE) AS MONTHLY_TRANSACTION FROM RCMRECYCLE WHERE RCMID ='"
-				+ rcmId + "' AND MONTH (TRANSACTION_DATE)= MONTH(CURDATE());";
+		String sql = "SELECT COUNT(TRANSACTION_DATE) AS MONTHLY_TRANSACTION FROM TRANSACTION WHERE RCMID ="
+				+ rcmId
+				+ "  AND TRANSACTION_DATE between DATE_ADD(curdate(), INTERVAL -30 day) and Curdate() GROUP BY RCMID;";
 		System.out.println(sql);
 		return sql;
 	}
 
 	public String createSqlForFetchRMOSids(String userName) {
-		String sql = "SELECT RMOSID FROM RMOS_USER_MAPPING WHERE USERNAME = '" + userName+"'";
+		String sql = "SELECT RMOSID FROM RMOS_USER_MAPPING WHERE USERNAME = '"
+				+ userName + "'";
 		System.out.println(sql);
 		return sql;
 	}
