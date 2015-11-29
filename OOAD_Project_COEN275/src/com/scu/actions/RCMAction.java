@@ -167,4 +167,9 @@ public class RCMAction {
 			return "Please provide a vaild RCM ID";
 		}
 	}
+
+	public String getLocation(String text) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
