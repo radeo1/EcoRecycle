@@ -12,8 +12,8 @@ public class SelectQueries {
 	}
 
 	public String createSqlForAddRCM(RCMRecycle rcm) {
-		String sql = "INSERT INTO RCMRECYCLE (LOCATION,STATUS) VALUES ('"
-				+ rcm.getLocation() + "','INACTIVE');";
+		String sql = "INSERT INTO RCMRECYCLE (LOCATION,STATUS,RMOSID) VALUES ('"
+				+ rcm.getLocation() + "','INACTIVE','"+rcm.getRmosId()+"');";
 		System.out.println(sql);
 		return sql;
 	}
@@ -64,8 +64,8 @@ public class SelectQueries {
 		return sql;
 	}
 
-	public String createSqlForFetchRMSids() {
-		String sql = "SELECT RCMID FROM RCMRECYCLE";
+	public String createSqlForFetchRMSids(String rmosId) {
+		String sql = "SELECT RCMID FROM RCMRECYCLE WHERE RMOSID = '"+rmosId+"'";
 		System.out.println(sql);
 		return sql;
 	}

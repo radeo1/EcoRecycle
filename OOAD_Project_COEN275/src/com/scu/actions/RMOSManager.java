@@ -87,8 +87,8 @@ public class RMOSManager {
 		}
 	}
 
-	public List<String> getAllRcmId() {
-		List<String> rmsids = logic.getAllRmsId();
+	public List<String> getAllRcmId(String rmosId) {
+		List<String> rmsids = logic.getAllRmsId(rmosId);
 		return rmsids;
 	}
 

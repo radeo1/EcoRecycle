@@ -10,11 +10,12 @@ public class RCMAction {
 
 	RMOSManager rmosManager = new RMOSManager();
 
-	public String addRCM(String location) {
+	public String addRCM(String location, String rmosId) {
 		boolean isValid = Validation.isNotNullorEmplty(location);
 		if (isValid) {
 			RCMRecycle rcm = new RCMRecycle();
 			rcm.setLocation(location);
+			rcm.setRmosId(rmosId);
 			return rmosManager.addRCM(rcm);
 		} else {
 			return "Please provide a valid location";
@@ -69,8 +70,8 @@ public class RCMAction {
 		}
 	}
 
-	public List<String> getAllRcmId() {
-		List<String> rcmIds = rmosManager.getAllRcmId();
+	public List<String> getAllRcmId(String rmosId) {
+		List<String> rcmIds = rmosManager.getAllRcmId(rmosId);
 		return rcmIds;
 	}
 

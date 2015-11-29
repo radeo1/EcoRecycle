@@ -73,8 +73,8 @@ public class BackendLogic {
 		return isUpdate;
 	}
 
-	public List<String> getAllRmsId() {
-		String sql = query.createSqlForFetchRMSids();
+	public List<String> getAllRmsId(String rmosId) {
+		String sql = query.createSqlForFetchRMSids(rmosId);
 		List<String> outputList = dbConnection.getListOfFirstClm(sql);
 		return outputList;
 	}

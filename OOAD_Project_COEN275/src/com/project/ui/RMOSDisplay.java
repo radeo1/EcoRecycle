@@ -585,7 +585,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 
 	/* Part of RCM Monitor Operations Panel */
 	public JComboBox createComboBox() {
-		rcmIds = rcmAction.getAllRcmId();
+		rcmIds = rcmAction.getAllRcmId(rmosPlaceLabel.getText());
 		model = new DefaultComboBoxModel(rcmIds.toArray());
 		rcmCombo = new JComboBox(model);
 		rcmCombo.setForeground(Color.BLACK);
@@ -638,7 +638,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 
 		// *********** Admin add RCM **************
 		else if (source == addRCM) {
-			String msg = rcmAction.addRCM(textRcmLocation.getText());
+			String msg = rcmAction.addRCM(textRcmLocation.getText(), rmosPlaceLabel.getText());
 			textDisplayOutput.setText(msg);
 		}
 		// ********* Remove a RCM from RMOS group *********
@@ -670,7 +670,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 		}
 		// *********** Showlist of RCM under an RMOS******************
 		else if (source == showRCM) {
-			rcmIds = rcmAction.getAllRcmId();
+			rcmIds = rcmAction.getAllRcmId(rmosPlaceLabel.getText());
 			model.removeAllElements();
 			for (String rcmid : rcmIds) {
 				model.addElement(rcmid);
