@@ -154,7 +154,7 @@ public class RCMRecycle extends Observable {
 			double transamount) {
 		String weightIn = logic.getWeight(rcmid);
 		String amountIn = logic.getCash(rcmid);
-		double weight = Double.parseDouble(weightIn);
+		double weight = Constant.CAPACITY-Double.parseDouble(weightIn);
 		double cash = Double.parseDouble(amountIn);
 		if (weight > transweight) {
 			if (cash > transamount) {
@@ -174,7 +174,7 @@ public class RCMRecycle extends Observable {
 			double transcoupon) {
 		String weightIn = logic.getWeight(rcmid);
 		String couponIn = logic.getCoupon(rcmid);
-		double weight = Double.parseDouble(weightIn);
+		double weight = Constant.CAPACITY-Double.parseDouble(weightIn);
 		double coupon = Double.parseDouble(couponIn);
 		if (weight > transweight) {
 			if (coupon > transcoupon) {
