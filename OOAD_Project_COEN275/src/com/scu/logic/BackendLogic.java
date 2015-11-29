@@ -3,6 +3,7 @@ package com.scu.logic;
 import java.sql.ResultSet;
 import java.util.List;
 
+import com.project.EcoRe.Constant;
 import com.project.EcoRe.RCMRecycle;
 import com.scu.connecctions.ScuDbConn;
 import com.scu.dbsql.SelectQueries;
@@ -113,6 +114,7 @@ public class BackendLogic {
 	public boolean setFund(String rcmId, double d) {
 		String sql = query.createSqlForSetFund(rcmId, d);
 		boolean isUpdate = dbConnection.updateToDB(sql);
+		checkForEventEntry(rcmId);
 		return isUpdate;
 	}
 
@@ -139,6 +141,7 @@ public class BackendLogic {
 	public boolean updateRCMWeight(String rcmId, double weight) {
 		String sql = query.createSqlForsetWeight(rcmId, weight);
 		boolean isUpdate = dbConnection.updateToDB(sql);
+		checkForEventEntry(rcmId);
 		return isUpdate;
 	}
 
@@ -322,7 +325,6 @@ public class BackendLogic {
 	}
 
 	public boolean clearEvent(int id) {
-
 		String sql = query.createSqlForDeleteEventById(id);
 		boolean isDeleted = dbConnection.deleteFromDB(sql);
 		return isDeleted;
@@ -332,6 +334,7 @@ public class BackendLogic {
 	public boolean setCoupon(String rcmId, double creditCoupon) {
 		String sql = query.createSqlForSetCoupon(rcmId, creditCoupon);
 		boolean isUpdate = dbConnection.updateToDB(sql);
+		checkForEventEntry(rcmId);
 		return isUpdate;
 	}
 
@@ -341,4 +344,42 @@ public class BackendLogic {
 		return location;
 	}
 
+	public void checkForEventEntry(String rcmid) {
+		String weightIn = getWeight(rcmid);
+		String couponIn = getCoupon(rcmid);
+		String amountIn = getCash(rcmid);
+		double weight = Double.parseDouble(weightIn);
+		double coupon = Double.parseDouble(couponIn);
+		double cash = Double.parseDouble(amountIn);
+		if (weight > (0.75 * Constant.CAPACITY)) {
+			makeEventEntry(rcmid, Constant.FILLED75P, "Current weight is "
+					+ weight);
+		}
+		if (weight >= Constant.CAPACITY) {
+			makeEventEntry(rcmid, Constant.FILLED100P, "Current weight is "
+					+ weight);
+
+		}
+		if (cash < (0.25 * Constant.CREDIT_CASH)) {
+			makeEventEntry(rcmid, Constant.CASH25P, "Current cash is "
+					+ cash);
+		}
+		if (cash == 0) {
+			makeEventEntry(rcmid, Constant.CASH0P, "Current cash is "
+					+ cash);
+		}
+		if (coupon < (0.25 * Constant.CREDIT_COUPON)) {
+			makeEventEntry(rcmid, Constant.COUPON25P, "Current Coupon is "
+					+ coupon);
+		}
+		if (coupon == 0) {
+			makeEventEntry(rcmid, Constant.COUPON0P, "Current Coupon is "
+					+ coupon);
+		}
+	}
+
+	public void makeEventEntry(String rcmid, String event, String details) {
+		String sql = query.createSqlToMakeEventEntry(rcmid, event,details);
+		dbConnection.updateToDB(sql);
+	}
 }

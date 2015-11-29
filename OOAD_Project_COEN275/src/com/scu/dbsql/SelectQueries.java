@@ -57,8 +57,8 @@ public class SelectQueries {
 	}
 
 	public String createSqlForSetFund(String rcmId, double d) {
-		String sql = "UPDATE RCMRECYCLE SET AVAILABLE_CASH=" + d + " WHERE RCMID ="
-				+ rcmId + ";";
+		String sql = "UPDATE RCMRECYCLE SET AVAILABLE_CASH=" + d
+				+ " WHERE RCMID =" + rcmId + ";";
 		System.out.println(sql);
 		return sql;
 	}
@@ -255,6 +255,14 @@ public class SelectQueries {
 
 	public String createSqlForLocation(String rcmId) {
 		String sql = "SELECT LOCATION FROM RCMRECYCLE WHERE RCMID =" + rcmId;
+		System.out.println(sql);
+		return sql;
+	}
+
+	public String createSqlToMakeEventEntry(String rcmid, String event,
+			String details) {
+		String sql = "INSERT INTO RCMRECYCLE (EVENT,RCMID,DETAILS) VALUES ('"
+				+ event + "','" + rcmid + "','" + details + "');";
 		System.out.println(sql);
 		return sql;
 	}
