@@ -53,8 +53,8 @@ public class SelectQueries {
 		return sql;
 	}
 
-	public String createSqlForSetFund(String rcmId, int amount) {
-		String sql = "UPDATE RCMRECYCLE SET FUND=" + amount + " WHERE RCMID ="
+	public String createSqlForSetFund(String rcmId, double d) {
+		String sql = "UPDATE RCMRECYCLE SET FUND=" + d + " WHERE RCMID ="
 				+ rcmId + ";";
 		System.out.println(sql);
 		return sql;
@@ -220,6 +220,12 @@ public class SelectQueries {
 
 	public String createSqlTogetRmosIdbyRcmId(String rcmId) {
 		String sql = "SELECT RMOSID FROM RCMRECYCLE WHERE RCMID = " + rcmId;
+		System.out.println(sql);
+		return sql;
+	}
+
+	public String createSqlForEventList() {
+		String sql = "SELECT ID,RCMID,EVENT,DETAILS FROM EVENTS";
 		System.out.println(sql);
 		return sql;
 	}

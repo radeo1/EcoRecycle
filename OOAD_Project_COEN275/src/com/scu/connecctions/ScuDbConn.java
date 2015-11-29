@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.scu.event.batch.Event;
+
 public class ScuDbConn {
 
 	public boolean deleteFromDB(String sql) {
@@ -109,6 +111,26 @@ public class ScuDbConn {
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				outList.add(rs.getString(1));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return outList;
+	}
+
+	public List<Event> getEventList(String sql) {
+		ArrayList<Event> outList = new ArrayList<Event>();
+		Statement stmt;
+		try {
+			stmt = DBConnection.getConnection().createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				Event tempEvent = new Event();
+				tempEvent.setId(rs.getInt("ID"));
+				tempEvent.setRcmId(rs.getInt("RCMID"));
+				tempEvent.setEvent(rs.getString("EVENT"));
+				tempEvent.setDetails(rs.getString("DETAILS"));
+				outList.add(tempEvent);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -6,6 +6,7 @@ package com.project.tester;
 import javax.swing.SwingUtilities;
 
 import com.project.ui.RMOSDisplay;
+import com.scu.event.batch.BatchProcessor;
 
 /** The entry main() method */
 public class ProjectTester 
@@ -23,6 +24,9 @@ public class ProjectTester
 		  		rmosdisplay.setVisible(true) ;
 		      }
 		   });		
+		
+		BatchProcessor bp = new BatchProcessor();
+		bp.executeEventsPeriodically();
 	}
 }
 

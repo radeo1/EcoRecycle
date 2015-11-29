@@ -1,10 +1,12 @@
 package com.scu.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.project.EcoRe.RCMRecycle;
 import com.scu.connecctions.ScuDbConn;
 import com.scu.dbsql.SelectQueries;
+import com.scu.event.batch.Event;
 
 import java.sql.ResultSet;
 
@@ -60,8 +62,8 @@ public class BackendLogic {
 		return Validation.isNotNullorEmplty(location);
 	}
 
-	public boolean setFund(String rcmId, int amount) {
-		String sql = query.createSqlForSetFund(rcmId, amount);
+	public boolean setFund(String rcmId, double d) {
+		String sql = query.createSqlForSetFund(rcmId, d);
 		boolean isUpdate = dbConnection.updateToDB(sql);
 		return isUpdate;
 	}
@@ -202,10 +204,18 @@ public class BackendLogic {
 	public boolean isMappingRcmIdRmosId(String rcmId, String rmosId) {
 		String sql = query.createSqlTogetRmosIdbyRcmId(rcmId);
 		String opRmosId = dbConnection.getValueFromSql(sql);
-		if(rmosId.equalsIgnoreCase(opRmosId)){
+		if (rmosId.equalsIgnoreCase(opRmosId)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
+
+	public List<Event> getCurrentEventList() {
+		String sql = query.createSqlForEventList();
+		List<Event> outputList = dbConnection.getEventList(sql);
+		return outputList;
+		
+	}
+
 }
