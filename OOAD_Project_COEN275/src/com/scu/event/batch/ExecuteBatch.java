@@ -11,7 +11,8 @@ import com.scu.logic.BackendLogic;
 public class ExecuteBatch {
 
 	BackendLogic logic =  new BackendLogic();
-	public void executeBatch() {
+	public void executeBatch() //logic to perform batch
+	{
 		
 		List<Event> eventList = logic.getCurrentEventList();
 		
@@ -25,7 +26,7 @@ public class ExecuteBatch {
 			if(Constant.COUPON0P.equalsIgnoreCase(event.getEvent()) || Constant.COUPON25P.equalsIgnoreCase(event.getEvent())  ){
 				logic.setCoupon(event.getRcmId()+"", Constant.CREDIT_COUPON);
 			}
-			boolean isDeleted = logic.clearEvent(event.getId());
+			boolean isDeleted = logic.clearEvent(event.getId());//deletes row on event table
 			if(!isDeleted){
 				System.out.println("Need Manual efforts as Event id " + event.getId() +" is not deleted. Please take care.");
 			}

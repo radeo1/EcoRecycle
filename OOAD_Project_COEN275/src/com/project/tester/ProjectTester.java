@@ -26,7 +26,7 @@ public class ProjectTester
 		   });		
 		
 		BatchProcessor bp = new BatchProcessor();
-		bp.executeEventsPeriodically();
+		bp.executeEventsPeriodically();//scheduler starts fro here
 	}
 }
 

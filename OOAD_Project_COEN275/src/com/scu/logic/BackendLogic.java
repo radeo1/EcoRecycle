@@ -43,7 +43,8 @@ public class BackendLogic {
 	 * @param rcm
 	 * @return String
 	 */
-	public String addRCM(RCMRecycle rcm) {
+	public String addRCM(RCMRecycle rcm) 
+	{
 		String sql = query.createSqlForAddRCM(rcm);
 		boolean isAdded = dbConnection.insertIntoDB(sql);
 		if (isAdded) {
@@ -98,7 +99,8 @@ public class BackendLogic {
 	 * @param rcmId
 	 * @return boolean
 	 */
-	public boolean isvalidRcmId(String rcmId) {
+	public boolean isvalidRcmId(String rcmId) 
+	{
 		String sql = query.createSqlForValidRCMById(rcmId);
 		String location = dbConnection.getValueFromSql(sql);
 		return Validation.isNotNullorEmplty(location);
@@ -111,7 +113,7 @@ public class BackendLogic {
 	 * @param d
 	 * @return boolean
 	 */
-	public boolean setFund(String rcmId, double d) {
+	public boolean setFund(String rcmId, double d) {//called on transaction or btn press
 		String sql = query.createSqlForSetFund(rcmId, d);
 		boolean isUpdate = dbConnection.updateToDB(sql);
 		checkForEventEntry(rcmId);
@@ -151,9 +153,9 @@ public class BackendLogic {
 	 * @param rmosId
 	 * @return list
 	 */
-	public List<String> getAllRmsId(String rmosId) {
-		String sql = query.createSqlForFetchRMSids(rmosId);
-		List<String> outputList = dbConnection.getListOfFirstClm(sql);
+	public List<String> getAllRmsId(String rmosId) {//getAllRcmId
+		String sql = query.createSqlForFetchRMSids(rmosId);//fetch rcmid
+		List<String> outputList = dbConnection.getListOfFirstClm(sql);//creates a list of first column and returns
 		return outputList;
 	}
 

@@ -17,7 +17,7 @@ public class Constant {
 	public final static String CASH0P = "CASH0P";
 	public final static String COUPON25P = "COUPON25P";
 	public final static String COUPON0P = "COUPON0P";
-	public final static int SCHEDULE_AT_FIXEDRATE = 30;
+	public final static int SCHEDULE_AT_FIXEDRATE = 30;//clears at evry 30 sec(batch)
 	// this variable will get assign as True in case of successful login and at
 	// the time of logout will be back to false.
 	public static boolean SUCESS_LOGIN = false;

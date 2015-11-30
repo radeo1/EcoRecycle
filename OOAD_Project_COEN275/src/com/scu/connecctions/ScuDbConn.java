@@ -119,7 +119,7 @@ public class ScuDbConn {
 			stmt = DBConnection.getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				outList.add(rs.getString(1));
+				outList.add(rs.getString(1));//adds all rows for first column(rcmid)
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

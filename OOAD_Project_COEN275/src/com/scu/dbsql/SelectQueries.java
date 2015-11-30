@@ -77,7 +77,7 @@ public class SelectQueries {
 		return sql;
 	}
 
-	public String createSqlForFetchRMSids(String rmosId) {
+	public String createSqlForFetchRMSids(String rmosId) {//rcmid
 		String sql = "SELECT RCMID FROM RCMRECYCLE WHERE RMOSID = '" + rmosId
 				+ "'";
 		System.out.println(sql);

@@ -70,7 +70,7 @@ public class RMOSManager {
 					return "RCM is not Removed, Please try again";
 				}
 			} else {
-				return "RCM ID " + rcmId + " and RMOS ID " + rmosId
+				return "RCM ID " + rcmId + " and RMOS ID " + rmosId//whetger mapped to RMOS
 						+ " is not a Mapped, Please select correct RMOS Id";
 			}
 		} else {

@@ -11,7 +11,8 @@ public class Validation {
 		}
 	}
 
-	public static boolean isValidRcmId(String rcmId) {
+	public static boolean isValidRcmId(String rcmId) 
+	{
 
 		return logic.isvalidRcmId(rcmId);
 	}

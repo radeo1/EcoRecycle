@@ -646,7 +646,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			loginAction.setUsername(userName);
 			canLogIn = loginAction.execute();
 			if ("success".equals(canLogIn)) {
-				rmosIds = rmosAction.getAllRmosId(loginAction.getUsername());
+				rmosIds = rmosAction.getAllRmosId(loginAction.getUsername());//load rmosid
 				modelForRmos.removeAllElements();
 				for (String rmoId : rmosIds) {
 					modelForRmos.addElement(rmoId);
@@ -696,7 +696,7 @@ public class RMOSDisplay extends JFrame implements ActionListener {
 			textDisplayOutput.setText(msg);
 		}
 		// *********** Showlist of RCM under an RMOS******************
-		else if (source == showRCM) {
+		else if (source == showRCM) {//displayrcm
 			rcmIds = rcmAction.getAllRcmId(rmosPlaceLabel.getText());
 			model.removeAllElements();
 			for (String rcmid : rcmIds) {

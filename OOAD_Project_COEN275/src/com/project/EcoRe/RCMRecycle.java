@@ -154,11 +154,12 @@ public class RCMRecycle extends Observable {
 			double transamount) {
 		String weightIn = logic.getWeight(rcmid);
 		String amountIn = logic.getCash(rcmid);
-		double weight = Constant.CAPACITY-Double.parseDouble(weightIn);
+		double currentWeight=Double.parseDouble(weightIn);
+		double weight = Constant.CAPACITY-currentWeight;//avilableweight
 		double cash = Double.parseDouble(amountIn);
 		if (weight > transweight) {
 			if (cash > transamount) {
-				updateRCMWeight(rcmid, weight - transweight);
+				updateRCMWeight(rcmid, currentWeight + transweight);
 				updateRCMCash(rcmid, cash - transamount);
 			} else {
 				return "Not having enough Cash availabe.";
@@ -174,11 +175,12 @@ public class RCMRecycle extends Observable {
 			double transcoupon) {
 		String weightIn = logic.getWeight(rcmid);
 		String couponIn = logic.getCoupon(rcmid);
-		double weight = Constant.CAPACITY-Double.parseDouble(weightIn);
+		double currentWeight=Double.parseDouble(weightIn);
+		double weight = Constant.CAPACITY-currentWeight;
 		double coupon = Double.parseDouble(couponIn);
 		if (weight > transweight) {
 			if (coupon > transcoupon) {
-				updateRCMWeight(rcmid, weight - transweight);
+				updateRCMWeight(rcmid, currentWeight + transweight);
 				updateRCMCoupon(rcmid, coupon - transcoupon);
 			} else {
 				return "Not having enough Cash availabe.";

@@ -15,7 +15,7 @@ public class LoginAction {
 			boolean isValidUser = logic.validateUser(username, password);
 			if (isValidUser) {
 				message = message + "Log In Successful !";
-				Constant.SUCESS_LOGIN = true;
+				Constant.SUCESS_LOGIN = true;//if matches wid input
 				return Constant.SUCCESS;
 			} else {
 				Constant.SUCESS_LOGIN = false;

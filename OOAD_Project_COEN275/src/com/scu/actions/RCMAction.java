@@ -10,8 +10,9 @@ public class RCMAction {
 
 	RMOSManager rmosManager = new RMOSManager();
 
-	public String addRCM(String location, String rmosId) {
-		boolean isValid = Validation.isNotNullorEmplty(location);
+	public String addRCM(String location, String rmosId) 
+	{
+		boolean isValid = Validation.isNotNullorEmplty(location);//to check if fields are empty
 		if (isValid) {
 			RCMRecycle rcm = new RCMRecycle();
 			rcm.setLocation(location);
@@ -22,8 +23,9 @@ public class RCMAction {
 		}
 	}
 
-	public String removeRCM(String rcmId, String rmosId) {
-		boolean isValid = Validation.isNotNullorEmplty(rcmId);
+	public String removeRCM(String rcmId, String rmosId) 
+	{
+		boolean isValid = Validation.isNotNullorEmplty(rcmId);//if rcmid is null
 		if (isValid) {
 			
 			return rmosManager.removeRCM(rcmId,rmosId);
