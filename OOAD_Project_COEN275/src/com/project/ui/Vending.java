@@ -1,31 +1,33 @@
 package com.project.ui;
 
-import com.project.EcoRe.RCMRecycle;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.border.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
-import javax.swing.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.BorderFactory;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
+
+import com.project.EcoRe.RCMRecycle;
 
 public class Vending extends JFrame implements ActionListener{
 
@@ -375,15 +377,15 @@ public class Vending extends JFrame implements ActionListener{
                 if (transamount >= 5.0) {
                     whereButton.setText("You inserted " + itemTips[selectedButtonPos]);
                     
-                    rcm.transactionamount(rcmid, itemtype, transweight, transamount);
-                    outputChangeTF.setText("Cash value: " + df1.format(change) + "\n"+" Weight of item: "+df.format(random));
+                    String tempmsg=rcm.transactionamount(rcmid, itemtype, transweight, transamount);
+                    outputChangeTF.setText("Cash value: " + df1.format(change) + "\n"+" Weight of item: "+df.format(random)+ " "+tempmsg);
                 
                 }
                 else if(transamount <5.0)
                     whereButton.setText("You inserted " + itemTips[selectedButtonPos]);
                
-                    rcm.transactioncoupon(rcmid, itemtype, transweight, transcoupon);
-                    outputChangeTF.setText("Coupon value: " + df1.format(change) + "\n"+" Weight of item: "+df.format(random));
+                String tempmsg=rcm.transactioncoupon(rcmid, itemtype, transweight, transcoupon);
+                    outputChangeTF.setText("Coupon value: " + df1.format(change) + "\n"+" Weight of item: "+df.format(random)+ " "+tempmsg);
                     //outputChangeTF.setText("Not enough for " + itemTips[selectedButtonPos]);
                 //inputPriceTF.setText("Enter Weight Here ..");
             } catch (Exception exception) {}

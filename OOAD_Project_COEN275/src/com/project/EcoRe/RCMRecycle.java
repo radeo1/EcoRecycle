@@ -112,7 +112,7 @@ public class RCMRecycle extends Observable {
 		this.item = item;
 	}
 
-	public boolean transactionamount(String rcmid, String itemType,
+	public String transactionamount(String rcmid, String itemType,
 			double transweight, double transamount) {
 
 		String msg = updateRCMCash(rcmid, transweight, transamount);
@@ -120,9 +120,15 @@ public class RCMRecycle extends Observable {
 		if (!Validation.isNotNullorEmplty(msg)) {
 			boolean addItem = logic.addTransactionAmount(rcmid, itemType,
 					transweight, transamount);
-			return addItem;
+			if (addItem){
+				return "Your Transaction is successful";
+			}
+			else
+			{
+				return "Your Transaction is unsuccessful";
+			}
 		} else {
-			return false;
+			return msg;
 		}
 	}
 
@@ -135,7 +141,7 @@ public class RCMRecycle extends Observable {
 	 * @param transdate
 	 * @return
 	 */
-	public boolean transactioncoupon(String rcmid, String itemType,
+	public String transactioncoupon(String rcmid, String itemType,
 			double transweight, double transcoupon) {
 
 		String msg = updateRCMCoupon(rcmid, transweight, transcoupon);
@@ -143,9 +149,15 @@ public class RCMRecycle extends Observable {
 		if (!Validation.isNotNullorEmplty(msg)) {
 			boolean addItem = logic.addTransactionCoupon(rcmid, itemType,
 					transweight, transcoupon);
-			return addItem;
+			if (addItem){
+				return "Your Transaction is successful";
+			}
+			else
+			{
+				return "Your Transaction is unsuccessful";
+			}
 		} else {
-			return false;
+			return msg;
 		}
 	}
 
