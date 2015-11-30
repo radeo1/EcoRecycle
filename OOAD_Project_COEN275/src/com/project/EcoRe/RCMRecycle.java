@@ -133,7 +133,8 @@ public class RCMRecycle extends Observable {
 	}
 
 	/**
-	 * 
+	 * This method as been modified by pragati
+	 *  Added new Logic for updating RCMRecycle table based on Funds Availability
 	 * @param rcmid
 	 * @param itemType
 	 * @param transweight
