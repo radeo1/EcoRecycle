@@ -261,7 +261,7 @@ public class SelectQueries {
 
 	public String createSqlToMakeEventEntry(String rcmid, String event,
 			String details) {
-		String sql = "INSERT INTO RCMRECYCLE (EVENT,RCMID,DETAILS) VALUES ('"
+		String sql = "INSERT INTO EVENTS (EVENT,RCMID,DETAILS) VALUES ('"
 				+ event + "','" + rcmid + "','" + details + "');";
 		System.out.println(sql);
 		return sql;
